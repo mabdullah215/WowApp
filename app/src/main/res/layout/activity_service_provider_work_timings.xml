@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".customer.BusinessProfile">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/top_panel"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Signup (2/3)"
+            android:textSize="20sp"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/uber_move_bold"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"/>
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"/>
+
+
+    </RelativeLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:overScrollMode="never"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="30dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Work Information"
+                android:textColor="#333333"
+                android:textSize="26sp"
+                android:fontFamily="@font/uber_move_medium"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Choose your business timings"
+                android:textColor="#4d4d4d"
+                android:fontFamily="@font/uber_move_regular"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Opening time"
+                android:layout_marginTop="40dp"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:fontFamily="@font/uber_move_regular"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:padding="15dp"
+                android:text="09:00 AM"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:drawableRight="@drawable/ic_path"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/square_corner"
+                android:layout_height="55dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Closing time"
+                android:layout_marginTop="10dp"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:fontFamily="@font/uber_move_regular"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/tv_bank_name"
+                android:padding="15dp"
+                android:text="05:00 PM"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:drawableRight="@drawable/ic_path"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/square_corner"
+                android:layout_height="55dp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Duration ( in minutes)"
+                android:layout_marginTop="10dp"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:fontFamily="@font/uber_move_regular"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:padding="15dp"
+                android:text="30"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:drawableRight="@drawable/ic_path"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/square_corner"
+                android:layout_height="55dp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Break start time (optional)"
+                android:layout_marginTop="10dp"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:fontFamily="@font/uber_move_regular"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:padding="15dp"
+                android:text="12:00 PM"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:drawableRight="@drawable/ic_path"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/square_corner"
+                android:layout_height="55dp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Break end time (optional)"
+                android:layout_marginTop="10dp"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:fontFamily="@font/uber_move_regular"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:padding="15dp"
+                android:text="1:00 PM"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:drawableRight="@drawable/ic_path"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/square_corner"
+                android:layout_height="55dp"/>
+
+
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                app:cornerRadius="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Proceed to NExt"
+                android:id="@+id/button_done"
+                android:layout_height="60dp"/>
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+</LinearLayout>

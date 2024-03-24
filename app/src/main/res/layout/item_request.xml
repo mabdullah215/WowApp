@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_margin="16dp"
+    app:contentPadding="16dp"
+    app:cardBackgroundColor="#f5f5f5"
+    app:cardCornerRadius="12dp"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/tv_title"
+            android:textSize="18sp"
+            android:fontFamily="@font/uber_move_bold"
+            android:text="Car Photo Update"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/tv_duration"
+            android:text="100 km/day"
+            android:layout_below="@+id/tv_title"
+            android:layout_height="wrap_content"/>
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="16dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/tv_desc"
+                android:layout_toLeftOf="@+id/tv_take_img"
+                android:textSize="16sp"
+                android:layout_marginRight="8dp"
+                android:fontFamily="@font/uber_move_regular"
+                android:text="Car Photo Update"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="Take Photo"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:id="@+id/tv_take_img"
+                android:drawablePadding="5dp"
+                android:drawableLeft="@drawable/ic_cam"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:background="@drawable/square_corner"
+                android:backgroundTint="@color/black"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+
+
+
+    </LinearLayout>
+
+
+
+
+</com.google.android.material.card.MaterialCardView>
+
+

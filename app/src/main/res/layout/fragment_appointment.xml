@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".customer.fragments.CompaignFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:padding="8dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Current Compaign Offers"
+                android:fontFamily="@font/uber_move_bold"
+                android:textSize="22sp"
+                android:id="@+id/label_extend"
+                android:textColor="#333333"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_below="@id/label_extend"
+                android:textSize="14sp"
+                android:text="Make extra money by taking these offers"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+        <com.mobileapp.wowapp.customer.utils.RequestMenu
+            android:layout_width="match_parent"
+            android:id="@+id/req_menu"
+            android:layout_height="wrap_content"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/data_list"
+            tools:listitem="@layout/item_offers"
+            android:layout_below="@+id/req_menu"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/tv_empty"
+        android:visibility="gone"
+        android:text="No data found"
+        android:layout_height="wrap_content"/>
+
+
+
+</RelativeLayout>

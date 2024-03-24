@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".driver.UpcomingCompaigns">
+
+    <include layout="@layout/toolbar_layout_centre"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/data_list"
+        android:layout_below="@+id/toolbar_layout"
+        android:padding="16dp"
+        android:layout_height="wrap_content"/>
+
+
+    <include layout="@layout/progress_bar_view"
+        android:visibility="gone"/>
+
+    <include layout="@layout/layout_no_search_results"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>

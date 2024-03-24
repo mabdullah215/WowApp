@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:fontFamily="@font/uber_move_bold"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:id="@+id/tv_appointmentTitle"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/tv_shop"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/uber_move_medium"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/tv_city"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/uber_move_medium"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/tv_appointmentTime"
+                android:drawableTint="#999999"
+                android:layout_marginTop="4dp"
+                android:textSize="14sp"
+                android:drawablePadding="5dp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp"
+                android:id="@+id/tv_appointmentType"
+                android:layout_height="wrap_content"/>
+
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                app:chipMinTouchTargetSize="0dp"
+                android:id="@+id/chip_status"
+                app:chipCornerRadius="8dp"
+                android:textColor="@color/white"
+                android:layout_marginTop="8dp"
+                android:layout_height="wrap_content"/>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:padding="8dp"
+            android:gravity="center"
+            android:id="@+id/edit_layout"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:src="@drawable/ic_trash"
+                android:padding="4dp"
+                android:id="@+id/img_delete"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:src="@drawable/ic_reschedule"
+                android:layout_marginTop="8dp"
+                android:padding="4dp"
+                android:id="@+id/img_reschedule"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:src="@drawable/ic_maps"
+                android:layout_marginTop="8dp"
+                android:padding="4dp"
+                android:id="@+id/img_maps"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+
+
+
+    </RelativeLayout>
+
+
+
+
+</com.google.android.material.card.MaterialCardView>
+
+

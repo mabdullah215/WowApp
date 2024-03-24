@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:overScrollMode="never"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:id="@+id/top_panel"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Compaign Details"
+                android:fontFamily="@font/uber_move_bold"
+                android:textSize="22sp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/label_extend"
+                android:textColor="#333333"
+                android:layout_height="wrap_content"/>
+
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/img_close_bold"
+                android:id="@+id/img_close"
+                android:layout_gravity="right"
+                android:layout_height="35dp"/>
+
+
+        </RelativeLayout>
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Estimated Profit"
+            android:layout_marginTop="16dp"
+            android:textSize="12sp"
+            android:fontFamily="@font/uber_move_regular"
+            android:textColor="#808080"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/tv_cities"
+            android:fontFamily="@font/uber_move_medium"
+            android:text="500 – 700 SAR"
+            android:gravity="center_vertical"
+            android:textColor="#4d4d4d"
+            android:layout_marginTop="4dp"
+            android:textSize="18sp"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Distance to cover"
+            android:layout_marginTop="16dp"
+            android:textSize="12sp"
+            android:fontFamily="@font/uber_move_regular"
+            android:textColor="#808080"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:fontFamily="@font/uber_move_medium"
+            android:text="50 Km/Day"
+            android:gravity="center_vertical"
+            android:textColor="#4d4d4d"
+            android:layout_marginTop="4dp"
+            android:textSize="18sp"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Installation Duration"
+            android:layout_marginTop="16dp"
+            android:textSize="12sp"
+            android:fontFamily="@font/uber_move_regular"
+            android:textColor="#808080"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:fontFamily="@font/uber_move_medium"
+            android:text="1:30 hrs"
+            android:gravity="center_vertical"
+            android:textColor="#4d4d4d"
+            android:layout_marginTop="4dp"
+            android:textSize="18sp"
+            android:layout_height="wrap_content"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="16dp"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginRight="25dp"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Starting Date"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/uber_move_regular"
+                    android:textColor="#808080"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:fontFamily="@font/uber_move_medium"
+                    android:text="1:30 hrs"
+                    android:gravity="center_vertical"
+                    android:textColor="#4d4d4d"
+                    android:layout_marginTop="4dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Ending Date"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/uber_move_regular"
+                    android:textColor="#808080"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:fontFamily="@font/uber_move_medium"
+                    android:text="1:30 hrs"
+                    android:gravity="center_vertical"
+                    android:textColor="#4d4d4d"
+                    android:layout_marginTop="4dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Duration"
+            android:layout_marginTop="16dp"
+            android:textSize="12sp"
+            android:fontFamily="@font/uber_move_regular"
+            android:textColor="#808080"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:fontFamily="@font/uber_move_medium"
+            android:text="1 Month"
+            android:gravity="center_vertical"
+            android:textColor="#4d4d4d"
+            android:layout_marginTop="4dp"
+            android:textSize="18sp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Advertised For"
+            android:layout_marginTop="16dp"
+            android:textSize="12sp"
+            android:fontFamily="@font/uber_move_regular"
+            android:textColor="#808080"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:fontFamily="@font/uber_move_medium"
+            android:text="Subway"
+            android:gravity="center_vertical"
+            android:textColor="#4d4d4d"
+            android:layout_marginTop="4dp"
+            android:textSize="18sp"
+            android:layout_height="wrap_content"/>
+
+
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:id="@+id/button_done"
+            android:text="Proceed to Book"
+            app:cornerRadius="12dp"
+            android:drawableRight="@drawable/ic_path"
+            android:textAllCaps="false"
+            android:fontFamily="@font/uber_move_bold"
+            android:layout_marginTop="36dp"
+            android:layout_height="55dp"/>
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+</androidx.core.widget.NestedScrollView>
+
+
+

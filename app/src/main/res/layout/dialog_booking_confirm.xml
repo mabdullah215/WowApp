@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:overScrollMode="never"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="140dp"
+            android:layout_gravity="center"
+            android:src="@drawable/img_booking_success"
+            android:layout_height="140dp"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Hurrah!"
+            android:layout_marginTop="4dp"
+            android:textSize="14sp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/uber_move_regular"
+            android:textColor="#808080"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:fontFamily="@font/uber_move_medium"
+            android:layout_gravity="center"
+            android:text="Your Booking has been\nconfirmed successfully"
+            android:gravity="center"
+            android:textColor="#4d4d4d"
+            android:layout_marginTop="4dp"
+            android:textSize="22sp"
+            android:layout_height="wrap_content"/>
+
+
+        <ImageView
+            android:layout_width="140dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/img_qr_code"
+            android:layout_height="140dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Date"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/uber_move_regular"
+            android:textColor="#808080"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/uber_move_medium"
+            android:text="Thursday, 14 Jaunary 2022\n  at 1:30 PM"
+            android:gravity="center"
+            android:textColor="#4d4d4d"
+            android:id="@+id/tv_date_time"
+            android:layout_marginTop="4dp"
+            android:textSize="18sp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Location"
+            android:layout_marginTop="16dp"
+            android:textSize="12sp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/uber_move_regular"
+            android:textColor="#808080"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:fontFamily="@font/uber_move_medium"
+            android:text="Khobar"
+            android:layout_gravity="center"
+            android:textColor="#4d4d4d"
+            android:id="@+id/tv_location"
+            android:layout_marginTop="4dp"
+            android:textSize="18sp"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:fontFamily="@font/uber_move_medium"
+            android:layout_gravity="center"
+            android:text="Booking Details Can be\nviewed from your Profile Tap"
+            android:gravity="center"
+            android:textColor="#4d4d4d"
+            android:layout_marginTop="4dp"
+            android:textSize="18sp"
+            android:layout_height="wrap_content"/>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:id="@+id/button_done"
+            android:text="Got it "
+            app:cornerRadius="8dp"
+            android:insetBottom="0dp"
+            android:insetTop="0dp"
+            android:textAllCaps="false"
+            android:fontFamily="@font/uber_move_bold"
+            android:layout_marginTop="36dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_height="55dp"/>
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+</androidx.core.widget.NestedScrollView>
+
+
+

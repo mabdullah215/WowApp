@@ -1,0 +1,65 @@
+plugins {
+    id 'com.android.application'
+    id 'com.google.gms.google-services'
+}
+
+android {
+    namespace 'com.mobileapp.wowapp'
+    compileSdk 33
+
+
+    defaultConfig {
+        applicationId "com.mobileapp.wowapp"
+        minSdk 26
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        manifestPlaceholders = [MAPS_API_KEY: "${properties.getProperty('MAPS_API_KEY')}"]
+        buildConfigField "String", "API_KEY", "\"${properties.getProperty('MAPS_API_KEY')}\""
+        buildConfigField 'String', 'BASE_URL', '"https://api.example.com"'
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        buildConfig true
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'com.github.AtifSayings:Animatoo:1.0.1'
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    implementation 'androidx.browser:browser:1.5.0'
+    implementation 'io.github.chaosleung:pinview:1.4.4'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.google.firebase:firebase-storage:20.2.1'
+    implementation 'com.google.firebase:firebase-firestore:24.7.1'
+    implementation 'com.google.android.libraries.places:places:3.2.0'
+    implementation 'com.github.dmytrodanylyk:circular-progress-button:1.2'
+    implementation 'androidx.fragment:fragment:1.4.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.0'
+    implementation 'androidx.annotation:annotation:1.5.0'
+    implementation 'com.github.starry-shivam:FileUtils:1.0.0'
+    implementation 'com.google.firebase:firebase-auth:22.1.1'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
+    implementation 'com.google.firebase:firebase-messaging:23.2.1'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+}

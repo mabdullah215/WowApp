@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".driver.DriverPersonalInformation">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/top_panel"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Signup (1/2)"
+            android:textSize="20sp"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/uber_move_bold"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"/>
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"/>
+
+
+    </RelativeLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:overScrollMode="never"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="30dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Seems you’re new!"
+                android:textColor="#333333"
+                android:textSize="26sp"
+                android:fontFamily="@font/uber_move_medium"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Tell us more about yourself"
+                android:textColor="#4d4d4d"
+                android:fontFamily="@font/uber_move_regular"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Full Name"
+                android:layout_marginTop="40dp"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:fontFamily="@font/uber_move_regular"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:id="@+id/et_fullname"
+                android:padding="15dp"
+                android:hint="John Smith"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/bg_curve"
+                android:backgroundTint="#d1d1d1"
+                android:layout_height="55dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="National ID"
+                android:layout_marginTop="8dp"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:fontFamily="@font/uber_move_regular"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_marginTop="4dp"
+                android:id="@+id/et_national_id"
+                android:padding="14dp"
+                android:inputType="number"
+                android:hint="Ex: 12342312312314"
+                android:textSize="15sp"
+                android:background="@drawable/bg_curve"
+                android:backgroundTint="#d1d1d1"
+                android:layout_height="55dp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="#333333"
+                android:text="Nationality"
+                android:fontFamily="@font/uber_move_regular"
+                android:textSize="12sp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:padding="12dp"
+                android:text="Saudia Arabia"
+                android:gravity="center_vertical"
+                android:drawablePadding="16dp"
+                android:layout_marginTop="4dp"
+                android:textColor="#1a1a1a"
+                android:fontFamily="@font/uber_move_regular"
+                android:drawableRight="@drawable/ic_path"
+                android:drawableLeft="@drawable/ic_country_small"
+                android:background="@drawable/square_corner"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:fontFamily="@font/uber_move_regular"
+                android:text="National Address"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_marginTop="4dp"
+                android:id="@+id/et_national_address"
+                android:padding="14dp"
+                android:hint="Search"
+                android:drawableRight="@drawable/ic_search"
+                android:textSize="15sp"
+                android:background="@drawable/bg_curve"
+                android:backgroundTint="#d1d1d1"
+                android:layout_height="55dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="#333333"
+                android:text="Date of Birth"
+                android:textSize="12sp"
+                android:fontFamily="@font/uber_move_regular"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:padding="12dp"
+                android:text="Select Date"
+                android:gravity="center_vertical"
+                android:layout_marginTop="4dp"
+                android:drawablePadding="16dp"
+                android:id="@+id/tv_birth_date"
+                android:textColor="#1a1a1a"
+                android:fontFamily="@font/uber_move_regular"
+                android:drawableRight="@drawable/ic_calendar"
+                android:background="@drawable/square_corner"
+                android:layout_height="wrap_content"/>
+
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                app:cornerRadius="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Next-Bank Info"
+                android:id="@+id/button_done"
+                android:layout_height="60dp"/>
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+</LinearLayout>

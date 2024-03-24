@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:orderInCategory="100"
+        android:title="Home"
+        android:icon="@drawable/ic_home"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/navigation_compaign"
+        android:orderInCategory="100"
+        android:title="Appointments"
+        android:icon="@drawable/ic_appointment"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/nav_requests"
+        android:orderInCategory="100"
+        android:title="Requests"
+        android:icon="@drawable/ic_requests"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:orderInCategory="100"
+        android:title="Profile"
+        android:icon="@drawable/ic_profile"
+        app:showAsAction="always" />
+
+
+</menu>

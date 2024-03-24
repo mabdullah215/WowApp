@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:animateLayoutChanges="true"
+    android:layout_height="match_parent"
+    tools:context=".customer.fragments.CompaignFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:padding="12dp"
+        android:id="@+id/toolbar_layout"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:textSize="22sp"
+            android:text="Welcome"
+            android:id="@+id/label_welcome"
+            android:textColor="@color/black"
+            android:fontFamily="@font/uber_move_medium"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:textSize="16sp"
+            android:id="@+id/tv_name"
+            android:layout_below="@+id/label_welcome"
+            android:textColor="@color/black"
+            android:fontFamily="@font/uber_move_regular"
+            android:layout_height="wrap_content"/>
+
+
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/img_right"
+            android:padding="4dp"
+            android:src="@drawable/img_support"
+            android:layout_alignParentRight="true"
+            android:layout_height="36dp" />
+
+
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/img_left"
+            android:src="@drawable/ic_refresh"
+            android:layout_toLeftOf="@+id/img_right"
+            android:padding="4dp"
+            android:layout_height="36dp" />
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:padding="16dp"
+        android:layout_below="@+id/toolbar_layout"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:id="@+id/browse_layout"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/uber_move_bold"
+                android:includeFontPadding="false"
+                android:text="My Compaigns"
+                android:textColor="@color/black"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/uber_move_bold"
+                android:padding="5dp"
+                android:text="View All"
+                android:textColor="@color/teal_200"
+                android:textSize="14sp" />
+
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/compaign_list"
+            android:overScrollMode="never"
+            android:layout_marginTop="16dp"
+            android:layout_below="@+id/label_txt"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+    <include layout="@layout/layout_no_search_results"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+
+
+
+
+
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        app:contentPadding="16dp"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="16dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/button_new_dialog"
+        app:cardBackgroundColor="@color/purple_200"
+        android:layout_alignParentRight="true"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="New"
+            android:textColor="@color/white"
+            android:drawableLeft="@drawable/ic_compaign_img"
+            android:drawablePadding="5dp"
+            android:drawableTint="@color/white"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <include layout="@layout/progress_bar_view"
+        android:visibility="gone"/>
+
+
+</RelativeLayout>

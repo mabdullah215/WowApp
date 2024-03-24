@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".driver.CompaignBooking">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:overScrollMode="never"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:animateLayoutChanges="true"
+            android:layout_below="@+id/toolbar_layout"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/toolbar_layout"/>
+
+
+            <com.mobileapp.wowapp.customer.utils.GregorianCalView
+                android:layout_width="match_parent"
+                android:id="@+id/cal_view"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:animateLayoutChanges="true"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/label_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/uber_move_medium"
+                    android:text="Thursday, 14 Jaunary 2022"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+
+                <TextView
+                    android:id="@+id/tv_slots"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/label_day"
+                    android:fontFamily="@font/uber_move_regular"
+                    android:textSize="12sp"
+                    android:text="12 Slots Available" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:drawableLeft="@drawable/square_shape"
+                    android:drawableTint="@color/black"
+                    android:drawablePadding="5dp"
+                    android:text="Booked"
+                    android:layout_marginTop="8dp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:drawableLeft="@drawable/square_shape"
+                    android:drawableTint="#e8e8e8"
+                    android:drawablePadding="5dp"
+                    android:text="Not Available"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:drawableLeft="@drawable/square_shape"
+                    android:drawableTint="#ffffff"
+                    android:drawablePadding="5dp"
+                    android:text="Available"
+                    android:layout_height="wrap_content"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:id="@+id/slots_data"
+                    android:layout_marginTop="8dp"
+                    android:layout_height="wrap_content"/>
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="match_parent"
+                    android:id="@+id/button_done"
+                    android:text="Confirm"
+                    app:cornerRadius="8dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="24dp"
+                    android:fontFamily="@font/uber_move_bold"
+                    android:layout_height="55dp"/>
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+    <include layout="@layout/progress_bar_view"
+        android:visibility="gone"/>
+
+
+
+
+</RelativeLayout>

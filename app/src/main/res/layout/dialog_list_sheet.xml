@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="16dp"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="Select from below"
+        android:id="@+id/label_search"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/uber_move_bold"
+        android:textSize="18sp"
+        android:textColor="#333333"
+        android:layout_height="wrap_content"/>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/data_list"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/label_search"
+        android:layout_height="wrap_content"/>
+
+
+
+
+</RelativeLayout>
+
+
+

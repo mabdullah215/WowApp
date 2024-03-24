@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:overScrollMode="never"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:text="Terms of Agreement"
+            android:textSize="22sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/uber_move_bold"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Date and Day"
+            android:layout_marginTop="8dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/uber_move_regular"
+            android:textColor="#808080"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:fontFamily="@font/uber_move_medium"
+            android:text="Thursday, 14 Jaunary 2022  at 1:30 PM"
+            android:textColor="#4d4d4d"
+            android:id="@+id/tv_date_time"
+            android:layout_marginTop="4dp"
+            android:textSize="18sp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Location"
+            android:layout_marginTop="16dp"
+            android:textSize="12sp"
+            android:fontFamily="@font/uber_move_regular"
+            android:textColor="#808080"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:fontFamily="@font/uber_move_medium"
+            android:text="Khobar"
+            android:textColor="#4d4d4d"
+            android:id="@+id/tv_location"
+            android:layout_marginTop="4dp"
+            android:textSize="18sp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="18sp"
+            android:textColor="#EA6767"
+            android:fontFamily="@font/uber_move_bold"
+            android:text="Read the below terms Carefully"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:text="@string/terms_agreement"
+            android:textColor="@color/black"
+            android:layout_marginTop="8dp"
+            android:scrollbars="vertical"
+            android:fontFamily="@font/uber_move_medium"
+            android:layout_height="wrap_content"/>
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:fontFamily="@font/uber_move_bold"
+            android:text="I read &amp; agree to the all terms &amp; agreements"
+            android:textColor="#4d4d4d"
+            android:layout_marginTop="4dp"
+            android:textSize="16sp"
+            android:layout_height="wrap_content"/>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:id="@+id/button_done"
+            android:text="Accept &amp; Book "
+            app:cornerRadius="8dp"
+            android:insetBottom="0dp"
+            android:insetTop="0dp"
+            android:textAllCaps="false"
+            android:fontFamily="@font/uber_move_bold"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_height="55dp"/>
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+</androidx.core.widget.NestedScrollView>
+
+
+

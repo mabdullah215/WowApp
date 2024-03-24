@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".customer.CustomerNewAccount">
+
+    <ImageView
+        android:id="@+id/img_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_back" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:overScrollMode="never"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="16dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="Business Profile"
+                android:textSize="24sp"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/uber_move_bold"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Setting up your Initial Business profile"
+                android:fontFamily="@font/uber_move_regular"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Profile Image"
+                android:layout_marginTop="32dp"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:fontFamily="@font/uber_move_regular"
+                android:layout_height="wrap_content"/>
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="80dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_height="80dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:src="@drawable/ic_avatar"
+                    android:id="@+id/img_profile"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Full Name"
+                android:layout_marginTop="20dp"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:fontFamily="@font/uber_move_regular"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:id="@+id/et_name"
+                android:padding="15dp"
+                android:textColorHint="#d9d9d9"
+                android:hint="John Smith"
+                android:textSize="14sp"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/bg_curve"
+                android:backgroundTint="#d1d1d1"
+                android:layout_height="55dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="City"
+                android:layout_marginTop="20dp"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:fontFamily="@font/uber_move_regular"
+                android:layout_height="wrap_content"/>
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                app:cardElevation="0dp"
+                app:strokeColor="#ccc"
+                app:cardCornerRadius="8dp"
+                android:layout_marginTop="4dp"
+                app:strokeWidth="1dp"
+                android:layout_height="wrap_content">
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:padding="14dp"
+                    android:id="@+id/spinner_city"
+                    android:layout_height="wrap_content"/>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Shop Name"
+                android:layout_marginTop="20dp"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:fontFamily="@font/uber_move_regular"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:id="@+id/et_shopname"
+                android:padding="15dp"
+                android:textColorHint="#d9d9d9"
+                android:hint="John Smith"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp"
+                android:imeOptions="actionDone"
+                android:singleLine="true"
+                android:background="@drawable/bg_curve"
+                android:backgroundTint="#d1d1d1"
+                android:layout_height="55dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Business Details (optional)"
+                android:layout_marginTop="8dp"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:fontFamily="@font/uber_move_regular"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_marginTop="4dp"
+                android:id="@+id/et_business_details"
+                android:padding="14dp"
+                android:textColorHint="#d9d9d9"
+                android:hint="Write Something…"
+                android:textSize="15sp"
+                android:gravity="start"
+                android:imeOptions="actionDone"
+                android:background="@drawable/bg_curve"
+                android:backgroundTint="#d1d1d1"
+                android:layout_height="120dp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Commertial Register"
+                android:layout_marginTop="8dp"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:fontFamily="@font/uber_move_regular"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:id="@+id/et_commertialregister"
+                android:padding="15dp"
+                android:inputType="number"
+                android:textColorHint="#d9d9d9"
+                android:hint="Ex.  123123123"
+                android:textSize="12sp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/bg_curve"
+                android:backgroundTint="#d1d1d1"
+                android:layout_height="55dp"/>
+
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                app:cornerRadius="8dp"
+                android:layout_marginTop="20dp"
+                android:text="Let's Wow"
+                android:id="@+id/button_done"
+                android:layout_height="60dp"/>
+
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+
+
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#006cab</color>
+    <color name="purple_500">#006cab</color>
+    <color name="purple_700">#006cab</color>
+    <color name="teal_200">#006cab</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#131415</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="start_driving">#54C03C</color>
+    <color name="stop_driving">#e42313 </color>
+    <color name="error_remove">#cccccc</color>
+    <color name="stroke_color">#C0C2D1</color>
+    <color name="inactivecolor">#b4b4b4</color>
+    <color name="light_grey">#f1f1f1</color>
+    <color name="text_color_default">#666666</color>
+    <color name="box_color_default">#f1f1f1</color>
+    <color name="box_color_highlight">#7cadbb</color>
+    <color name="text_color_highlight">#ffffff</color>
+</resources>

@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".customer.CustomerNewAccount">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/top_panel"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Signup (3/4)"
+            android:textSize="20sp"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/uber_move_bold"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"/>
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"/>
+
+
+    </RelativeLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:overScrollMode="never"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="30dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Car Information"
+                android:textColor="#333333"
+                android:textSize="26sp"
+                android:fontFamily="@font/uber_move_medium"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Tell us more about your car"
+                android:textColor="#4d4d4d"
+                android:fontFamily="@font/uber_move_regular"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Car Make"
+                android:layout_marginTop="40dp"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:fontFamily="@font/uber_move_regular"
+                android:layout_height="wrap_content"/>
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                app:strokeWidth="1dp"
+                app:cardCornerRadius="8dp"
+                app:strokeColor="#f2f2f2"
+                app:cardElevation="0dp"
+                app:cardUseCompatPadding="true"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_car_image"
+                    android:layout_height="35dp"/>
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:padding="12dp"
+                    android:layout_marginLeft="50dp"
+                    android:id="@+id/spinner_car_make"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Car Model"
+                android:layout_marginTop="8dp"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:fontFamily="@font/uber_move_regular"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_marginTop="4dp"
+                android:id="@+id/et_car_model"
+                android:padding="14dp"
+                android:hint="Ex: Corolla , City"
+                android:textSize="12sp"
+                android:background="@drawable/bg_curve"
+                android:backgroundTint="#d1d1d1"
+                android:layout_height="55dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Car Color"
+                android:layout_marginTop="8dp"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:fontFamily="@font/uber_move_regular"
+                android:layout_height="wrap_content"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                app:strokeWidth="1dp"
+                app:cardCornerRadius="8dp"
+                app:strokeColor="#f2f2f2"
+                app:cardElevation="0dp"
+                app:cardUseCompatPadding="true"
+                android:layout_height="wrap_content">
+
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:padding="12dp"
+                    android:id="@+id/spinner_car_color"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Car Year"
+                android:layout_marginTop="8dp"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:fontFamily="@font/uber_move_regular"
+                android:layout_height="wrap_content"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                app:strokeWidth="1dp"
+                app:cardCornerRadius="8dp"
+                app:strokeColor="#f2f2f2"
+                app:cardElevation="0dp"
+                app:cardUseCompatPadding="true"
+                android:layout_height="wrap_content">
+
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:padding="12dp"
+                    android:id="@+id/spinner_car_year"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Number Plate"
+                android:layout_marginTop="8dp"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:fontFamily="@font/uber_move_regular"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:layout_width="120dp"
+                    android:layout_marginTop="4dp"
+                    android:id="@+id/et_number_plate"
+                    android:padding="14dp"
+                    android:hint="Ex: 2422"
+                    android:textColorHint="#d2d2d2"
+                    android:textSize="12sp"
+                    android:background="@drawable/bg_curve"
+                    android:backgroundTint="#d1d1d1"
+                    android:layout_height="55dp"/>
+
+                <EditText
+                    android:layout_width="80dp"
+                    android:layout_marginTop="4dp"
+                    android:id="@+id/et_character_plate"
+                    android:padding="14dp"
+                    android:maxLength="3"
+                    android:layout_marginLeft="8dp"
+                    android:hint="Ex: ABX"
+                    android:textColorHint="#d2d2d2"
+                    android:textSize="12sp"
+                    android:background="@drawable/bg_curve"
+                    android:backgroundTint="#d1d1d1"
+                    android:layout_height="55dp"/>
+
+
+
+            </LinearLayout>
+
+
+
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                app:cornerRadius="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Next-Documents"
+                android:id="@+id/button_done"
+                android:layout_height="60dp"/>
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+</LinearLayout>

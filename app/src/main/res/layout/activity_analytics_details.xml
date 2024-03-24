@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".customer.AnalyticsDetails">
+
+    <include layout="@layout/toolbar_layout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_below="@+id/toolbar_layout"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/uber_move_regular"
+            android:layout_marginTop="10dp"
+            android:textSize="12sp"
+            android:textColor="#333333"
+            android:text="Campaign" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/tv_compaign_list"
+            android:gravity="center_vertical"
+            android:layout_marginTop="5dp"
+            android:textSize="12sp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/uber_move_regular"
+            android:drawableRight="@drawable/ic_path"
+            android:background="@drawable/square_corner"
+            android:text="Select"
+            android:layout_height="50dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/uber_move_regular"
+            android:layout_marginTop="10dp"
+            android:textSize="12sp"
+            android:textColor="#333333"
+            android:text="Driver Number" />
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:id="@+id/et_mark_details"
+                android:padding="15dp"
+                android:layout_marginTop="5dp"
+                android:hint="Ex: BHK123"
+                android:textSize="12sp"
+                android:layout_marginRight="10dp"
+                android:minHeight="50dp"
+                android:fontFamily="@font/uber_move_regular"
+                android:background="@drawable/square_corner"
+                android:backgroundTint="#f8f8f8"
+                android:layout_toLeftOf="@+id/img_add_contact"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:id="@+id/img_add_contact"
+                android:src="@drawable/ic_add_contact"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/uber_move_regular"
+            android:layout_marginTop="10dp"
+            android:textSize="12sp"
+            android:textColor="#333333"
+            android:text="Distance" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/tv_distance_list"
+            android:gravity="center_vertical"
+            android:layout_marginTop="5dp"
+            android:textSize="12sp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/uber_move_regular"
+            android:drawableRight="@drawable/ic_path"
+            android:background="@drawable/square_corner"
+            android:text="Select"
+            android:layout_height="50dp"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/uber_move_regular"
+            android:layout_marginTop="10dp"
+            android:textSize="12sp"
+            android:textColor="#333333"
+            android:text="Cities" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/tv_cities_list"
+            android:gravity="center_vertical"
+            android:layout_marginTop="5dp"
+            android:textSize="12sp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/uber_move_regular"
+            android:drawableRight="@drawable/ic_path"
+            android:background="@drawable/square_corner"
+            android:text="Select"
+            android:layout_height="50dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/uber_move_regular"
+            android:layout_marginTop="10dp"
+            android:textSize="12sp"
+            android:textColor="#333333"
+            android:text="Date &amp; Time" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/tv_date_time"
+            android:gravity="center_vertical"
+            android:layout_marginTop="5dp"
+            android:textSize="12sp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/uber_move_regular"
+            android:drawableRight="@drawable/ic_calendar"
+            android:background="@drawable/square_corner"
+            android:text="Select"
+            android:layout_height="50dp"/>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_marginTop="30dp"
+            app:cornerRadius="12dp"
+            android:id="@+id/button_filter"
+            android:text="Filter data"
+            android:layout_height="55dp"/>
+
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

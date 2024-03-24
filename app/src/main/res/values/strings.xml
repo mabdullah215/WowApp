@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">WowApp</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_business_profile">BusinessProfile</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="terms_agreement">1- WOW (referred to as "the Company") will notify you in the event that you are selected
+to be one of the drivers for this campaign after your selection for the advertising
+campaign during the submission period for the campaign.\n
+2- Once you are selected, within a period not exceeding (24) hours, you are required to
+schedule an appointment with one of the sticker providers through the (WOW)
+application. You must attend the appointment at the specified time to avoid any late
+penalties that may be incurred.\n
+3- The driver must attend at the sticker provider location to have the sticker installed
+completely within the specified time. Any fines resulting from delays will be imposed
+on the driver and can only be waived by WOW.\n
+4- After attending and being present at the scheduled time, please follow the instructions
+of the sticker provider to enable them to install the sticker within the specified time and
+avoid any delays to prevent overlap with the subsequent appointment.\n
+5- After the installation of the advertising campaign sticker on your car, please verify with
+the sticker provider that the car has been photographed after the sticker installation
+and upload the photos through the (WOW) application.\n
+6- You must start the route (Start driving) through the (WOW) application within a period
+not exceeding (24) hours from the specified start date of the advertising campaign in
+the application. (Any distance traveled or activation of the route before the campaign
+start date will not be considered or counted for you. This is to track the route through
+the application and start counting the distance traveled)\n
+7- After the end of the relevant advertising campaign period, you need to schedule
+another appointment with the sticker providers to have the sticker for the related
+advertising campaign removed within a period not exceeding (10) ten days from the
+end date of the advertising campaign.\n
+8- Under no circumstances is it permissible, without the consent of the Company, to
+combine two advertising campaigns and install another sticker for the same driver
+during the duration of the first campaign and before its full expiration.</string>
+</resources>

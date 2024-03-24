@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity">
+
+    <include layout="@layout/toolbar_layout"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_marginTop="30dp"
+        android:id="@+id/input_layout"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textSize="25sp"
+            android:textColor="#333333"
+            android:fontFamily="@font/uber_move_bold"
+            android:lineSpacingExtra="2.3sp"
+            android:text="Sign in to your account" />
+
+
+        <TextView
+            android:layout_width="250dp"
+            android:text="Please enter the details to get sign into your account"
+            android:textSize="12sp"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/uber_move_regular"
+            android:textColor="#666666"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_marginTop="30dp"
+            android:id="@+id/et_email"
+            android:padding="15dp"
+            android:hint="Email"
+            android:textSize="14sp"
+            android:background="@drawable/bg_curve"
+            android:backgroundTint="#d1d1d1"
+            android:layout_height="55dp"/>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_password"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxBackgroundMode="none"
+            app:hintEnabled="false"
+            app:passwordToggleEnabled="true">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:id="@+id/et_pass"
+                android:hint="Password"
+                android:padding="14dp"
+                android:textSize="15sp"
+                android:inputType="textPassword"
+                android:background="@drawable/bg_curve"
+                android:backgroundTint="#d1d1d1"
+                android:layout_height="wrap_content"/>
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_marginTop="16dp"
+            android:id="@+id/radio_group"
+            android:visibility="visible"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:id="@+id/button_customer"
+                android:text="Customer"
+                android:layout_marginRight="16dp"
+                android:checked="true"
+                android:layout_height="wrap_content"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:id="@+id/button_driver"
+                android:text="Driver"
+                android:layout_marginRight="16dp"
+                android:layout_height="wrap_content"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:id="@+id/button_service"
+                android:text="Service Provider"
+                android:layout_height="wrap_content"/>
+
+        </RadioGroup>
+
+
+        <com.dd.CircularProgressButton
+            android:id="@+id/button_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:cpb_cornerRadius="8dp"
+            android:fontFamily="@font/uber_move_bold"
+            app:cpb_colorIndicatorBackground="@color/purple_200"
+            app:cpb_selectorIdle="@color/purple_200"
+            app:cpb_colorProgress="@color/purple_200"
+            app:cpb_colorIndicator="@color/black"
+            android:textColor="@color/cpb_white"
+            android:textSize="15sp"
+            app:cpb_textComplete="Success"
+            app:cpb_textError="Error"
+            app:cpb_textIdle="Login" />
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

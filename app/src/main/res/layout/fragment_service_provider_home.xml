@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".serviceprovider.ServiceMainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:contentPadding="4dp"
+            android:layout_height="wrap_content">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="70dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_user_img"
+                    android:id="@+id/user_img"
+                    android:layout_height="70dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:fontFamily="@font/uber_move_bold"
+                    android:layout_alignParentRight="true"
+                    android:text="Abdul Wadud"
+                    android:layout_marginRight="20dp"
+                    android:textSize="22sp"
+                    android:id="@+id/tv_username"
+                    android:layout_height="wrap_content"/>
+
+
+                <LinearLayout
+                    android:layout_width="60dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_below="@+id/tv_username"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:id="@+id/imgpressions_layout"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="Today"
+                        android:textSize="10sp"
+                        android:textColor="@color/black"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/tv_impressions"
+                        android:textSize="18sp"
+                        android:text="220"
+                        android:layout_height="wrap_content"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="60dp"
+                    android:layout_toLeftOf="@id/imgpressions_layout"
+                    android:orientation="vertical"
+                    android:layout_below="@+id/tv_username"
+                    android:layout_marginRight="8dp"
+                    android:gravity="center"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="All Time"
+                        android:textColor="@color/black"
+                        android:textSize="10sp"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/tv_distance"
+                        android:textSize="18sp"
+                        android:text="23242"
+                        android:layout_height="wrap_content"/>
+
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <View
+            android:layout_width="30dp"
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/round_corner"
+            android:backgroundTint="#f1f1f1"
+            android:layout_marginTop="20dp"
+            android:layout_height="5dp"/>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="16dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/tv_today_date"
+                android:textColor="@color/black"
+                android:fontFamily="@font/uber_move_medium"
+                android:text="Tues, 6 Dec 22"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:textSize="16sp"
+                android:layout_below="@+id/tv_today_date"
+                android:textColor="@color/black"
+                android:id="@+id/tv_num_appoitments"
+                android:fontFamily="@font/uber_move_regular"
+                android:text="04 Appointments"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:id="@+id/img_caendar"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_calendar"
+                android:layout_height="wrap_content"/>
+
+
+
+        </RelativeLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/data_list"
+            tools:listitem="@layout/item_appointment"
+            android:layout_marginTop="16dp"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+
+
+</androidx.core.widget.NestedScrollView>

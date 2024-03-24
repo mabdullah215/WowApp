@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="24dp"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:id="@+id/top_panel"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Extend Current Compaign"
+                android:fontFamily="@font/uber_move_bold"
+                android:textSize="22sp"
+                android:id="@+id/label_extend"
+                android:textColor="#333333"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_below="@id/label_extend"
+                android:text="Estimated Charges: 700 SAR"
+                android:layout_height="wrap_content"/>
+
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/img_close_bold"
+                android:id="@+id/img_close"
+                android:layout_gravity="right"
+                android:layout_height="35dp"/>
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Select Compaign"
+            android:layout_marginTop="16dp"
+            android:textSize="12sp"
+            android:fontFamily="@font/uber_move_bold"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            app:cardElevation="0dp"
+            app:strokeColor="#ccc"
+            app:cardCornerRadius="8dp"
+            android:layout_marginTop="4dp"
+            app:strokeWidth="1dp"
+            android:layout_height="wrap_content">
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:padding="14dp"
+                android:id="@+id/spinner_compaign"
+                android:layout_height="wrap_content"/>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Duration of extension"
+            android:layout_marginTop="16dp"
+            android:textSize="12sp"
+            android:fontFamily="@font/uber_move_bold"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            app:cardElevation="0dp"
+            app:strokeColor="#ccc"
+            app:cardCornerRadius="8dp"
+            android:layout_marginTop="4dp"
+            app:strokeWidth="1dp"
+            android:layout_height="wrap_content">
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:padding="14dp"
+                android:id="@+id/spinner_extension"
+                android:layout_height="wrap_content"/>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Number of Cars"
+            android:layout_marginTop="16dp"
+            android:textSize="12sp"
+            android:fontFamily="@font/uber_move_bold"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:id="@+id/et_num_cars"
+            android:padding="15dp"
+            android:textColorHint="#d9d9d9"
+            android:hint="Ex: 10"
+            android:inputType="number"
+            android:fontFamily="@font/uber_move_medium"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:layout_marginTop="4dp"
+            android:textSize="14sp"
+            android:background="@drawable/bg_curve"
+            android:backgroundTint="#d1d1d1"
+            android:layout_height="55dp"/>
+
+
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:id="@+id/button_done"
+            android:text="Extend"
+            app:cornerRadius="12dp"
+            android:textAllCaps="false"
+            android:fontFamily="@font/uber_move_bold"
+            android:layout_marginTop="20dp"
+            android:layout_height="55dp"/>
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+</RelativeLayout>
+
+
+

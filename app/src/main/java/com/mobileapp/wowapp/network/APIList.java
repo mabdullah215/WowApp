@@ -9,6 +9,7 @@ public class APIList
     public static final String UPDATE_PROFILE ="profile/update";
     public static final String UPLOAD_DOCUMENTS ="documents/upload";
     public static final String START_DRIVING="driver/start";
+    public static final String STOP_DRIVING="driver/driving";
     public static final String DRIVING_ANALYTICS="analytics/driver";
     public static final String UPDATE_DISTANCE ="compaign/addPaymentDetails";
     public static final String GET_CUSTOMER_COMPAIGN_LIST="campaign/list";

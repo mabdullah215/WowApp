@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.animation.ObjectAnimator;
+import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -17,6 +19,7 @@ import android.os.SystemClock;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,6 +31,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.button.MaterialButton;
@@ -51,13 +55,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-public class CompaignDriving extends AppCompatActivity
+public class CompaignDriving extends BaseActivity
 {
     GoogleMap mMap;
-    LatLng currentLocation;
     int drivingId=0;
-    int todayKms=0;
-    int counter=0;
+    float todayKms=0;
     Marker positonMarker;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -89,6 +91,13 @@ public class CompaignDriving extends AppCompatActivity
                     locationListener.stopListening();
                     startDriving.setText("Start Driving");
                     startDriving.getBackground().setTint(getColor(R.color.start_driving));
+                    HashMap<String,Object>map=new HashMap<>();
+                    map.put("kms",(int)todayKms);
+                    map.put("latitude",positonMarker.getPosition().latitude);
+                    map.put("longitude",positonMarker.getPosition().longitude);
+                    map.put("isDriving",0);
+                    map.put("drivingId",drivingId);
+                    manager.postRequest(APIList.STOP_DRIVING,map,null);
                 }
             }
         });
@@ -101,6 +110,7 @@ public class CompaignDriving extends AppCompatActivity
             {
                 mMap=googleMap;
                 mMap.getUiSettings().setAllGesturesEnabled(false);
+                showLoading();
                 Compaign compaign=(Compaign) getIntent().getSerializableExtra("campaign");
                 TextView tvCompaignName=findViewById(R.id.tv_title);
                 tvCompaignName.setText(compaign.getName());
@@ -114,11 +124,17 @@ public class CompaignDriving extends AppCompatActivity
 
                         if(positonMarker==null)
                         {
-                            currentLocation=position;
                             positonMarker=mMap.addMarker(new MarkerOptions().position(position));
                             positonMarker.setIcon(BitmapFromVector(getBaseContext(), R.drawable.ic_location_pin));
-                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 15.0f));
-                            testDriving();
+                            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 15.0f));
+                        }
+                        else
+                        {
+                            Location source=new Location("");
+                            source.setLatitude(positonMarker.getPosition().latitude);
+                            source.setLatitude(positonMarker.getPosition().longitude);
+                            todayKms=todayKms+source.distanceTo(location);
+                            animateMarker(new LatLng(position.latitude,position.longitude));
                         }
                     }
                 });
@@ -130,13 +146,13 @@ public class CompaignDriving extends AppCompatActivity
                     {
                         try
                         {
+                            hideLoading();
                             JSONObject object=new JSONObject(result).getJSONObject("data");
                             drivingId=object.getInt("drivingId");
                             todayKms=object.getInt("todayKms");
                             locationListener.startListening();
                             startDriving.setText("Stop Driving");
                             startDriving.getBackground().setTint(getColor(R.color.stop_driving));
-
                         }
                         catch (JSONException e)
                         {
@@ -148,42 +164,12 @@ public class CompaignDriving extends AppCompatActivity
         });
     }
 
-
-    public void testDriving()
-    {
-        List<LatLng> latLngList=new ArrayList<>();
-        latLngList.add(new LatLng(33.608842, 72.970218));
-        latLngList.add(new LatLng(33.608887, 72.970797));
-        latLngList.add(new LatLng(33.609656, 72.970701));
-        latLngList.add(new LatLng(33.610853, 72.970465));
-        latLngList.add(new LatLng(33.611440, 72.970365));
-        latLngList.add(new LatLng(33.611147, 72.967565));
-        latLngList.add(new LatLng(33.610762, 72.965087));
-        latLngList.add(new LatLng(33.612443, 72.964137));
-        latLngList.add(new LatLng(33.614256, 72.963148));
-        latLngList.add(new LatLng(33.617685, 72.963568));
-        final Handler handler = new Handler();
-        final int delay = 3000;
-        handler.postDelayed(new Runnable() {
-            public void run()
-            {
-                animateMarker(latLngList.get(counter));
-                counter=counter+1;
-                if(counter<latLngList.size())
-                {
-                    handler.postDelayed(this, delay);
-                }
-            }
-        }, delay);
-
-    }
-
     private void animateMarker(final LatLng destination) {
         final LatLng startPosition = positonMarker.getPosition();
         mMap.animateCamera(CameraUpdateFactory.newLatLng(destination));
         final LatLngInterpolator latLngInterpolator = new LatLngInterpolator.LinearFixed();
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(0, 1);
-        valueAnimator.setDuration(3000); // Change duration as per your requirement
+        valueAnimator.setDuration(4500); // Change duration as per your requirement
         valueAnimator.setInterpolator(input -> input); // Linear interpolation
         valueAnimator.addUpdateListener(animation -> {
             float v = animation.getAnimatedFraction();

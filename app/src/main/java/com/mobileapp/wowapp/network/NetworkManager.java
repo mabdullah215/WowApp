@@ -292,14 +292,17 @@ public class NetworkManager
             {
                 String jsonData = response.body().string();
                 Log.i("responseAPI",jsonData);
-                mainHandler.post(new Runnable()
+                if(data!=null)
                 {
-                    @Override
-                    public void run()
+                    mainHandler.post(new Runnable()
                     {
-                        data.notifyResult(jsonData);
-                    }
-                });
+                        @Override
+                        public void run()
+                        {
+                            data.notifyResult(jsonData);
+                        }
+                    });
+                }
             }
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e)

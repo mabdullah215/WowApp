@@ -1,42 +1,24 @@
 package com.mobileapp.wowapp.customer;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
-
-import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.mobileapp.wowapp.BaseActivity;
-import com.mobileapp.wowapp.OnboardActivity;
 import com.mobileapp.wowapp.R;
 import com.mobileapp.wowapp.customer.fragments.AnalyticsFragment;
-import com.mobileapp.wowapp.customer.fragments.CompaignFragment;
 import com.mobileapp.wowapp.customer.fragments.CompaignListFragment;
 import com.mobileapp.wowapp.customer.fragments.ProfileFragment;
 import com.mobileapp.wowapp.customer.model.Customer;
-import com.mobileapp.wowapp.database.DataSource;
-import com.mobileapp.wowapp.driver.DriverHome;
-import com.mobileapp.wowapp.driver.model.Driver;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -47,7 +47,7 @@ public class MyLocationListener {
     private void createLocationRequest() {
         mLocationRequest = LocationRequest.create();
         mLocationRequest.setInterval(5000);
-        mLocationRequest.setFastestInterval(1000);
+        mLocationRequest.setFastestInterval(5000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
 
@@ -62,6 +62,7 @@ public class MyLocationListener {
                 Location location=locationResult.getLocations().get(0);
                 if(locationUpdateListener!=null)
                 {
+                    Log.i("locationUpdate",location.getLatitude()+","+location.getLongitude());
                     locationUpdateListener.onLocationUpdate(location);
                 }
 

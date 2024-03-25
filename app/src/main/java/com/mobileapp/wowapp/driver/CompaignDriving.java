@@ -24,6 +24,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -75,6 +76,7 @@ public class CompaignDriving extends BaseActivity
             @Override
             public void onClick(View view) {
                 finish();
+                Animatoo.INSTANCE.animateSlideRight(CompaignDriving.this);
             }
         });
 

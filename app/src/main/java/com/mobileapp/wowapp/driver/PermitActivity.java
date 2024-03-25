@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.jsibbold.zoomage.ZoomageView;
 import com.mobileapp.wowapp.R;
 import com.mobileapp.wowapp.customer.utils.Converter;
@@ -60,6 +61,7 @@ public class PermitActivity extends AppCompatActivity {
             public void onClick(View view)
             {
                 finish();
+                Animatoo.INSTANCE.animateSlideRight(PermitActivity.this);
             }
         });
     }

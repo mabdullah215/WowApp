@@ -16,6 +16,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
@@ -104,7 +105,7 @@ public class CompaignDriving extends BaseActivity
                     map.put("longitude",positonMarker.getPosition().longitude);
                     map.put("isDriving",0);
                     map.put("drivingId",drivingId);
-                    //manager.postRequest(APIList.STOP_DRIVING,map,null);
+                    manager.postRequest(APIList.STOP_DRIVING,map,null);
                 }
             }
         });
@@ -140,10 +141,11 @@ public class CompaignDriving extends BaseActivity
                         {
                             Location source=new Location("");
                             source.setLatitude(positonMarker.getPosition().latitude);
-                            source.setLatitude(positonMarker.getPosition().longitude);
-                            todayKms=todayKms+(source.distanceTo(location)/1000);
+                            source.setLongitude(positonMarker.getPosition().longitude);
+                            float distance=source.distanceTo(location)/1000;
+                            todayKms=todayKms+distance;
                             double amount=todayKms*compaign.getCity().getMoney_constant();
-                            DecimalFormat df2 = new DecimalFormat("#.0");
+                            DecimalFormat df2 = new DecimalFormat("#.#");
                             tvDistance.setText(df2.format(todayKms));
                             tvAmount.setText(df2.format(amount));
                             animateMarker(new LatLng(position.latitude,position.longitude));
@@ -174,6 +176,11 @@ public class CompaignDriving extends BaseActivity
                 });
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 
     private void animateMarker(final LatLng destination) {

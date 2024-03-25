@@ -33,6 +33,11 @@ public class Converter
         return convertedDate;
     }
 
+    public String getformattedDecimal(double value)
+    {
+        return String.format("%.2f", value);
+    }
+
     public static String getDatewithDayandTime(String inputDate)
     {
         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());

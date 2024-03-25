@@ -39,6 +39,7 @@ import com.google.gson.Gson;
 import com.mobileapp.wowapp.BaseActivity;
 import com.mobileapp.wowapp.R;
 import com.mobileapp.wowapp.interations.IResultData;
+import com.mobileapp.wowapp.model.AssignedCampaign;
 import com.mobileapp.wowapp.model.Compaign;
 import com.mobileapp.wowapp.network.APIList;
 import com.mobileapp.wowapp.network.APIResultSingle;
@@ -49,6 +50,7 @@ import com.mobileapp.wowapp.utils.MyLocationListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -74,7 +76,12 @@ public class CompaignDriving extends BaseActivity
                 finish();
             }
         });
+
+        TextView tvDate=findViewById(R.id.tv_today_date);
+        SimpleDateFormat format = new SimpleDateFormat("EEEE, dd MMMM yyyy");
+        tvDate.setText(format.format(new Date()));
         NetworkManager manager=NetworkManager.getInstance(this);
+        TextView tvDistance=findViewById(R.id.tv_distance);
         MaterialButton startDriving=findViewById(R.id.button_driving);
         startDriving.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,7 +104,7 @@ public class CompaignDriving extends BaseActivity
                     map.put("longitude",positonMarker.getPosition().longitude);
                     map.put("isDriving",0);
                     map.put("drivingId",drivingId);
-                    manager.postRequest(APIList.STOP_DRIVING,map,null);
+                    //manager.postRequest(APIList.STOP_DRIVING,map,null);
                 }
             }
         });
@@ -111,7 +118,8 @@ public class CompaignDriving extends BaseActivity
                 mMap=googleMap;
                 mMap.getUiSettings().setAllGesturesEnabled(false);
                 showLoading();
-                Compaign compaign=(Compaign) getIntent().getSerializableExtra("campaign");
+                TextView tvAmount=findViewById(R.id.tv_amount);
+                AssignedCampaign compaign=(AssignedCampaign) getIntent().getSerializableExtra("campaign");
                 TextView tvCompaignName=findViewById(R.id.tv_title);
                 tvCompaignName.setText(compaign.getName());
                 HashMap<String,Object>map=new HashMap<>();
@@ -133,7 +141,11 @@ public class CompaignDriving extends BaseActivity
                             Location source=new Location("");
                             source.setLatitude(positonMarker.getPosition().latitude);
                             source.setLatitude(positonMarker.getPosition().longitude);
-                            todayKms=todayKms+source.distanceTo(location);
+                            todayKms=todayKms+(source.distanceTo(location)/1000);
+                            double amount=todayKms*compaign.getCity().getMoney_constant();
+                            DecimalFormat df2 = new DecimalFormat("#.0");
+                            tvDistance.setText(df2.format(todayKms));
+                            tvAmount.setText(df2.format(amount));
                             animateMarker(new LatLng(position.latitude,position.longitude));
                         }
                     }

@@ -26,6 +26,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.chip.Chip;
 import com.google.gson.Gson;
 import com.mobileapp.wowapp.BaseActivity;
 import com.mobileapp.wowapp.OnboardActivity;
@@ -35,15 +36,19 @@ import com.mobileapp.wowapp.customer.utils.HelpSheet;
 import com.mobileapp.wowapp.database.DataSource;
 import com.mobileapp.wowapp.driver.CompaignDriving;
 import com.mobileapp.wowapp.driver.DriverPersonalInformation;
+import com.mobileapp.wowapp.driver.PermitActivity;
 import com.mobileapp.wowapp.driver.ServiceProvidrList;
 import com.mobileapp.wowapp.driver.UpcomingCompaigns;
 import com.mobileapp.wowapp.driver.model.Driver;
 import com.mobileapp.wowapp.interations.IResultData;
+import com.mobileapp.wowapp.model.AssignedCampaign;
 import com.mobileapp.wowapp.model.Compaign;
 import com.mobileapp.wowapp.network.APIList;
 import com.mobileapp.wowapp.network.APIResultSingle;
 import com.mobileapp.wowapp.network.NetworkManager;
 import com.squareup.picasso.Picasso;
+
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -146,6 +151,7 @@ public class DriverHomeFragment extends Fragment
         Gson gson=new Gson();
         ImageView imgCompaign=view.findViewById(R.id.img_compaign);
         LinearLayout emptyLayout=view.findViewById(R.id.empty_state);
+        Chip chipPermit=view.findViewById(R.id.chip_permit);
         NetworkManager manager=NetworkManager.getInstance(getContext());
         manager.getRequest(APIList.GET_DRIVER_COMPAIGNS_LIST, new IResultData() {
             @Override
@@ -158,7 +164,7 @@ public class DriverHomeFragment extends Fragment
                 if(apiResult.getStatusCode().equalsIgnoreCase("200"))
                 {
                     String data=gson.toJson(apiResult.getData());
-                    Compaign compaign=gson.fromJson(data, Compaign.class);
+                    AssignedCampaign compaign=gson.fromJson(data, AssignedCampaign.class);
                     ImageView imgCompaign=view.findViewById(R.id.img_source);
                     TextView tvTitle=view.findViewById(R.id.tv_title);
                     TextView tvDistance=view.findViewById(R.id.tv_distance);
@@ -182,7 +188,9 @@ public class DriverHomeFragment extends Fragment
                         Picasso.get().load(compaign.getDesign()).fit().into(imgCompaign);
                     }
                     tvTitle.setText(compaign.getName());
-                    tvDistance.setText(String.valueOf(compaign.getTotalDistanceCovered()));
+                    DecimalFormat df2 = new DecimalFormat("#.0");
+                    if(compaign.getDistance_covered()>0)
+                    tvDistance.setText(df2.format(compaign.getDistance_covered()));
                     cardView.setVisibility(View.VISIBLE);
                     tvStickerRemove.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -199,7 +207,7 @@ public class DriverHomeFragment extends Fragment
                         @Override
                         public void onClick(View view)
                         {
-                            if(Converter.compareDate(compaign.getStartTime()))
+                            if(Converter.compareDate(compaign.getStart_datetime()))
                             {
                                 if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
                                 {
@@ -217,6 +225,14 @@ public class DriverHomeFragment extends Fragment
                         }
                     });
 
+                    chipPermit.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view)
+                        {
+                            startActivity(new Intent(getContext(), PermitActivity.class).putExtra("campaign",compaign));
+                            Animatoo.INSTANCE.animateSlideLeft(getContext());
+                        }
+                    });
 
                 }
                 else

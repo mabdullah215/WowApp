@@ -53,6 +53,7 @@ dependencies {
     implementation 'com.google.android.libraries.places:places:3.2.0'
     implementation 'com.github.dmytrodanylyk:circular-progress-button:1.2'
     implementation 'androidx.fragment:fragment:1.4.1'
+    implementation 'com.jsibbold:zoomage:1.3.1'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.0'
     implementation 'androidx.annotation:annotation:1.5.0'
     implementation 'com.github.starry-shivam:FileUtils:1.0.0'

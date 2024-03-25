@@ -74,7 +74,7 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:id="@+id/tv_impressions"
+                    android:id="@+id/tv_distance"
                     android:textSize="22sp"
                     android:text="0"
                     android:textColor="@color/purple_200"

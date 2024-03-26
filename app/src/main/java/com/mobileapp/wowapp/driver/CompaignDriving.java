@@ -41,7 +41,6 @@ import com.google.gson.Gson;
 import com.mobileapp.wowapp.BaseActivity;
 import com.mobileapp.wowapp.R;
 import com.mobileapp.wowapp.interations.IResultData;
-import com.mobileapp.wowapp.model.AssignedCampaign;
 import com.mobileapp.wowapp.model.Compaign;
 import com.mobileapp.wowapp.network.APIList;
 import com.mobileapp.wowapp.network.APIResultSingle;
@@ -122,7 +121,7 @@ public class CompaignDriving extends BaseActivity
                 mMap.getUiSettings().setAllGesturesEnabled(false);
                 showLoading();
                 TextView tvAmount=findViewById(R.id.tv_amount);
-                AssignedCampaign compaign=(AssignedCampaign) getIntent().getSerializableExtra("campaign");
+                Compaign compaign=(Compaign) getIntent().getSerializableExtra("campaign");
                 TextView tvCompaignName=findViewById(R.id.tv_title);
                 tvCompaignName.setText(compaign.getName());
                 HashMap<String,Object>map=new HashMap<>();

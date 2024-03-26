@@ -16,6 +16,8 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,18 +26,17 @@ import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.jsibbold.zoomage.ZoomageView;
 import com.mobileapp.wowapp.R;
 import com.mobileapp.wowapp.customer.utils.Converter;
-import com.mobileapp.wowapp.model.AssignedCampaign;
 import com.mobileapp.wowapp.model.Compaign;
 import com.mobileapp.wowapp.network.NetworkManager;
 
 public class PermitActivity extends AppCompatActivity {
-
+    ZoomageView imgPermit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_permit);
-        ZoomageView imgPermit=findViewById(R.id.img_permit);
-        imgPermit.setImageDrawable(writeTextOnDrawable());
+        imgPermit=findViewById(R.id.img_permit);
+        imgPermit.setImageDrawable(writeTextOnDrawable3());
         ImageView imgBack=findViewById(R.id.img_back);
         TextView tvTitle=findViewById(R.id.tv_title);
         tvTitle.setText("Permit");
@@ -68,26 +69,129 @@ public class PermitActivity extends AppCompatActivity {
 
     private BitmapDrawable writeTextOnDrawable()
     {
-        AssignedCampaign assignedCampaign=(AssignedCampaign) getIntent().getSerializableExtra("campaign");
+        Compaign compaign=(Compaign) getIntent().getSerializableExtra("campaign");
         NetworkManager manager=NetworkManager.getInstance(this);
-        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.img_permit).copy(Bitmap.Config.ARGB_8888, true);
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 1; // You can adjust the sample size as needed
+        Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.img_permit, options);
+
+        // Create a copy of the bitmap to prevent modifying the original
+        Bitmap bm = originalBitmap.copy(Bitmap.Config.ARGB_8888, true);
         Typeface tf = Typeface.create("Helvetica", Typeface.BOLD);
         Paint paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.BLACK);
         //paint.setTypeface(tf);
         paint.setTextAlign(Paint.Align.CENTER);
-        paint.setTextSize(convertToPixels(this, 25));
+        paint.setTextSize(convertToPixels(this, 14));
         Canvas canvas = new Canvas(bm);
+        Log.i("canvasWidth",""+canvas.getWidth());
+        Log.i("canvasHeight",""+canvas.getHeight());
         int xPos = (canvas.getWidth() / 3);
-        canvas.drawText(manager.getDriver().getName(), xPos, getYposition(85,canvas), paint);
-        canvas.drawText(manager.getDriver().getRegistrationNo(), xPos, getYposition(-5,canvas), paint);
-        canvas.drawText(manager.getDriver().getCarNo()+","+manager.getDriver().getCarMake()+","+manager.getDriver().getCarModel(), xPos, getYposition(-95,canvas), paint);
-        canvas.drawText(assignedCampaign.getCustomer_name(), xPos, getYposition(-185,canvas), paint);
-        canvas.drawText(Converter.datePreview(assignedCampaign.getEnd_datetime()), xPos, getYposition(-280,canvas), paint);
+        canvas.drawText(manager.getDriver().getName(), xPos, getYposition(40,canvas), paint);
+        canvas.drawText(manager.getDriver().getRegistrationNo(), xPos, getYposition(0,canvas), paint);
+        canvas.drawText(manager.getDriver().getCarNo()+","+manager.getDriver().getCarMake()+","+manager.getDriver().getCarModel(), xPos, getYposition(-48,canvas), paint);
+        canvas.drawText(compaign.getCustomer_name(), xPos, getYposition(-90,canvas), paint);
+        canvas.drawText(Converter.datePreview(compaign.getEnd_datetime()), xPos, getYposition(-135,canvas), paint);
+
 
         return new BitmapDrawable(getResources(), bm);
     }
+
+
+    private BitmapDrawable writeTextOnDrawable3() {
+        Compaign compaign = (Compaign) getIntent().getSerializableExtra("campaign");
+        NetworkManager manager = NetworkManager.getInstance(this);
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 1; // You can adjust the sample size as needed
+        Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.img_permit, options);
+
+        // Create a copy of the bitmap to prevent modifying the original
+        Bitmap bm = originalBitmap.copy(Bitmap.Config.ARGB_8888, true);
+        Typeface tf = Typeface.create("Helvetica", Typeface.BOLD);
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.BLACK);
+        paint.setTypeface(tf);
+
+        float textSizeInDp = 14; // Text size in dp
+        float textSizeInPx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, textSizeInDp, getResources().getDisplayMetrics());
+        paint.setTextSize(textSizeInPx);
+
+        Canvas canvas = new Canvas(bm);
+        float canvasWidth = canvas.getWidth();
+        float canvasHeight = canvas.getHeight();
+
+        float xPos = canvasWidth / 2; // Center horizontally
+
+        // Calculate Y positions based on canvas height
+        float yPos1 = getYposition(40, canvasHeight);
+        float yPos2 = getYposition(0, canvasHeight);
+        float yPos3 = getYposition(-48, canvasHeight);
+        float yPos4 = getYposition(-90, canvasHeight);
+        float yPos5 = getYposition(-135, canvasHeight);
+
+        // Draw text on canvas
+        canvas.drawText(manager.getDriver().getName(), xPos, yPos1, paint);
+        canvas.drawText(manager.getDriver().getRegistrationNo(), xPos, yPos2, paint);
+        canvas.drawText(manager.getDriver().getCarNo() + "," + manager.getDriver().getCarMake() + "," + manager.getDriver().getCarModel(), xPos, yPos3, paint);
+        canvas.drawText(compaign.getCustomer_name(), xPos, yPos4, paint);
+        canvas.drawText(Converter.datePreview(compaign.getEnd_datetime()), xPos, yPos5, paint);
+
+        return new BitmapDrawable(getResources(), bm);
+    }
+
+    // Function to calculate Y position based on percentage of canvas height
+    private float getYposition(float percentage, float canvasHeight) {
+        return canvasHeight * (1 - percentage / 100); // Percentage of canvas height from the bottom
+    }
+
+    private BitmapDrawable writeTextOnDrawable2() {
+        Compaign compaign = (Compaign) getIntent().getSerializableExtra("campaign");
+        NetworkManager manager = NetworkManager.getInstance(this);
+
+        // Load the original bitmap
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inMutable = true; // Ensure the bitmap is mutable
+        Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.img_permit, options);
+
+        // Resize the bitmap to reduce memory usage
+        int desiredWidth = imgPermit.getWidth(); // specify the desired width
+        int desiredHeight = imgPermit.getHeight(); // specify the desired height
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(originalBitmap, desiredWidth, desiredHeight, true);
+
+        // Define paint settings
+        Typeface tf = Typeface.create("Helvetica", Typeface.BOLD);
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.BLACK);
+        paint.setTextAlign(Paint.Align.CENTER);
+        paint.setTextSize(convertToPixels(this, 8));
+
+        // Create a bitmap to hold the text
+        Bitmap textBitmap = Bitmap.createBitmap(resizedBitmap.getWidth(), resizedBitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas textCanvas = new Canvas(textBitmap);
+
+        // Draw the text onto the text canvas
+        int xPos = (textCanvas.getWidth() / 3);
+        textCanvas.drawText(manager.getDriver().getName(), xPos, getYposition(85, textCanvas), paint);
+        textCanvas.drawText(manager.getDriver().getRegistrationNo(), xPos, getYposition(-5, textCanvas), paint);
+        textCanvas.drawText(manager.getDriver().getCarNo() + "," + manager.getDriver().getCarMake() + "," + manager.getDriver().getCarModel(), xPos, getYposition(-95, textCanvas), paint);
+        textCanvas.drawText(compaign.getCustomer_name(), xPos, getYposition(-185, textCanvas), paint);
+        textCanvas.drawText(Converter.datePreview(compaign.getEnd_datetime()), xPos, getYposition(-280, textCanvas), paint);
+
+        // Combine the resized bitmap and the text bitmap
+        Canvas combinedCanvas = new Canvas(resizedBitmap);
+        combinedCanvas.drawBitmap(textBitmap, 0, 0, null);
+
+        // Return a BitmapDrawable
+        return new BitmapDrawable(getResources(), resizedBitmap);
+    }
+
+
+
 
     public int getYposition(int diff,Canvas canvas)
     {

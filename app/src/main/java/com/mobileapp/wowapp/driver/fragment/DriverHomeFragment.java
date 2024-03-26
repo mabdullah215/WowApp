@@ -41,7 +41,6 @@ import com.mobileapp.wowapp.driver.ServiceProvidrList;
 import com.mobileapp.wowapp.driver.UpcomingCompaigns;
 import com.mobileapp.wowapp.driver.model.Driver;
 import com.mobileapp.wowapp.interations.IResultData;
-import com.mobileapp.wowapp.model.AssignedCampaign;
 import com.mobileapp.wowapp.model.Compaign;
 import com.mobileapp.wowapp.network.APIList;
 import com.mobileapp.wowapp.network.APIResultSingle;
@@ -164,7 +163,7 @@ public class DriverHomeFragment extends Fragment
                 if(apiResult.getStatusCode().equalsIgnoreCase("200"))
                 {
                     String data=gson.toJson(apiResult.getData());
-                    AssignedCampaign compaign=gson.fromJson(data, AssignedCampaign.class);
+                    Compaign compaign=gson.fromJson(data, Compaign.class);
                     ImageView imgCompaign=view.findViewById(R.id.img_source);
                     TextView tvTitle=view.findViewById(R.id.tv_title);
                     TextView tvDistance=view.findViewById(R.id.tv_distance);
@@ -188,9 +187,11 @@ public class DriverHomeFragment extends Fragment
                         Picasso.get().load(compaign.getDesign()).fit().into(imgCompaign);
                     }
                     tvTitle.setText(compaign.getName());
-                    DecimalFormat df2 = new DecimalFormat("#.0");
+                    DecimalFormat df2 = new DecimalFormat("#.#");
                     if(compaign.getDistance_covered()>0)
-                    tvDistance.setText(df2.format(compaign.getDistance_covered()));
+                    {
+                        tvDistance.setText(df2.format(compaign.getDistance_covered()));
+                    }
                     cardView.setVisibility(View.VISIBLE);
                     tvStickerRemove.setOnClickListener(new View.OnClickListener() {
                         @Override

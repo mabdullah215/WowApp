@@ -1,17 +1,15 @@
 package com.mobileapp.wowapp.model;
 
-import com.mobileapp.wowapp.customer.model.City;
-import com.mobileapp.wowapp.customer.model.CompaignDriverModel;
-import com.mobileapp.wowapp.driver.model.Driver;
+
+import android.icu.text.DecimalFormat;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Compaign implements Serializable
 {
     int id=0;
     String name;
+    int customer_id;
     String customerId;
     int kms=0;
     String startTime;
@@ -19,14 +17,94 @@ public class Compaign implements Serializable
     int price=0;
     String design;
     int noOfCars=0;
+    int no_of_cars;
+    int city_id;
+    int kms_per_day;
+    String interval_start;
+    String interval_end;
+    double distance_covered;
+    String customer_name;
+    String shop_name;
     String status;
     City city;
-    int totalDistanceCovered;
-    int totalImpressions;
+    double totalDistanceCovered;
+    double totalImpressions;
     int totalAssighnedDrivers;
     String duration;
     String start_datetime;
     String end_datetime;
+
+    public int getCustomer_id() {
+        return customer_id;
+    }
+
+    public void setCustomer_id(int customer_id) {
+        this.customer_id = customer_id;
+    }
+
+    public int getNo_of_cars() {
+        return no_of_cars;
+    }
+
+    public void setNo_of_cars(int no_of_cars) {
+        this.no_of_cars = no_of_cars;
+    }
+
+    public int getCity_id() {
+        return city_id;
+    }
+
+    public void setCity_id(int city_id) {
+        this.city_id = city_id;
+    }
+
+    public int getKms_per_day() {
+        return kms_per_day;
+    }
+
+    public void setKms_per_day(int kms_per_day) {
+        this.kms_per_day = kms_per_day;
+    }
+
+    public String getInterval_start() {
+        return interval_start;
+    }
+
+    public void setInterval_start(String interval_start) {
+        this.interval_start = interval_start;
+    }
+
+    public String getInterval_end() {
+        return interval_end;
+    }
+
+    public void setInterval_end(String interval_end) {
+        this.interval_end = interval_end;
+    }
+
+    public double getDistance_covered() {
+        return distance_covered;
+    }
+
+    public void setDistance_covered(double distance_covered) {
+        this.distance_covered = distance_covered;
+    }
+
+    public String getCustomer_name() {
+        return customer_name;
+    }
+
+    public void setCustomer_name(String customer_name) {
+        this.customer_name = customer_name;
+    }
+
+    public String getShop_name() {
+        return shop_name;
+    }
+
+    public void setShop_name(String shop_name) {
+        this.shop_name = shop_name;
+    }
 
     public String getStart_datetime() {
         return start_datetime;
@@ -108,16 +186,24 @@ public class Compaign implements Serializable
         this.noOfCars = noOfCars;
     }
 
-    public int getTotalDistanceCovered() {
-        return totalDistanceCovered;
+    public double getTotalDistanceCovered()
+    {
+        DecimalFormat df = new DecimalFormat("#.##");
+        String roundedValueStr = df.format(totalDistanceCovered);
+        double roundedValue = Double.parseDouble(roundedValueStr);
+        return roundedValue;
     }
 
     public void setTotalDistanceCovered(int totalDistanceCovered) {
         this.totalDistanceCovered = totalDistanceCovered;
     }
 
-    public int getTotalImpressions() {
-        return totalImpressions;
+    public double getTotalImpressions()
+    {
+        DecimalFormat df = new DecimalFormat("#.##");
+        String roundedValueStr = df.format(totalImpressions);
+        double roundedValue = Double.parseDouble(roundedValueStr);
+        return roundedValue;
     }
 
     public void setTotalImpressions(int totalImpressions) {

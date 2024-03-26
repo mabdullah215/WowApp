@@ -23,7 +23,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="Signup (1/2)"
+            android:text="Signup (1/3)"
             android:textSize="20sp"
             android:layout_centerVertical="true"
             android:fontFamily="@font/uber_move_bold"
@@ -44,6 +44,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:overScrollMode="never"
+        android:fillViewport="true"
         android:layout_height="wrap_content">
 
         <LinearLayout
@@ -68,11 +69,34 @@
                 android:fontFamily="@font/uber_move_regular"
                 android:layout_height="wrap_content"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Profile Image"
+                android:layout_marginTop="24dp"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:fontFamily="@font/uber_move_regular"
+                android:layout_height="wrap_content"/>
+            
+            
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="80dp"
+                app:cardElevation="0dp"
+                android:layout_marginTop="4dp"
+                app:cardCornerRadius="8dp"
+                android:layout_height="80dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:id="@+id/img_profile"
+                    android:layout_height="match_parent"/>
+                
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:text="Full Name"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="24dp"
                 android:textColor="#333333"
                 android:textSize="12sp"
                 android:fontFamily="@font/uber_move_regular"
@@ -83,6 +107,7 @@
                 android:id="@+id/et_fullname"
                 android:padding="15dp"
                 android:hint="John Smith"
+                android:singleLine="true"
                 android:textSize="14sp"
                 android:layout_marginTop="4dp"
                 android:background="@drawable/bg_curve"
@@ -106,6 +131,7 @@
                 android:inputType="number"
                 android:hint="Ex: 12342312312314"
                 android:textSize="15sp"
+                android:singleLine="true"
                 android:background="@drawable/bg_curve"
                 android:backgroundTint="#d1d1d1"
                 android:layout_height="55dp"/>
@@ -149,8 +175,7 @@
                 android:layout_marginTop="4dp"
                 android:id="@+id/et_national_address"
                 android:padding="14dp"
-                android:hint="Search"
-                android:drawableRight="@drawable/ic_search"
+                android:hint="Ex: Address"
                 android:textSize="15sp"
                 android:background="@drawable/bg_curve"
                 android:backgroundTint="#d1d1d1"
@@ -158,7 +183,36 @@
 
             <TextView
                 android:layout_width="wrap_content"
+                android:text="City"
                 android:layout_marginTop="8dp"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:fontFamily="@font/uber_move_regular"
+                android:layout_height="wrap_content"/>
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                app:cardElevation="0dp"
+                app:strokeColor="#ccc"
+                app:cardCornerRadius="8dp"
+                android:layout_marginTop="4dp"
+                app:strokeWidth="1dp"
+                android:layout_height="wrap_content">
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:padding="14dp"
+                    android:id="@+id/spinner_city"
+                    android:layout_height="wrap_content"/>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginTop="16dp"
                 android:textColor="#333333"
                 android:text="Date of Birth"
                 android:textSize="12sp"
@@ -180,11 +234,52 @@
                 android:layout_height="wrap_content"/>
 
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:fontFamily="@font/uber_move_regular"
+                android:text="Business Address"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_marginTop="4dp"
+                android:id="@+id/et_business_address"
+                android:padding="14dp"
+                android:hint="Ex: Address"
+                android:textSize="15sp"
+                android:background="@drawable/bg_curve"
+                android:backgroundTint="#d1d1d1"
+                android:layout_height="55dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                android:fontFamily="@font/uber_move_regular"
+                android:text="Shop Name"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_marginTop="4dp"
+                android:id="@+id/et_shop_name"
+                android:padding="14dp"
+                android:hint="Ex: Address"
+                android:textSize="15sp"
+                android:background="@drawable/bg_curve"
+                android:backgroundTint="#d1d1d1"
+                android:layout_height="55dp"/>
+
+
             <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"
                 app:cornerRadius="8dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
                 android:text="Next-Bank Info"
                 android:id="@+id/button_done"
                 android:layout_height="60dp"/>

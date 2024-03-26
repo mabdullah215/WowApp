@@ -19,6 +19,7 @@ import com.mobileapp.wowapp.interations.IResultData;
 import com.mobileapp.wowapp.interations.IResultSingle;
 import com.mobileapp.wowapp.model.City;
 import com.mobileapp.wowapp.model.Compaign;
+import com.mobileapp.wowapp.serviceprovider.model.ServiceProvider;
 import com.starry.file_utils.FileUtils;
 
 import org.jetbrains.annotations.NotNull;
@@ -57,6 +58,7 @@ public class NetworkManager
     Handler mainHandler;
     Customer customer;
     Driver driver;
+    ServiceProvider serviceProvider;
     public OkHttpClient getClient() {
         return client;
     }
@@ -100,6 +102,14 @@ public class NetworkManager
 
     public Customer getCustomer() {
         return customer;
+    }
+
+    public ServiceProvider getServiceProvider() {
+        return serviceProvider;
+    }
+
+    public void setServiceProvider(ServiceProvider serviceProvider) {
+        this.serviceProvider = serviceProvider;
     }
 
     public String [] cityTitles()

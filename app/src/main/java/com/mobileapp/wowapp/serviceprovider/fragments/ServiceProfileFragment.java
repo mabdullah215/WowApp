@@ -25,6 +25,7 @@ import com.mobileapp.wowapp.driver.DriverCampaignHistory;
 import com.mobileapp.wowapp.driver.DriverPersonalInformation;
 import com.mobileapp.wowapp.driver.model.Driver;
 import com.mobileapp.wowapp.network.NetworkManager;
+import com.mobileapp.wowapp.serviceprovider.ServicePersonalInformation;
 import com.mobileapp.wowapp.serviceprovider.model.ServiceProvider;
 
 
@@ -38,7 +39,16 @@ public class ServiceProfileFragment extends Fragment
         View view=inflater.inflate(R.layout.fragment_shop_profile, container, false);
         TextView tvLogout=view.findViewById(R.id.tv_logout);
         TextView tvTerms=view.findViewById(R.id.tv_terms);
+        TextView tvSettings=view.findViewById(R.id.tv_settings);
         TextView tvPrivacy=view.findViewById(R.id.tv_privacy);
+        tvSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                startActivity(new Intent(getContext(), ServicePersonalInformation.class));
+                Animatoo.INSTANCE.animateSlideLeft(getContext());
+            }
+        });
         tvTerms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -57,16 +67,7 @@ public class ServiceProfileFragment extends Fragment
                 startActivity(browserIntent);
             }
         });
-        TextView tvSettings=view.findViewById(R.id.tv_settings);
-        tvSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-                NetworkManager manager=NetworkManager.getInstance(getContext());
-                startActivity(new Intent(getContext(), DriverPersonalInformation.class).putExtra("driver",manager.getDriver()));
-                Animatoo.INSTANCE.animateSlideLeft(view.getContext());
-            }
-        });
+
         tvLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)

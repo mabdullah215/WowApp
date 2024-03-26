@@ -1,5 +1,6 @@
 package com.mobileapp.wowapp.serviceprovider.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.gson.Gson;
 import com.mobileapp.wowapp.Helper;
 import com.mobileapp.wowapp.R;
@@ -24,6 +26,7 @@ import com.mobileapp.wowapp.network.APIList;
 import com.mobileapp.wowapp.network.APIResult;
 import com.mobileapp.wowapp.network.APIResultSingle;
 import com.mobileapp.wowapp.network.NetworkManager;
+import com.mobileapp.wowapp.serviceprovider.AppointmentDetails;
 import com.mobileapp.wowapp.serviceprovider.adapters.ShopAppointmentListAdapter;
 import com.mobileapp.wowapp.serviceprovider.model.ServiceProvider;
 import com.mobileapp.wowapp.serviceprovider.model.ShopAppointment;
@@ -62,6 +65,11 @@ public class ServiceHomeFragment extends Fragment
         TextView tvNumAppointments=view.findViewById(R.id.tv_num_appoitments);
         SimpleDateFormat format = new SimpleDateFormat("EEEE, dd MMMM yyyy");
         tvDate.setText(format.format(new Date()));
+        if(manager.getCityList().isEmpty())
+        {
+            manager.setCityList();
+            manager.setBankList();
+        }
 
         progressLayout.setVisibility(View.VISIBLE);
         manager.getRequest(APIList.GET_PROFILE, new IResultData() {
@@ -75,6 +83,7 @@ public class ServiceHomeFragment extends Fragment
                 {
                     String data=gson.toJson(apiResultSingle.getData());
                     ServiceProvider serviceProvider=gson.fromJson(data,ServiceProvider.class);
+                    manager.setServiceProvider(serviceProvider);
                     tvUsername.setText(serviceProvider.getName());
                     Picasso.get().load(serviceProvider.getProfilePic()).into(imgProfile);
                 }
@@ -105,6 +114,32 @@ public class ServiceHomeFragment extends Fragment
                             List<ShopAppointment>list= Helper.toList(apiResult.getData(),ShopAppointment.class);
                             tvNumAppointments.setText(list.size()+" appointments");
                             adapter.updateList(list);
+
+                            adapter.setOnItemClickListener(new ShopAppointmentListAdapter.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(int position)
+                                {
+                                    ShopAppointment appointment=adapter.getDataList().get(position);
+                                    startActivity(new Intent(getContext(), AppointmentDetails.class).putExtra("appointment",appointment));
+                                    Animatoo.INSTANCE.animateSlideLeft(getContext());
+                                }
+
+                                @Override
+                                public void onDelete(int position) {
+
+                                }
+
+                                @Override
+                                public void onReshcedule(int position) {
+
+                                }
+
+                                @Override
+                                public void mapClick(int positon) {
+
+                                }
+                            });
+
                         }
                     }
                 });

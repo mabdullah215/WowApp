@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".serviceprovider.AppointmentDetails">
+
+    <include layout="@layout/toolbar_layout_centre"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_below="@+id/toolbar_layout"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="80dp"
+                app:cardCornerRadius="8dp"
+                android:id="@+id/card_profile"
+                app:cardUseCompatPadding="true"
+                android:layout_height="80dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:id="@+id/img_driver_name"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/tv_driver_name"
+                android:text="-"
+                android:layout_marginLeft="4dp"
+                android:textSize="18sp"
+                android:layout_below="@+id/card_profile"
+                android:fontFamily="@font/uber_move_medium"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_width="100dp"
+                android:src="@drawable/img_qr_code"
+                android:layout_alignParentRight="true"
+                android:layout_height="100dp"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="16dp"
+            android:padding="8dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Estimated Profit"
+                android:textColor="#666666"
+                android:textSize="12sp"
+                android:id="@+id/tv_start_date"
+                android:fontFamily="@font/uber_move_regular"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/tv_estimated_profit"
+                android:text="-"
+                android:layout_marginTop="4dp"
+                android:layout_below="@id/tv_start_date"
+                android:fontFamily="@font/uber_move_medium"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Timings"
+                android:layout_alignParentRight="true"
+                android:textColor="#666666"
+                android:textSize="12sp"
+                android:id="@+id/label_time"
+                android:fontFamily="@font/uber_move_regular"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/tv_time"
+                android:layout_below="@+id/label_time"
+                android:text="-"
+                android:layout_marginTop="4dp"
+                android:layout_alignParentRight="true"
+                android:fontFamily="@font/uber_move_medium"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content"/>
+
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="16dp"
+            android:padding="8dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Appointment Type"
+                android:textColor="#666666"
+                android:textSize="12sp"
+                android:id="@+id/label_appointment_type"
+                android:fontFamily="@font/uber_move_regular"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/tv_appointment_tyoe"
+                android:text="N/A"
+                android:layout_marginTop="4dp"
+                android:layout_below="@id/label_appointment_type"
+                android:fontFamily="@font/uber_move_medium"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Campaign For"
+                android:layout_alignParentRight="true"
+                android:textColor="#666666"
+                android:textSize="12sp"
+                android:id="@+id/label_campaign"
+                android:fontFamily="@font/uber_move_regular"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/tv_campaign"
+                android:layout_below="@+id/label_campaign"
+                android:text="-"
+                android:layout_marginTop="4dp"
+                android:layout_alignParentRight="true"
+                android:fontFamily="@font/uber_move_medium"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content"/>
+
+
+
+        </RelativeLayout>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="80dp"
+            app:cardCornerRadius="8dp"
+            android:id="@+id/card_campaign_img"
+            app:cardElevation="0dp"
+            android:layout_marginTop="16dp"
+            app:cardUseCompatPadding="true"
+            android:layout_height="80dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:id="@+id/img_campaign"
+                android:layout_height="match_parent"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>

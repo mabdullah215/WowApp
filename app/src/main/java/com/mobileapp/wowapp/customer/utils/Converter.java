@@ -33,6 +33,39 @@ public class Converter
         return convertedDate;
     }
 
+    public static String getDaysDifference(String inputDateStr) {
+        // Parse input date string to Date object
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date inputDate;
+        try {
+            inputDate = sdf.parse(inputDateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return ""; // Return -1 if parsing fails
+        }
+
+        // Get current date
+        Calendar currentDate = Calendar.getInstance();
+        currentDate.setTime(new Date());
+
+        // Get the difference in milliseconds
+        long differenceMillis = inputDate.getTime()-currentDate.getTimeInMillis();
+
+        long hoursDifference = differenceMillis / (1000 * 60 * 60);
+
+        // Convert milliseconds to days
+        long daysDifference = differenceMillis / (1000 * 60 * 60 * 24);
+
+        if (daysDifference < 1) {
+            // If less than 1 day, return hours
+            return hoursDifference + " hours left";
+        } else {
+            // Otherwise, return days
+            return daysDifference + " days left";
+        }
+
+    }
+
     public String getformattedDecimal(double value)
     {
         return String.format("%.2f", value);

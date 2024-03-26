@@ -36,7 +36,7 @@ public class PermitActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_permit);
         imgPermit=findViewById(R.id.img_permit);
-        imgPermit.setImageDrawable(writeTextOnDrawable3());
+        imgPermit.setImageDrawable(writeTextOnDrawable());
         ImageView imgBack=findViewById(R.id.img_back);
         TextView tvTitle=findViewById(R.id.tv_title);
         tvTitle.setText("Permit");

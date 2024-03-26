@@ -47,10 +47,14 @@ import com.mobileapp.wowapp.network.APIResultSingle;
 import com.mobileapp.wowapp.network.NetworkManager;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 
 public class DriverHomeFragment extends Fragment
@@ -169,7 +173,7 @@ public class DriverHomeFragment extends Fragment
                     TextView tvDistance=view.findViewById(R.id.tv_distance);
                     TextView tvStickerRemove=view.findViewById(R.id.tv_sticker_remove);
                     manager.setCompaignAssigned(true);
-                    TextView tvImpressions=view.findViewById(R.id.tv_impressions);
+                    TextView tvTotalEarning=view.findViewById(R.id.tv_total_amount);
                     SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
                     mapFragment.getMapAsync(new OnMapReadyCallback()
                     {
@@ -191,6 +195,8 @@ public class DriverHomeFragment extends Fragment
                     if(compaign.getDistance_covered()>0)
                     {
                         tvDistance.setText(df2.format(compaign.getDistance_covered()));
+                        double totalEarning=compaign.getDistance_covered()*compaign.getCity().getMoney_constant();
+                        tvTotalEarning.setText(df2.format(totalEarning));
                     }
                     cardView.setVisibility(View.VISIBLE);
                     tvStickerRemove.setOnClickListener(new View.OnClickListener() {
@@ -226,6 +232,28 @@ public class DriverHomeFragment extends Fragment
                         }
                     });
 
+                    manager.postWithoutBodyRequest(APIList.DRIVING_ANALYTICS, new IResultData() {
+                        @Override
+                        public void notifyResult(String result)
+                        {
+                            try
+                            {
+                                TextView tvTodayDistance=view.findViewById(R.id.tv_today_distance);
+                                TextView tvTodayEarning=view.findViewById(R.id.tv_today_amount);
+                                JSONObject object=new JSONObject(result).getJSONObject("data");
+                                double todayDistance=object.getDouble("TotalDistance");
+                                double todayearning=object.getDouble("TotalEarning");
+                                tvTodayDistance.setText(String.valueOf(todayDistance));
+                                tvTodayEarning.setText(String.valueOf(todayearning));
+                            }
+                            catch (JSONException e)
+                            {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    });
+
+                    chipPermit.setVisibility(View.VISIBLE);
                     chipPermit.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view)
@@ -234,10 +262,10 @@ public class DriverHomeFragment extends Fragment
                             Animatoo.INSTANCE.animateSlideLeft(getContext());
                         }
                     });
-
                 }
                 else
                 {
+                    chipPermit.setVisibility(View.GONE);
                     imgCompaign.setVisibility(View.VISIBLE);
                     manager.setCompaignAssigned(false);
                     emptyLayout.setVisibility(View.VISIBLE);
@@ -256,7 +284,6 @@ public class DriverHomeFragment extends Fragment
                             }
                         }
                     });
-
                 }
             }
         });

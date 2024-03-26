@@ -18,6 +18,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".driver.RequestDetails"
+            android:exported="false" />
+        <activity
             android:name=".driver.PermitActivity"
             android:exported="false" />
         <activity

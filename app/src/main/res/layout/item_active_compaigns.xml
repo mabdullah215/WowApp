@@ -28,6 +28,9 @@
             android:layout_marginRight="8dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/uber_move_medium"
             android:singleLine="true"
             android:layout_height="wrap_content"/>
 

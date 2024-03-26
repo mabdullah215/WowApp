@@ -131,9 +131,9 @@ public class LoginActivity extends BaseActivity {
                                             }
                                             else if(source.getUserType().equalsIgnoreCase("SHOP"))
                                             {
-                                                /*Intent intent=new Intent(getBaseContext(),ServiceMainActivity.class);
+                                                Intent intent=new Intent(getBaseContext(),ServiceMainActivity.class);
                                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                                startActivity(intent);*/
+                                                startActivity(intent);
                                             }
                                             else if(source.getUserType().equalsIgnoreCase("CUSTOMER"))
                                             {

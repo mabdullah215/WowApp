@@ -48,6 +48,7 @@
                         android:layout_width="wrap_content"
                         android:id="@+id/chip_permit"
                         android:text="Permit"
+                        android:visibility="gone"
                         android:layout_marginRight="8dp"
                         app:chipBackgroundColor="@color/purple_200"
                         android:textColor="@color/white"
@@ -140,7 +141,7 @@
 
                             <TextView
                                 android:layout_width="wrap_content"
-                                android:id="@+id/tv_impressions"
+                                android:id="@+id/tv_today_distance"
                                 android:textSize="22sp"
                                 android:text="0"
                                 android:textColor="@color/purple_200"
@@ -170,7 +171,7 @@
 
                             <TextView
                                 android:layout_width="wrap_content"
-                                android:id="@+id/tv_amount"
+                                android:id="@+id/tv_today_amount"
                                 android:textSize="22sp"
                                 android:textColor="@color/purple_200"
                                 android:text="0"

@@ -1,6 +1,7 @@
 package com.mobileapp.wowapp.driver.adapter;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,11 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.Chip;
 import com.mobileapp.wowapp.R;
+import com.mobileapp.wowapp.customer.utils.Converter;
 import com.mobileapp.wowapp.model.Compaign;
 import com.mobileapp.wowapp.model.SystemRequest;
 import com.squareup.picasso.Picasso;
@@ -47,11 +50,9 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
 
     public void updateList(List<SystemRequest> chatLists)
     {
-        final DiffCallback diffCallback = new DiffCallback(this.dataList, chatLists);
-        final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
         this.dataList.clear();
         this.dataList.addAll(chatLists);
-        diffResult.dispatchUpdatesTo(this);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -77,9 +78,11 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
-        private Chip mTitle;
+        private TextView mTitle;
         private TextView mDuration;
         private TextView mDesc;
+        TextView tvUpload;
+        Chip chip_status;
 
         public ViewHolder(View itemView)
         {
@@ -87,14 +90,28 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
             mTitle=itemView.findViewById(R.id.tv_title);
             mDuration=itemView.findViewById(R.id.tv_duration);
             mDesc=itemView.findViewById(R.id.tv_desc);
+            chip_status=itemView.findViewById(R.id.chip_status);
+            tvUpload=itemView.findViewById(R.id.tv_take_img);
             itemView.setOnClickListener(this);
         }
 
          public void setDetails(final SystemRequest item,int position)
          {
              mTitle.setText(item.getTitle());
-             mDuration.setText(item.getEndTime());
+             String duration=Converter.getDaysDifference(item.getExpiry_at());
+             mDuration.setText(duration);
              mDesc.setText(item.getDescription());
+             if(item.getStatus().equalsIgnoreCase("pending")||item.getStatus().equalsIgnoreCase("rejected"))
+             {
+                 tvUpload.setVisibility(View.VISIBLE);
+                 chip_status.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(mContext, com.dd.circular.progress.button.R.color.cpb_red)));
+             }
+             else
+             {
+                 tvUpload.setVisibility(View.GONE);
+                 chip_status.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(mContext,R.color.purple_200)));
+             }
+             chip_status.setText(item.getStatus());
          }
 
         @Override
@@ -103,42 +120,6 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
                 onItemClickListener.onItemClick(getAdapterPosition());
         }
     }
-
-    public static class DiffCallback extends DiffUtil.Callback
-    {
-        private List<SystemRequest> mOldList;
-        private List<SystemRequest> mNewList;
-
-        public DiffCallback(List<SystemRequest> oldList, List<SystemRequest> newList) {
-            this.mOldList = oldList;
-            this.mNewList = newList;
-        }
-        @Override
-        public int getOldListSize() {
-            return mOldList.size();
-        }
-
-        @Override
-        public int getNewListSize() {
-            return mNewList.size();
-        }
-
-        @Override
-        public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-            // add a unique ID property on Contact and expose a getId() method
-            return mOldList.get(oldItemPosition).getId() .equalsIgnoreCase(mNewList.get(newItemPosition).getId());
-        }
-
-        @Override
-        public boolean areContentsTheSame(int oldItemPosition, int newItemPosition)
-        {
-            SystemRequest oldContact = mOldList.get(oldItemPosition);
-            SystemRequest newContact = mNewList.get(newItemPosition);
-            return oldContact.equals(newContact);
-        }
-    }
-
-
 
 }
 

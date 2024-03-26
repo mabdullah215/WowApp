@@ -312,6 +312,40 @@ public class NetworkManager
         });
     }
 
+    public void postWithoutBodyRequest(String url, IResultData data)
+    {
+        RequestBody body = RequestBody.create(null, new byte[]{});
+        DataSource source=DataSource.getInstance(mContext);
+        Request request = new Request.Builder().addHeader("Authorization", "Bearer "+source.getUserToken()).url(BASE_URL+url).post(body)
+                .cacheControl(CacheControl.FORCE_NETWORK).build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback()
+        {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException
+            {
+                String jsonData = response.body().string();
+                Log.i("responseAPI",jsonData);
+                if(data!=null)
+                {
+                    mainHandler.post(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            data.notifyResult(jsonData);
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e)
+            {
+
+            }
+        });
+    }
+
     public void networkRequest(String url, HashMap<String,Object> params, IResultData result)
     {
         DataSource source=DataSource.getInstance(mContext);

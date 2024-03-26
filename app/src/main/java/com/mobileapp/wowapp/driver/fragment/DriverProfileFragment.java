@@ -3,6 +3,7 @@ package com.mobileapp.wowapp.driver.fragment;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,8 @@ public class DriverProfileFragment extends Fragment {
     {
         View view=inflater.inflate(R.layout.fragment_driver_profile, container, false);
         TextView tvLogout=view.findViewById(R.id.tv_logout);
+        TextView tvTerms=view.findViewById(R.id.tv_terms);
+        TextView tvPrivacy=view.findViewById(R.id.tv_privacy);
         TextView tvCampaignHistory=view.findViewById(R.id.tv_compaign_history);
         tvCampaignHistory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +48,24 @@ public class DriverProfileFragment extends Fragment {
             }
         });
 
+        tvTerms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://wow-ooh.com/terms-conditions/"));
+                startActivity(browserIntent);
+            }
+        });
+
+        tvPrivacy.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://wow-ooh.com/privacy-policy/"));
+                startActivity(browserIntent);
+            }
+        });
         TextView tvSettings=view.findViewById(R.id.tv_settings);
         tvSettings.setOnClickListener(new View.OnClickListener() {
             @Override

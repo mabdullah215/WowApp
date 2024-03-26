@@ -86,6 +86,14 @@ public class Converter
         return convertedDate;
     }
 
+    public static String getShortDate(Long timestamp)
+    {
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTimeInMillis(timestamp);
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        return inputFormat.format(calendar.getTime());
+    }
+
     public static String dateServer(String inputDate)
     {
 
@@ -169,6 +177,19 @@ public class Converter
             Date date = inputFormat.parse(inputDateTime);
 
             SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MMM-yyyy @ h:mm a", Locale.getDefault());
+            return outputFormat.format(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String shortCustomFormat(String inputDateTime) {
+        try {
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+            Date date = inputFormat.parse(inputDateTime);
+
+            SimpleDateFormat outputFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
             return outputFormat.format(date);
         } catch (Exception e) {
             e.printStackTrace();

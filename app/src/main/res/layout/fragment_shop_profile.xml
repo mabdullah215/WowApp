@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:textSize="22sp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Settings"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="Account Details"
+            android:textSize="12sp"
+            android:textColor="@color/purple_200"
+            android:fontFamily="@font/uber_move_bold"
+            android:layout_height="wrap_content"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/square_corner"
+            android:backgroundTint="#f1f1f1"
+            android:layout_marginTop="10dp"
+            android:padding="5dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:text="Account Settings"
+                android:padding="12dp"
+                android:id="@+id/tv_settings"
+                android:drawableRight="@drawable/ic_path"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:background="#f2f2f2"
+                android:layout_height="1dp"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:text="Logout"
+                android:padding="12dp"
+                android:id="@+id/tv_logout"
+                android:textColor="@color/black"
+                android:drawableRight="@drawable/ic_path"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="About App"
+            android:textSize="12sp"
+            android:textColor="@color/purple_200"
+            android:fontFamily="@font/uber_move_bold"
+            android:layout_height="wrap_content"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/square_corner"
+            android:backgroundTint="#f1f1f1"
+            android:layout_marginTop="10dp"
+            android:padding="5dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:text="Terms &amp; Conditions"
+                android:padding="12dp"
+                android:id="@+id/tv_terms"
+                android:drawableRight="@drawable/ic_path"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:background="#f2f2f2"
+                android:layout_height="1dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:text="Contact Us"
+                android:id="@+id/tv_contact_us"
+                android:drawableRight="@drawable/ic_path"
+                android:textColor="@color/black"
+                android:padding="12dp"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:background="#f2f2f2"
+                android:layout_height="1dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:text="Privacy Policy"
+                android:id="@+id/tv_privacy"
+                android:drawableRight="@drawable/ic_path"
+                android:textColor="@color/black"
+                android:padding="12dp"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+
+
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

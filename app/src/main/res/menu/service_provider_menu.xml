@@ -9,13 +9,6 @@
         android:icon="@drawable/ic_service_home"
         app:showAsAction="always" />
 
-    <item
-        android:id="@+id/navigation_compaign"
-        android:orderInCategory="100"
-        android:title="Compaigns"
-        android:icon="@drawable/ic_compaign_img"
-        app:showAsAction="always" />
-
 
     <item
         android:id="@+id/navigation_profile"

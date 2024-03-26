@@ -43,9 +43,6 @@ public class ServiceMainActivity extends AppCompatActivity {
                     case R.id.navigation_home:
                         selectedFragment = new ServiceHomeFragment();
                         break;
-                    case R.id.navigation_compaign:
-                        selectedFragment = new ServiceCompaignFragment();
-                        break;
                     case R.id.navigation_profile:
                         selectedFragment = new ServiceProfileFragment();
                         break;

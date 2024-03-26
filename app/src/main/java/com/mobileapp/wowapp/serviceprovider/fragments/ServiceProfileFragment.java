@@ -3,6 +3,7 @@ package com.mobileapp.wowapp.serviceprovider.fragments;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.mobileapp.wowapp.OnboardActivity;
 import com.mobileapp.wowapp.R;
 import com.mobileapp.wowapp.database.DataSource;
+import com.mobileapp.wowapp.driver.DriverCampaignHistory;
+import com.mobileapp.wowapp.driver.DriverPersonalInformation;
 import com.mobileapp.wowapp.driver.model.Driver;
+import com.mobileapp.wowapp.network.NetworkManager;
 import com.mobileapp.wowapp.serviceprovider.model.ServiceProvider;
 
 
@@ -31,38 +35,60 @@ public class ServiceProfileFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        View view=inflater.inflate(R.layout.fragment_driver_profile, container, false);
-        String userId= FirebaseAuth.getInstance().getUid();
+        View view=inflater.inflate(R.layout.fragment_shop_profile, container, false);
         TextView tvLogout=view.findViewById(R.id.tv_logout);
+        TextView tvTerms=view.findViewById(R.id.tv_terms);
+        TextView tvPrivacy=view.findViewById(R.id.tv_privacy);
+        tvTerms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://wow-ooh.com/terms-conditions/"));
+                startActivity(browserIntent);
+            }
+        });
+
+        tvPrivacy.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://wow-ooh.com/privacy-policy/"));
+                startActivity(browserIntent);
+            }
+        });
+        TextView tvSettings=view.findViewById(R.id.tv_settings);
+        tvSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                NetworkManager manager=NetworkManager.getInstance(getContext());
+                startActivity(new Intent(getContext(), DriverPersonalInformation.class).putExtra("driver",manager.getDriver()));
+                Animatoo.INSTANCE.animateSlideLeft(view.getContext());
+            }
+        });
         tvLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
-                tvLogout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view)
-                    {
-                        new AlertDialog.Builder(getContext())
-                                .setTitle("Logout")
-                                .setMessage("Are you sure you want to logout?")
-                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener()
-                                {
-                                    public void onClick(DialogInterface dialog, int which)
-                                    {
-                                        DataSource source=DataSource.getInstance(getActivity());
-                                        source.setUsertype("");
-                                        Intent i = new Intent(getContext(), OnboardActivity.class);
-                                        startActivity(i);
-                                        getActivity().finish();
-                                        Animatoo.INSTANCE.animateSlideRight(getActivity());
-                                        FirebaseAuth.getInstance().signOut();
-                                    }
-                                })
-                                .setNegativeButton(android.R.string.no, null)
-                                .setIcon(R.drawable.ic_logo)
-                                .show();
-                    }
-                });
+                new AlertDialog.Builder(getContext())
+                        .setTitle("Logout")
+                        .setMessage("Are you sure you want to logout?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                DataSource source=DataSource.getInstance(getActivity());
+                                source.setUsertype("");
+                                Intent i = new Intent(getContext(), OnboardActivity.class);
+                                startActivity(i);
+                                getActivity().finish();
+                                Animatoo.INSTANCE.animateSlideRight(getActivity());
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null)
+                        .setIcon(R.drawable.ic_logo)
+                        .show();
             }
         });
 

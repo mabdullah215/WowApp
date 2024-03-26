@@ -4,6 +4,25 @@ import java.io.Serializable;
 
 public class ServiceProvider implements Serializable
 {
+    int userId;
+    String email;
+    String number;
+    String type;
+    String profilePic;
+    String address;
+    String birthday;
+    String nationality;
+    boolean verified;
+    String bankName;
+    String accountName;
+    String iban;
+    String businessDetails;
+    String registrationNo;
+    String operatingTime;
+    String stickerOnDuration;
+    String stickerOffDuration;
+    String carsWorkedAtSameTime;
+    String carsWorkedInADay;
     String id;
     String name;
     String businessName;
@@ -17,6 +36,166 @@ public class ServiceProvider implements Serializable
     String businessAddress;
     String logo;
     String city;
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
+    }
+
+    public String getIban() {
+        return iban;
+    }
+
+    public void setIban(String iban) {
+        this.iban = iban;
+    }
+
+    public String getBusinessDetails() {
+        return businessDetails;
+    }
+
+    public void setBusinessDetails(String businessDetails) {
+        this.businessDetails = businessDetails;
+    }
+
+    public String getRegistrationNo() {
+        return registrationNo;
+    }
+
+    public void setRegistrationNo(String registrationNo) {
+        this.registrationNo = registrationNo;
+    }
+
+    public String getOperatingTime() {
+        return operatingTime;
+    }
+
+    public void setOperatingTime(String operatingTime) {
+        this.operatingTime = operatingTime;
+    }
+
+    public String getStickerOnDuration() {
+        return stickerOnDuration;
+    }
+
+    public void setStickerOnDuration(String stickerOnDuration) {
+        this.stickerOnDuration = stickerOnDuration;
+    }
+
+    public String getStickerOffDuration() {
+        return stickerOffDuration;
+    }
+
+    public void setStickerOffDuration(String stickerOffDuration) {
+        this.stickerOffDuration = stickerOffDuration;
+    }
+
+    public String getCarsWorkedAtSameTime() {
+        return carsWorkedAtSameTime;
+    }
+
+    public void setCarsWorkedAtSameTime(String carsWorkedAtSameTime) {
+        this.carsWorkedAtSameTime = carsWorkedAtSameTime;
+    }
+
+    public String getCarsWorkedInADay() {
+        return carsWorkedInADay;
+    }
+
+    public void setCarsWorkedInADay(String carsWorkedInADay) {
+        this.carsWorkedInADay = carsWorkedInADay;
+    }
+
+    public String getBusiness_name() {
+        return business_name;
+    }
+
+    public void setBusiness_name(String business_name) {
+        this.business_name = business_name;
+    }
 
     public String getId() {
         return id;
@@ -34,7 +213,9 @@ public class ServiceProvider implements Serializable
         this.id = id;
     }
 
-    public String getName() {
+    public String getName()
+    {
+
         return name;
     }
 

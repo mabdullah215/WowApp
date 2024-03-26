@@ -27,6 +27,7 @@ public class APIList
     public static final String GET_COMPAIGN_LIST="compaign/compaignsList";
     public static final String GET_UPCOMING_COMPAIGN_LIST="campaign/upcoming";
     public static final String GET_APPOINTMENTS="appointments/list/driver";
+    public static final String GET_APPOINTMENTS_SHOP="appointments/list/shop";
     public static final String GET_DRIVER_COMPAIGNS_LIST="campaign/assigned";
     public static final String CREATE_COMPAIGN="campaign/add";
     public static final String EXTEND_CAMPAIGN="campaign/update";

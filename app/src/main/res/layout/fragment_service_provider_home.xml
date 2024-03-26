@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -26,12 +26,11 @@
                 android:layout_height="wrap_content">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="70dp"
-                    android:layout_centerVertical="true"
+                    android:layout_width="50dp"
                     android:layout_alignParentRight="true"
                     android:src="@drawable/ic_user_img"
                     android:id="@+id/user_img"
-                    android:layout_height="70dp"/>
+                    android:layout_height="50dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -56,7 +55,6 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:text="Today"
-                        android:textSize="10sp"
                         android:textColor="@color/black"
                         android:layout_height="wrap_content"/>
 
@@ -64,7 +62,7 @@
                         android:layout_width="wrap_content"
                         android:id="@+id/tv_today"
                         android:textSize="18sp"
-                        android:text="220"
+                        android:text="-"
                         android:layout_height="wrap_content"/>
 
 
@@ -83,14 +81,13 @@
                         android:layout_width="wrap_content"
                         android:text="All Time"
                         android:textColor="@color/black"
-                        android:textSize="10sp"
                         android:layout_height="wrap_content"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:id="@+id/tv_alltime"
                         android:textSize="18sp"
-                        android:text="23242"
+                        android:text="-"
                         android:layout_height="wrap_content"/>
 
 
@@ -129,7 +126,7 @@
                 android:textColor="@color/black"
                 android:id="@+id/tv_num_appoitments"
                 android:fontFamily="@font/uber_move_regular"
-                android:text="04 Appointments"
+                android:text="0 Appointments"
                 android:layout_height="wrap_content"/>
 
             <ImageView
@@ -156,6 +153,9 @@
 
     </LinearLayout>
 
+    <include layout="@layout/progress_bar_view"
+        android:visibility="gone"/>
 
 
-</androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

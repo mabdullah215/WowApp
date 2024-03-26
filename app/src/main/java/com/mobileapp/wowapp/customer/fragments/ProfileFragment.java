@@ -118,30 +118,24 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view)
             {
-                tvLogout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view)
-                    {
-                        new AlertDialog.Builder(getContext())
-                                .setTitle("Logout")
-                                .setMessage("Are you sure you want to logout?")
-                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener()
-                                {
-                                    public void onClick(DialogInterface dialog, int which)
-                                    {
-                                        DataSource source=DataSource.getInstance(getActivity());
-                                        source.setUsertype("");
-                                        getActivity().finish();
-                                        Intent i = new Intent(getContext(), OnboardActivity.class);
-                                        startActivity(i);
-                                        Animatoo.INSTANCE.animateSlideRight(getActivity());
-                                    }
-                                })
-                                .setNegativeButton(android.R.string.no, null)
-                                .setIcon(R.drawable.ic_logo)
-                                .show();
-                    }
-                });
+                new AlertDialog.Builder(getContext())
+                        .setTitle("Logout")
+                        .setMessage("Are you sure you want to logout?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                DataSource source=DataSource.getInstance(getActivity());
+                                source.setUsertype("");
+                                getActivity().finish();
+                                Intent i = new Intent(getContext(), OnboardActivity.class);
+                                startActivity(i);
+                                Animatoo.INSTANCE.animateSlideRight(getActivity());
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null)
+                        .setIcon(R.drawable.ic_logo)
+                        .show();
             }
         });
         return view;

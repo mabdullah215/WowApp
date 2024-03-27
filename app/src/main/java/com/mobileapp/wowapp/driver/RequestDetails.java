@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
 import com.mobileapp.wowapp.BaseActivity;
@@ -28,6 +29,7 @@ import com.mobileapp.wowapp.model.SystemRequest;
 import com.mobileapp.wowapp.network.APIList;
 import com.mobileapp.wowapp.network.APIResult;
 import com.mobileapp.wowapp.network.NetworkManager;
+import com.mobileapp.wowapp.serviceprovider.AppointmentDetails;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -85,9 +87,7 @@ public class RequestDetails extends BaseActivity
             public void onItemClick(int position)
             {
                 adapterPosition=position;
-                Intent intent=new Intent();
-                intent.setAction(MediaStore.ACTION_PICK_IMAGES);
-                startActivityForResult(intent,100);
+                ImagePicker.Companion.with(RequestDetails.this).galleryOnly().cropSquare().compress(200).start();
             }
         });
 

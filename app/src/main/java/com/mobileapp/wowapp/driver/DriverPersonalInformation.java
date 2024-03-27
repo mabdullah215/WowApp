@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
 import com.mobileapp.wowapp.BaseActivity;
@@ -34,6 +35,7 @@ import com.mobileapp.wowapp.interations.IResult;
 import com.mobileapp.wowapp.network.APIList;
 import com.mobileapp.wowapp.network.APIResult;
 import com.mobileapp.wowapp.network.NetworkManager;
+import com.mobileapp.wowapp.serviceprovider.AppointmentDetails;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -52,7 +54,6 @@ public class DriverPersonalInformation extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_personal_information);
         Driver driver=(Driver) getIntent().getSerializableExtra("driver");
-        Log.i("driverdetails",new Gson().toJson(driver));
         EditText etName=findViewById(R.id.et_fullname);
         EditText etNationalID=findViewById(R.id.et_national_id);
         EditText etNationalAddress=findViewById(R.id.et_national_address);
@@ -69,10 +70,7 @@ public class DriverPersonalInformation extends BaseActivity
             @Override
             public void onClick(View view)
             {
-                Intent intent=new Intent();
-                intent.setAction(MediaStore.ACTION_PICK_IMAGES);
-                intent.setType("image/*");
-                startActivityForResult(intent,140);
+                ImagePicker.Companion.with(DriverPersonalInformation.this).galleryOnly().cropSquare().compress(200).start(140);
             }
         });
 

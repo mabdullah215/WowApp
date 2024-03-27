@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.common.moduleinstall.internal.ApiFeatureRequest;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
@@ -31,6 +32,7 @@ import com.mobileapp.wowapp.network.APIList;
 import com.mobileapp.wowapp.network.APIResult;
 import com.mobileapp.wowapp.network.APIResultSingle;
 import com.mobileapp.wowapp.network.NetworkManager;
+import com.mobileapp.wowapp.serviceprovider.AppointmentDetails;
 import com.squareup.picasso.Picasso;
 import com.starry.file_utils.FileUtils;
 
@@ -70,9 +72,11 @@ public class BusinessProfile extends BaseActivity
             @Override
             public void onClick(View view)
             {
-                Intent intent=new Intent();
+                /*Intent intent=new Intent();
                 intent.setAction(MediaStore.ACTION_PICK_IMAGES);
-                startActivityForResult(intent,100);
+                startActivityForResult(intent,100);*/
+
+                ImagePicker.Companion.with(BusinessProfile.this).galleryOnly().cropSquare().compress(200).start();
             }
         });
         buttonDone.setOnClickListener(new View.OnClickListener() {

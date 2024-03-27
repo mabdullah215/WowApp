@@ -16,12 +16,14 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.material.button.MaterialButton;
 import com.mobileapp.wowapp.BaseActivity;
 import com.mobileapp.wowapp.R;
 import com.mobileapp.wowapp.customer.utils.Converter;
 import com.mobileapp.wowapp.network.NetworkManager;
 import com.mobileapp.wowapp.serviceprovider.model.ServiceProvider;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -56,14 +58,12 @@ public class ServicePersonalInformation extends BaseActivity {
         etBusinessAddress.setText(manager.getServiceProvider().getBusinessAddress());
         etShopName.setText(manager.getServiceProvider().getBusinessName());
         citySpinner.setSelection(Integer.parseInt(manager.getServiceProvider().getCity())-1);
-        Picasso.get().load(manager.getServiceProvider().getProfilePic()).fit().into(imgProfile);
+        Picasso.get().load(manager.getServiceProvider().getProfilePic()).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).fit().into(imgProfile);
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
-                Intent intent=new Intent();
-                intent.setAction(MediaStore.ACTION_PICK_IMAGES);
-                startActivityForResult(intent,100);
+                ImagePicker.Companion.with(ServicePersonalInformation.this).galleryOnly().cropSquare().compress(200).start();
             }
         });
         tvDateofBirth.setOnClickListener(new View.OnClickListener() {

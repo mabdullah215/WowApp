@@ -118,7 +118,7 @@ public class AppointmentFragment extends Fragment
                 Intent intent=new Intent(getContext(),CompaignBooking.class);
                 intent.putExtra("item",appointment.getShop());
                 intent.putExtra("campaign",appointment.getCampaign());
-                intent.putExtra("request_type",0);
+                intent.putExtra("request_type",appointment.getSticker_request());
                 intent.putExtra("appointmentId",appointment.getId());
                 startActivity(intent);
                 Animatoo.INSTANCE.animateSlideLeft(getContext());

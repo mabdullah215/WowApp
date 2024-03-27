@@ -93,6 +93,7 @@ public class ServiceBankInformation extends BaseActivity {
         if(!provider.getProfilePic().startsWith("https://wow-bucket.s3.us-east-2.amazonaws.com"))
         {
             map.put("profilePic",provider.getProfilePic());
+            manager.getServiceProvider().setProfilePic(provider.getProfilePic());
         }
         manager.postRequest(APIList.UPDATE_PROFILE, map, new IResultData() {
             @Override

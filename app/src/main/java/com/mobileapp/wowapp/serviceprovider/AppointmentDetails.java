@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
 import com.mobileapp.wowapp.BaseActivity;
@@ -80,9 +81,7 @@ public class AppointmentDetails extends BaseActivity {
                 public void onItemClick(int position)
                 {
                     adapterPosition=position;
-                    Intent intent=new Intent();
-                    intent.setAction(MediaStore.ACTION_PICK_IMAGES);
-                    startActivityForResult(intent,100);
+                    ImagePicker.Companion.with(AppointmentDetails.this).galleryOnly().cropSquare().compress(200).start();
                 }
             });
 
@@ -108,20 +107,18 @@ public class AppointmentDetails extends BaseActivity {
                       else
                       {
                           showLoading();
-                          HashMap<String,String> map=new HashMap<>();
-                          map.put("car_front",adapter.getDocuments().get(0).getImgRes());
-                          map.put("car_back",adapter.getDocuments().get(1).getImgRes());
-                          map.put("car_left",adapter.getDocuments().get(2).getImgRes());
-                          map.put("car_right",adapter.getDocuments().get(3).getImgRes());
-                          map.put("appointmentId",""+appointment.getId());
-                          map.put("campaign_id",String.valueOf(appointment.getCampaign().getId()));
-                          manager.uploadImages(APIList.UPLOAD_DOCUMENTS_APPOINTMENT, map, new IResultData() {
+                          HashMap<String,Object> map=new HashMap<>();
+                          map.put("carFront",adapter.getDocuments().get(0).getImgRes());
+                          map.put("carBack",adapter.getDocuments().get(1).getImgRes());
+                          map.put("carLeft",adapter.getDocuments().get(2).getImgRes());
+                          map.put("carRight",adapter.getDocuments().get(3).getImgRes());
+                          map.put("appointmentId",appointment.getId());
+                          manager.postSpecialRequest(APIList.UPLOAD_DOCUMENTS_APPOINTMENT, map, new IResultData() {
                               @Override
                               public void notifyResult(String result)
                               {
                                   Gson gson=new Gson();
                                   APIResultSingle apiResultSingle=gson.fromJson(result,APIResultSingle.class);
-                                  Toast.makeText(AppointmentDetails.this, apiResultSingle.getMessage(), Toast.LENGTH_SHORT).show();
                                   if(apiResultSingle.getStatusCode().equalsIgnoreCase("200"))
                                   {
                                       manager.getRequest(APIList.COMPLETE_APPOINTMENT + "?appointmentId=" + appointment.getId(), new IResultData() {

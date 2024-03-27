@@ -322,6 +322,89 @@ public class NetworkManager
         });
     }
 
+    public void postSpecialRequest(String url, HashMap<String,Object> params, IResultData data)
+    {
+        DataSource source=DataSource.getInstance(mContext);
+        MultipartBody.Builder builder=new MultipartBody.Builder().setType(MultipartBody.FORM);
+        for ( Map.Entry<String, Object> entry : params.entrySet())
+        {
+            if(entry.getKey().contains("appointmentId"))
+            {
+                builder.addFormDataPart(entry.getKey(), entry.getValue().toString());
+            }
+            else
+            {
+                String timestamp=String.valueOf(System.currentTimeMillis());
+                FileUtils fileUtils=new FileUtils(mContext);
+                String path=fileUtils.getPath(Uri.parse(entry.getValue().toString()));
+                File file=new File(path);
+                builder.addFormDataPart(entry.getKey(), timestamp+".jpg",RequestBody.create(MediaType.parse("image/*"), file));
+            }
+        }
+        RequestBody body = builder.build();
+        Request request = new Request.Builder().addHeader("Authorization", "Bearer "+source.getUserToken()).url(BASE_URL+url).post(body)
+                .cacheControl(CacheControl.FORCE_NETWORK).build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback()
+        {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException
+            {
+                String jsonData = response.body().string();
+                Log.i("responseAPI",jsonData);
+                if(data!=null)
+                {
+                    mainHandler.post(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            data.notifyResult(jsonData);
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e)
+            {
+
+            }
+        });
+    }
+
+    public void imageRequest(String url, RequestBody body, IResultData data)
+    {
+        DataSource source=DataSource.getInstance(mContext);
+        Request request = new Request.Builder().addHeader("Authorization", "Bearer "+source.getUserToken()).url(BASE_URL+url).post(body)
+                .cacheControl(CacheControl.FORCE_NETWORK).build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback()
+        {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException
+            {
+                String jsonData = response.body().string();
+                Log.i("responseAPI",jsonData);
+                if(data!=null)
+                {
+                    mainHandler.post(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            data.notifyResult(jsonData);
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e)
+            {
+
+            }
+        });
+    }
+
     public void postWithoutBodyRequest(String url, IResultData data)
     {
         RequestBody body = RequestBody.create(null, new byte[]{});

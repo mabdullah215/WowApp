@@ -139,7 +139,7 @@ public class AppointmentListAdapter extends RecyclerView.Adapter<AppointmentList
                  editLayout.setVisibility(View.GONE);
                  status.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#198c19")));
              }
-             else if(item.getStatus().equalsIgnoreCase("Cancelled"))
+             else if(item.getStatus().equalsIgnoreCase("Failed"))
              {
                  editLayout.setVisibility(View.GONE);
                  status.setChipBackgroundColor(ColorStateList.valueOf(Color.RED));

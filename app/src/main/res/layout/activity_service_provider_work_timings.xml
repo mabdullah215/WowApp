@@ -85,6 +85,7 @@
                 android:gravity="center_vertical"
                 android:textColor="@color/black"
                 android:textSize="14sp"
+                android:id="@+id/tv_opening_time"
                 android:drawableRight="@drawable/ic_path"
                 android:layout_marginTop="4dp"
                 android:background="@drawable/square_corner"
@@ -101,7 +102,7 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:id="@+id/tv_bank_name"
+                android:id="@+id/tv_closing_time"
                 android:padding="15dp"
                 android:text="05:00 PM"
                 android:gravity="center_vertical"
@@ -122,17 +123,22 @@
                 android:fontFamily="@font/uber_move_regular"
                 android:layout_height="wrap_content"/>
 
-            <TextView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:padding="15dp"
-                android:text="30"
-                android:gravity="center_vertical"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:drawableRight="@drawable/ic_path"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:cardCornerRadius="8dp"
                 android:layout_marginTop="4dp"
-                android:background="@drawable/square_corner"
-                android:layout_height="55dp"/>
+                app:strokeColor="#f2f2f2"
+                android:layout_height="wrap_content">
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:id="@+id/spinner_duration"
+                    android:padding="12dp"
+                    android:layout_height="55dp"/>
+
+            </com.google.android.material.card.MaterialCardView>
 
 
             <TextView
@@ -151,6 +157,7 @@
                 android:gravity="center_vertical"
                 android:textColor="@color/black"
                 android:textSize="14sp"
+                android:id="@+id/tv_break_start"
                 android:drawableRight="@drawable/ic_path"
                 android:layout_marginTop="4dp"
                 android:background="@drawable/square_corner"
@@ -173,6 +180,7 @@
                 android:gravity="center_vertical"
                 android:textColor="@color/black"
                 android:textSize="14sp"
+                android:id="@+id/tv_break_end"
                 android:drawableRight="@drawable/ic_path"
                 android:layout_marginTop="4dp"
                 android:background="@drawable/square_corner"

@@ -19,12 +19,15 @@ import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.material.button.MaterialButton;
 import com.mobileapp.wowapp.BaseActivity;
 import com.mobileapp.wowapp.R;
+import com.mobileapp.wowapp.customer.utils.Converter;
 import com.mobileapp.wowapp.network.NetworkManager;
 import com.mobileapp.wowapp.serviceprovider.model.ServiceProvider;
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class ServicePersonalInformation extends BaseActivity {
 
@@ -45,6 +48,14 @@ public class ServicePersonalInformation extends BaseActivity {
         citySpinner.setAdapter(manager.getCityListAdapter());
         MaterialButton buttonNext=findViewById(R.id.button_done);
         imgProfile=findViewById(R.id.img_profile);
+
+        etName.setText(manager.getServiceProvider().getName());
+        etNationalID.setText(manager.getServiceProvider().getRegistrationNo());
+        etNationalAddress.setText(manager.getServiceProvider().getAddress());
+        tvDateofBirth.setText(Converter.getBirthdayDate(manager.getServiceProvider().getBirthday()));
+        etBusinessAddress.setText(manager.getServiceProvider().getBusinessAddress());
+        etShopName.setText(manager.getServiceProvider().getBusinessName());
+        citySpinner.setSelection(Integer.parseInt(manager.getServiceProvider().getCity())-1);
         Picasso.get().load(manager.getServiceProvider().getProfilePic()).fit().into(imgProfile);
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +91,22 @@ public class ServicePersonalInformation extends BaseActivity {
                 else
                 {
                     ServiceProvider serviceProvider=new ServiceProvider();
-                    startActivity(new Intent(getBaseContext(), ServiceBankInformation.class).putExtra("item",serviceProvider));
+                    serviceProvider.setName(name);
+                    serviceProvider.setRegistrationNo(nationalID);
+                    serviceProvider.setAddress(address);
+                    serviceProvider.setBirthday(dateofBirth);
+                    serviceProvider.setBusinessAddress(businessAddress);
+                    serviceProvider.setBusinessName(shopName);
+                    serviceProvider.setCity(String.valueOf(citySpinner.getSelectedItemPosition()+1));
+                    if(uri!=null)
+                    {
+                        serviceProvider.setProfilePic(uri.toString());
+                    }
+                    else
+                    {
+                        serviceProvider.setProfilePic(manager.getServiceProvider().getProfilePic());
+                    }
+                    startActivity(new Intent(getBaseContext(), ServiceProviderWorkTimings.class).putExtra("item",serviceProvider));
                     Animatoo.INSTANCE.animateSlideLeft(ServicePersonalInformation.this);
                 }
 
@@ -97,6 +123,8 @@ public class ServicePersonalInformation extends BaseActivity {
 
     }
 
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
     {
@@ -104,14 +132,14 @@ public class ServicePersonalInformation extends BaseActivity {
         if (resultCode == Activity.RESULT_OK)
         {
             uri=data.getData();
-            Picasso.get().load(uri).into(imgProfile);
+            Picasso.get().load(uri).fit().into(imgProfile);
         }
     }
 
     public void showDatePicker(TextView tv)
     {
         Calendar calendar=Calendar.getInstance();
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yyyy");
         new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 calendar.set(year, monthOfYear, dayOfMonth);

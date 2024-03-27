@@ -8,6 +8,9 @@ public class APIList
     public static final String REGISTER ="register";
     public static final String UPDATE_PROFILE ="profile/update";
     public static final String UPLOAD_DOCUMENTS ="documents/upload";
+    public static final String UPLOAD_DOCUMENTS_APPOINTMENT ="appointments/upload";
+    public static final String COMPLETE_APPOINTMENT ="appointments/complete";
+    public static final String CANCEL_APPOINTMENT ="appointments/fail";
     public static final String START_DRIVING="driver/start";
     public static final String STOP_DRIVING="driver/driving";
     public static final String DRIVING_ANALYTICS="analytics/driver";

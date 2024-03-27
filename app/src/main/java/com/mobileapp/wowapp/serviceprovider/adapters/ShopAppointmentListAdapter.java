@@ -128,7 +128,7 @@ public class ShopAppointmentListAdapter extends RecyclerView.Adapter<ShopAppoint
              {
                  status.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor("#198c19")));
              }
-             else if(item.getStatus().equalsIgnoreCase("Cancelled"))
+             else if(item.getStatus().equalsIgnoreCase("Failed"))
              {
                  status.setChipBackgroundColor(ColorStateList.valueOf(Color.RED));
              }

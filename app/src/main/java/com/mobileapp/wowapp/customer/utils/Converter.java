@@ -33,6 +33,22 @@ public class Converter
         return convertedDate;
     }
 
+    public static String getBirthdayDate(String inputDate)
+    {
+        String res="";
+        SimpleDateFormat inputFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+        String convertedDate="";
+        try
+        {
+            Date date = inputFormat.parse(inputDate);
+            convertedDate = outputFormat.format(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return convertedDate;
+    }
+
     public static String getDaysDifference(String inputDateStr) {
         // Parse input date string to Date object
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -197,6 +213,36 @@ public class Converter
         }
     }
 
+    public static String getformattedTime(int hours, int mins)
+    {
+        if(mins>0)
+            mins=30;
+        String timeSet = "";
+        if (hours > 12) {
+            hours -= 12;
+            timeSet = "PM";
+        } else if (hours == 0) {
+            hours += 12;
+            timeSet = "AM";
+        } else if (hours == 12) {
+            timeSet = "PM";
+        } else {
+            timeSet = "AM";
+        }
+
+        // Append in a StringBuilder
+        String aTime = new StringBuilder().append(pad(hours)).append(':')
+                .append(pad(mins)).append(" ").append(timeSet).toString();
+
+        return aTime;
+    }
+    private static String pad(int c) {
+        if (c >= 10)
+            return String.valueOf(c);
+        else
+            return "0" + String.valueOf(c);
+    }
+
 
     public static String TimeConverter(String str)
     {
@@ -211,4 +257,19 @@ public class Converter
         }
         return convertedTime;
     }
+
+    public static String reverseTimeConverter(String str)
+    {
+        SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+        SimpleDateFormat inputFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
+        String convertedTime="";
+        try {
+            Date time = inputFormat.parse(str);
+            convertedTime = outputFormat.format(time);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return convertedTime;
+    }
+
 }

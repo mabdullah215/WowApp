@@ -1,7 +1,6 @@
 package com.mobileapp.wowapp.driver;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -141,6 +140,7 @@ public class RequestDetails extends BaseActivity
                             hideLoading();
                             APIResult apiResult=new Gson().fromJson(result,APIResult.class);
                             Toast.makeText(RequestDetails.this,apiResult.getMessage(), Toast.LENGTH_SHORT).show();
+                            finish();
                         }
                     });
                 }

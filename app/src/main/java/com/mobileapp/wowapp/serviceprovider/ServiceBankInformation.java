@@ -1,22 +1,27 @@
 package com.mobileapp.wowapp.serviceprovider;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Spinner;
 import android.widget.Toast;
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.material.button.MaterialButton;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
 import com.mobileapp.wowapp.BaseActivity;
 import com.mobileapp.wowapp.R;
-import com.mobileapp.wowapp.database.DataSource;
+import com.mobileapp.wowapp.interations.IResultData;
+import com.mobileapp.wowapp.network.APIList;
+import com.mobileapp.wowapp.network.APIResultSingle;
+import com.mobileapp.wowapp.network.NetworkManager;
 import com.mobileapp.wowapp.serviceprovider.model.ServiceProvider;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 
 public class ServiceBankInformation extends BaseActivity {
 
@@ -24,35 +29,32 @@ public class ServiceBankInformation extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_bank_information);
-        TextView tvBankName=findViewById(R.id.tv_bank_name);
+        Spinner bankSpinner=findViewById(R.id.spinner_bank);
+        NetworkManager manager=NetworkManager.getInstance(this);
+        bankSpinner.setAdapter(manager.getBankListAdapter());
         EditText ibanNumber=findViewById(R.id.et_iban_number);
-        tvBankName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String[] typeList={"National Commercial Bank","Al Rajhi Bank","Samba Financial Group", "Riyad Bank",
-                        "Banque Saudi Fransi", "Saudi British Bank", "Arab National Bank",
-                        "Alinma Bank", "Alawwal Bank", "Saudi Investment Bank"};
-                showList(tvBankName,typeList);
-            }
-        });
+        EditText etAccountName=findViewById(R.id.et_account_name);
         MaterialButton buttonNext=findViewById(R.id.button_done);
+        ibanNumber.setText(manager.getServiceProvider().getIban());
+        etAccountName.setText(manager.getServiceProvider().getAccountName());
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
-                String bankName=tvBankName.getText().toString().trim();
+                ServiceProvider serviceProvider=(ServiceProvider) getIntent().getSerializableExtra("item");
+                int bankid=manager.getBankList().get(bankSpinner.getSelectedItemPosition()).getId();
                 String iban=ibanNumber.getText().toString().trim();
-
-                if(bankName.equalsIgnoreCase("Select Bank")||iban.isEmpty())
+                String accountName=etAccountName.getText().toString().trim();
+                if(iban.isEmpty()||accountName.isEmpty())
                 {
-                    showToast("Infomration Missing");
+                    showToast("Information Missing");
                 }
                 else
                 {
-                    ServiceProvider provider=(ServiceProvider) getIntent().getSerializableExtra("item");
-                    //provider.setBankName(bankName);
-                    //provider.setiBan(iban);
-                    updateFirebaseData(provider);
+                    serviceProvider.setBankName(String.valueOf(bankid));
+                    serviceProvider.setAccountName(accountName);
+                    serviceProvider.setIban(iban);
+                    uploadData(serviceProvider);
                 }
             }
         });
@@ -66,35 +68,69 @@ public class ServiceBankInformation extends BaseActivity {
         });
     }
 
-    public void updateFirebaseData(ServiceProvider provider)
+    public void uploadData(ServiceProvider provider)
     {
-        String uid= FirebaseAuth.getInstance().getUid();
-        provider.setId(uid);
-        DocumentReference mPostRef= FirebaseFirestore.getInstance().collection("service_providers").document(provider.getId());
-        mPostRef.set(provider);
-        Toast.makeText(this, "Account created successfully", Toast.LENGTH_SHORT).show();
-        DataSource source=DataSource.getInstance(this);
-        source.setUsertype("");
-        Intent i = new Intent(ServiceBankInformation.this, ServiceMainActivity.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(i);
-        Animatoo.INSTANCE.animateSlideLeft(ServiceBankInformation.this);
-    }
+        NetworkManager manager=NetworkManager.getInstance(this);
+        showLoading();
 
+        HashMap<String,Object> map=new HashMap<>();
+        map.put("accountName",provider.getAccountName());
+        map.put("name",provider.getName());
+        map.put("address",provider.getAddress());
+        map.put("businessStartTime",provider.getBusinessStartTime());
+        map.put("businessEndTime",provider.getBusinessEndTime());
+        map.put("breakStartTime",provider.getBreakStartTime());
+        map.put("breakEndTime",provider.getBreakEndTime());
+        map.put("city",provider.getCity());
+        map.put("businessName",provider.getBusinessName());
+        map.put("registrationNo",provider.getRegistrationNo());
+        map.put("businessAddress",provider.getBusinessAddress());
+        map.put("bankId","1");
+        map.put("nationality","Saudia Arabia");
+        map.put("birthday",getformattedDate(provider.getBirthday()));
+        map.put("iban",provider.getIban());
 
-    private void showList(TextView et, String[] list)
-    {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Select from below");
-        builder.setItems(list, new DialogInterface.OnClickListener()
+        if(!provider.getProfilePic().startsWith("https://wow-bucket.s3.us-east-2.amazonaws.com"))
         {
+            map.put("profilePic",provider.getProfilePic());
+        }
+        manager.postRequest(APIList.UPDATE_PROFILE, map, new IResultData() {
             @Override
-            public void onClick(DialogInterface dialog, int which)
+            public void notifyResult(String result)
             {
-                et.setText(list[which]);
+                hideLoading();
+                Gson gson=new Gson();
+                APIResultSingle apiResultSingle=gson.fromJson(result,APIResultSingle.class);
+                if(apiResultSingle.getStatusCode().equalsIgnoreCase("200"))
+                {
+                    Toast.makeText(ServiceBankInformation.this, apiResultSingle.getMessage(), Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(ServiceBankInformation.this, ServiceMainActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    Animatoo.INSTANCE.animateSlideRight(ServiceBankInformation.this);
+                    startActivity(i);
+                }
             }
         });
-        AlertDialog dialog = builder.create();
-        dialog.show();
+
     }
+
+    public String getformattedDate(String str)
+    {
+        String res="";
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleFormat=new SimpleDateFormat("dd-MMM-yyyy");
+        try
+        {
+            Date date=simpleFormat.parse(str);
+            date.setSeconds(0);
+            date.setMinutes(0);
+            date.setHours(0);
+            res=format.format(date);
+            return res;
+        } catch (ParseException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

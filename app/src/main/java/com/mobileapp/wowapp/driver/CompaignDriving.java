@@ -189,7 +189,7 @@ public class CompaignDriving extends BaseActivity
         mMap.animateCamera(CameraUpdateFactory.newLatLng(destination));
         final LatLngInterpolator latLngInterpolator = new LatLngInterpolator.LinearFixed();
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(0, 1);
-        valueAnimator.setDuration(9500); // Change duration as per your requirement
+        valueAnimator.setDuration(7000); // Change duration as per your requirement
         valueAnimator.setInterpolator(input -> input); // Linear interpolation
         valueAnimator.addUpdateListener(animation -> {
             float v = animation.getAnimatedFraction();

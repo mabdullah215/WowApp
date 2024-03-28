@@ -242,9 +242,9 @@ public class DriverHomeFragment extends Fragment
                                 TextView tvTodayEarning=view.findViewById(R.id.tv_today_amount);
                                 JSONObject object=new JSONObject(result).getJSONObject("data");
                                 double todayDistance=object.getDouble("TotalDistance");
-                                double todayearning=object.getDouble("TotalEarning");
-                                tvTodayDistance.setText(String.valueOf(todayDistance));
-                                tvTodayEarning.setText(String.valueOf(todayearning));
+                                double totalEarning=object.getDouble("TotalEarning");
+                                tvTodayDistance.setText(df2.format(todayDistance));
+                                tvTodayEarning.setText(df2.format(totalEarning));
                             }
                             catch (JSONException e)
                             {

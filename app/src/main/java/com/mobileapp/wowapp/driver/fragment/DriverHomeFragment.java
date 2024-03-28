@@ -2,6 +2,7 @@ package com.mobileapp.wowapp.driver.fragment;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,6 +17,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -111,7 +117,6 @@ public class DriverHomeFragment extends Fragment
                 });*/
 
 
-
         manager.getRequest(APIList.GET_PROFILE, new IResultData() {
             @Override
             public void notifyResult(String result)
@@ -124,7 +129,7 @@ public class DriverHomeFragment extends Fragment
                     manager.setDriver(driver);
                     tvName.setText(driver.getName());
                     manager.setDriver(driver);
-                    getAssignedCompaigns(view,compaignView,driver);
+                    getAssignedCompaigns(view,compaignView);
 
                     if(!driver.isVerified())
                     {
@@ -149,13 +154,14 @@ public class DriverHomeFragment extends Fragment
         return view;
     }
 
-    public void getAssignedCompaigns(View view,LinearLayout cardView,Driver driver)
+    public void getAssignedCompaigns(View view,LinearLayout cardView)
     {
         Gson gson=new Gson();
         ImageView imgCompaign=view.findViewById(R.id.img_compaign);
         LinearLayout emptyLayout=view.findViewById(R.id.empty_state);
         Chip chipPermit=view.findViewById(R.id.chip_permit);
         NetworkManager manager=NetworkManager.getInstance(getContext());
+        Driver driver=manager.getDriver();
         manager.getRequest(APIList.GET_DRIVER_COMPAIGNS_LIST, new IResultData() {
             @Override
             public void notifyResult(String result)
@@ -210,28 +216,7 @@ public class DriverHomeFragment extends Fragment
                     });
                     final LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
                     MaterialButton startDrive=view.findViewById(R.id.button_start_driving);
-                    startDrive.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view)
-                        {
-                            if(Converter.compareDate(compaign.getStart_datetime()))
-                            {
-                                if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
-                                {
-                                    ((BaseActivity)getActivity()).askForPermission(Manifest.permission.ACCESS_FINE_LOCATION, 100);
-                                }
-                                else
-                                {
-                                    startActivity(new Intent(getContext(), CompaignDriving.class).putExtra("campaign",compaign));
-                                }
-                            }
-                            else
-                            {
-                                Toast.makeText(getContext(), "campaign not started yet", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-
+                    
                     manager.postWithoutBodyRequest(APIList.DRIVING_ANALYTICS, new IResultData() {
                         @Override
                         public void notifyResult(String result)
@@ -245,6 +230,31 @@ public class DriverHomeFragment extends Fragment
                                 double totalEarning=object.getDouble("TotalEarning");
                                 tvTodayDistance.setText(df2.format(todayDistance));
                                 tvTodayEarning.setText(df2.format(totalEarning));
+                                startDrive.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view)
+                                    {
+                                        if(!Converter.compareDate(compaign.getStart_datetime()))
+                                        {
+                                            Toast.makeText(getContext(), "campaign not started yet", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else if(todayDistance>=compaign.getKms_per_day())
+                                        {
+                                            Toast.makeText(getContext(), "You have already drove allowed Kms for today.Please come back tomorrow", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+                                        {
+                                            ((BaseActivity)getActivity()).askForPermission(Manifest.permission.ACCESS_FINE_LOCATION, 100);
+                                        }
+                                        else
+                                        {
+
+                                            startActivity(new Intent(getContext(), CompaignDriving.class).putExtra("campaign",compaign));
+                                        }
+                                    }
+                                });
+                                
+                                
                             }
                             catch (JSONException e)
                             {

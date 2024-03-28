@@ -23,6 +23,7 @@ import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.gms.maps.CameraUpdate;
@@ -63,6 +64,7 @@ public class CompaignDriving extends BaseActivity
     GoogleMap mMap;
     int drivingId=0;
     float todayKms=0;
+    float currentKms=0;
     Marker positonMarker;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -73,8 +75,11 @@ public class CompaignDriving extends BaseActivity
         MyLocationListener locationListener=new MyLocationListener(this);
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
+
                 finish();
+                setResult(RESULT_OK);
                 Animatoo.INSTANCE.animateSlideRight(CompaignDriving.this);
             }
         });
@@ -85,31 +90,6 @@ public class CompaignDriving extends BaseActivity
         NetworkManager manager=NetworkManager.getInstance(this);
         TextView tvDistance=findViewById(R.id.tv_distance);
         MaterialButton startDriving=findViewById(R.id.button_driving);
-        startDriving.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-                if(startDriving.getText().toString().equalsIgnoreCase("Start Driving"))
-                {
-                    locationListener.startListening();
-                    startDriving.setText("Stop Driving");
-                    startDriving.getBackground().setTint(getColor(R.color.stop_driving));
-                }
-                else
-                {
-                    locationListener.stopListening();
-                    startDriving.setText("Start Driving");
-                    startDriving.getBackground().setTint(getColor(R.color.start_driving));
-                    HashMap<String,Object>map=new HashMap<>();
-                    map.put("kms",(int)todayKms);
-                    map.put("latitude",positonMarker.getPosition().latitude);
-                    map.put("longitude",positonMarker.getPosition().longitude);
-                    map.put("isDriving",0);
-                    map.put("drivingId",drivingId);
-                    manager.postRequest(APIList.STOP_DRIVING,map,null);
-                }
-            }
-        });
         SupportMapFragment mapFragment = SupportMapFragment.newInstance();
         getSupportFragmentManager().beginTransaction().add(R.id.map, mapFragment).commit();
         mapFragment.getMapAsync(new OnMapReadyCallback()
@@ -144,17 +124,25 @@ public class CompaignDriving extends BaseActivity
                             source.setLatitude(positonMarker.getPosition().latitude);
                             source.setLongitude(positonMarker.getPosition().longitude);
                             float distance=source.distanceTo(location)/1000;
-                            todayKms=todayKms+distance;
-                            double amount=todayKms*compaign.getCity().getMoney_constant();
-                            DecimalFormat df2 = new DecimalFormat("#.#");
-                            tvDistance.setText(df2.format(todayKms));
-                            tvAmount.setText(df2.format(amount));
-                            animateMarker(new LatLng(position.latitude,position.longitude));
+                            currentKms=currentKms+distance;
+                            if((currentKms+todayKms)<compaign.getKms_per_day())
+                            {
+                                double amount=currentKms*compaign.getCity().getMoney_constant();
+                                DecimalFormat df2 = new DecimalFormat("#.#");
+                                tvDistance.setText(df2.format(currentKms));
+                                tvAmount.setText(df2.format(amount));
+                                animateMarker(new LatLng(position.latitude,position.longitude));
+                            }
+                            else
+                            {
+                                locationListener.stopListening();
+                                startDriving.setText("Start Driving");
+                                startDriving.getBackground().setTint(getColor(R.color.inactivecolor));
+                                stopDriving();
+                            }
                         }
                     }
                 });
-
-
                 manager.postRequest(APIList.START_DRIVING, map, new IResultData() {
                     @Override
                     public void notifyResult(String result)
@@ -168,6 +156,35 @@ public class CompaignDriving extends BaseActivity
                             locationListener.startListening();
                             startDriving.setText("Stop Driving");
                             startDriving.getBackground().setTint(getColor(R.color.stop_driving));
+
+                            startDriving.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view)
+                                {
+                                    if(currentKms<compaign.getKms_per_day())
+                                    {
+                                        if(startDriving.getText().toString().equalsIgnoreCase("Start Driving"))
+                                        {
+                                            locationListener.startListening();
+                                            startDriving.setText("Stop Driving");
+                                            startDriving.getBackground().setTint(getColor(R.color.stop_driving));
+                                        }
+                                        else
+                                        {
+                                            locationListener.stopListening();
+                                            startDriving.setText("Start Driving");
+                                            startDriving.getBackground().setTint(getColor(R.color.start_driving));
+                                            stopDriving();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Toast.makeText(getBaseContext(), "You have already drove allowed Kms for today.Please come back tomorrow", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
+
                         }
                         catch (JSONException e)
                         {
@@ -175,8 +192,22 @@ public class CompaignDriving extends BaseActivity
                         }
                     }
                 });
+
             }
         });
+    }
+
+    public void stopDriving()
+    {
+        NetworkManager manager=NetworkManager.getInstance(this);
+        HashMap<String,Object>map=new HashMap<>();
+        //map.put("kms",(int)currentKms);
+        map.put("kms",1);
+        map.put("latitude",positonMarker.getPosition().latitude);
+        map.put("longitude",positonMarker.getPosition().longitude);
+        map.put("isDriving",0);
+        map.put("drivingId",drivingId);
+        manager.postRequest(APIList.STOP_DRIVING,map,null);
     }
 
     @Override

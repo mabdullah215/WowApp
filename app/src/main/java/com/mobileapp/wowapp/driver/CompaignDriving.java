@@ -77,6 +77,7 @@ public class CompaignDriving extends BaseActivity
             public void onClick(View view)
             {
                 finish();
+                locationListener.stopListening();
                 Animatoo.INSTANCE.animateSlideRight(CompaignDriving.this);
             }
         });
@@ -123,7 +124,7 @@ public class CompaignDriving extends BaseActivity
                             currentKms=currentKms+distance;
                             float totalfortoday=currentKms+todayKms;
 
-                            if(totalfortoday>=compaign.getKms_per_day())
+                            if(totalfortoday>compaign.getKms_per_day())
                             {
                                 float difference=totalfortoday-compaign.getKms_per_day();
                                 currentKms=currentKms-difference;

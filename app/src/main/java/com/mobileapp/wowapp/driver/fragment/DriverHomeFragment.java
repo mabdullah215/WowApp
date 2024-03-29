@@ -52,31 +52,28 @@ import com.mobileapp.wowapp.network.APIList;
 import com.mobileapp.wowapp.network.APIResultSingle;
 import com.mobileapp.wowapp.network.NetworkManager;
 import com.squareup.picasso.Picasso;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 
 
 public class DriverHomeFragment extends Fragment
 {
     ConstraintLayout progressLayout;
+    View view;
+    GoogleMap mMap;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        View view=inflater.inflate(R.layout.fragment_driver_home, container, false);
+        view=inflater.inflate(R.layout.fragment_driver_home, container, false);
         ImageView imgsupport=view.findViewById(R.id.img_support);
         progressLayout=view.findViewById(R.id.progress_layout);
         HelpSheet helpSheet=new HelpSheet(getContext(),R.style.AppBottomSheetDialogTheme);
-        LinearLayout compaignView=view.findViewById(R.id.active_compaign_layout);
-        compaignView.setVisibility(View.GONE);
         imgsupport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -90,7 +87,6 @@ public class DriverHomeFragment extends Fragment
         tvDate.setText(format.format(new Date()));
         TextView tvName=view.findViewById(R.id.tv_name);
 
-        progressLayout.setVisibility(View.VISIBLE);
         Gson gson=new Gson();
         NetworkManager manager=NetworkManager.getInstance(getContext());
         if(manager.getCityList().isEmpty())
@@ -129,7 +125,6 @@ public class DriverHomeFragment extends Fragment
                     manager.setDriver(driver);
                     tvName.setText(driver.getName());
                     manager.setDriver(driver);
-                    getAssignedCompaigns(view,compaignView);
 
                     if(!driver.isVerified())
                     {
@@ -138,7 +133,6 @@ public class DriverHomeFragment extends Fragment
                 }
                 else
                 {
-                    progressLayout.setVisibility(View.GONE);
                     DataSource source=DataSource.getInstance(getActivity());
                     source.setUsertype("");
                     getActivity().finish();
@@ -150,18 +144,60 @@ public class DriverHomeFragment extends Fragment
             }
         });
 
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(new OnMapReadyCallback()
+        {
+            @Override
+            public void onMapReady(@NonNull GoogleMap googleMap)
+            {
+                mMap=googleMap;
+                mMap.getUiSettings().setAllGesturesEnabled(false);
+            }
+        });
+
+        ImageView imgCampaign=view.findViewById(R.id.img_compaign);
+        imgCampaign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                if(!manager.getDriver().isVerified())
+                {
+                    showUpdateProfileDialog(manager.getDriver());
+                }
+                else
+                {
+                    startActivity(new Intent(getContext(),UpcomingCompaigns.class));
+                }
+            }
+        });
+
+        getAssignedCompaigns();
+
 
         return view;
     }
 
-    public void getAssignedCompaigns(View view,LinearLayout cardView)
+    @Override
+    public void onResume()
     {
+        super.onResume();
+        NetworkManager manager=NetworkManager.getInstance(getContext());
+        if(manager.isAllowDashboardRefresh())
+        {
+            getAssignedCompaigns();
+            manager.setAllowDashboardRefresh(false);
+        }
+    }
+
+    public void getAssignedCompaigns()
+    {
+        progressLayout.setVisibility(View.VISIBLE);
         Gson gson=new Gson();
-        ImageView imgCompaign=view.findViewById(R.id.img_compaign);
+        LinearLayout cardView=view.findViewById(R.id.active_compaign_layout);
+        cardView.setVisibility(View.GONE);
         LinearLayout emptyLayout=view.findViewById(R.id.empty_state);
         Chip chipPermit=view.findViewById(R.id.chip_permit);
         NetworkManager manager=NetworkManager.getInstance(getContext());
-        Driver driver=manager.getDriver();
         manager.getRequest(APIList.GET_DRIVER_COMPAIGNS_LIST, new IResultData() {
             @Override
             public void notifyResult(String result)
@@ -169,9 +205,9 @@ public class DriverHomeFragment extends Fragment
                 APIResultSingle apiResult=gson.fromJson(result,APIResultSingle.class);
                 progressLayout.setVisibility(View.GONE);
                 emptyLayout.setVisibility(View.GONE);
-                imgCompaign.setVisibility(View.GONE);
                 if(apiResult.getStatusCode().equalsIgnoreCase("200"))
                 {
+                    cardView.setVisibility(View.VISIBLE);
                     String data=gson.toJson(apiResult.getData());
                     Compaign compaign=gson.fromJson(data, Compaign.class);
                     ImageView imgCompaign=view.findViewById(R.id.img_source);
@@ -180,18 +216,8 @@ public class DriverHomeFragment extends Fragment
                     TextView tvStickerRemove=view.findViewById(R.id.tv_sticker_remove);
                     manager.setCompaignAssigned(true);
                     TextView tvTotalEarning=view.findViewById(R.id.tv_total_amount);
-                    SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-                    mapFragment.getMapAsync(new OnMapReadyCallback()
-                    {
-                        @Override
-                        public void onMapReady(@NonNull GoogleMap googleMap)
-                        {
-                            googleMap.getUiSettings().setAllGesturesEnabled(false);
-                            LatLng location=new LatLng(compaign.getCity().getLatitude(),compaign.getCity().getLongitude());
-                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 12.0f));
-                        }
-                    });
-
+                    LatLng location=new LatLng(compaign.getCity().getLatitude(),compaign.getCity().getLongitude());
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 12.0f));
                     if(!compaign.getDesign().isEmpty())
                     {
                         Picasso.get().load(compaign.getDesign()).fit().into(imgCompaign);
@@ -204,7 +230,7 @@ public class DriverHomeFragment extends Fragment
                         double totalEarning=compaign.getDistance_covered()*compaign.getCity().getMoney_constant();
                         tvTotalEarning.setText(df2.format(totalEarning));
                     }
-                    cardView.setVisibility(View.VISIBLE);
+
                     tvStickerRemove.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view)
@@ -248,13 +274,10 @@ public class DriverHomeFragment extends Fragment
                                         }
                                         else
                                         {
-
                                             startActivity(new Intent(getContext(), CompaignDriving.class).putExtra("campaign",compaign));
                                         }
                                     }
                                 });
-                                
-                                
                             }
                             catch (JSONException e)
                             {
@@ -276,24 +299,9 @@ public class DriverHomeFragment extends Fragment
                 else
                 {
                     chipPermit.setVisibility(View.GONE);
-                    imgCompaign.setVisibility(View.VISIBLE);
                     manager.setCompaignAssigned(false);
                     emptyLayout.setVisibility(View.VISIBLE);
                     cardView.setVisibility(View.GONE);
-                    imgCompaign.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view)
-                        {
-                            if(!manager.getDriver().isVerified())
-                            {
-                                showUpdateProfileDialog(driver);
-                            }
-                            else
-                            {
-                                startActivity(new Intent(getContext(),UpcomingCompaigns.class));
-                            }
-                        }
-                    });
                 }
             }
         });

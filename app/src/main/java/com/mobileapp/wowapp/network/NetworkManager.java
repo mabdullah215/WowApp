@@ -51,6 +51,7 @@ public class NetworkManager
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
     private static NetworkManager instance = null;
     OkHttpClient client;
+    public boolean allowDashboardRefresh=false;
     ArrayAdapter cityListAdapter;
     ArrayAdapter bankListAdapter;
     boolean compaignAssigned=false;
@@ -73,6 +74,14 @@ public class NetworkManager
 
     public void setCompaignAssigned(boolean compaignAssigned) {
         this.compaignAssigned = compaignAssigned;
+    }
+
+    public void setAllowDashboardRefresh(boolean allowDashboardRefresh) {
+        this.allowDashboardRefresh = allowDashboardRefresh;
+    }
+
+    public boolean isAllowDashboardRefresh() {
+        return allowDashboardRefresh;
     }
 
     public void setDriver(Driver driver) {

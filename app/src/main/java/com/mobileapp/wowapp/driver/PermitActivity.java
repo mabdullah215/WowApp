@@ -36,7 +36,7 @@ public class PermitActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_permit);
         imgPermit=findViewById(R.id.img_permit);
-        imgPermit.setImageDrawable(writeTextOnDrawable());
+        imgPermit.setImageDrawable(writeTextOnDrawable10());
         ImageView imgBack=findViewById(R.id.img_back);
         TextView tvTitle=findViewById(R.id.tv_title);
         tvTitle.setText("Permit");
@@ -97,6 +97,115 @@ public class PermitActivity extends AppCompatActivity {
 
 
         return new BitmapDrawable(getResources(), bm);
+    }
+
+    private BitmapDrawable writeTextOnDrawable9() {
+        Compaign compaign = (Compaign) getIntent().getSerializableExtra("campaign");
+        NetworkManager manager = NetworkManager.getInstance(this);
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 1; // You can adjust the sample size as needed
+        Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.img_permit, options);
+
+        // Create a copy of the bitmap to prevent modifying the original
+        Bitmap bm = originalBitmap.copy(Bitmap.Config.ARGB_8888, true);
+        Typeface tf = Typeface.create("Helvetica", Typeface.BOLD);
+
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.BLACK);
+       // paint.setTypeface(tf);
+        paint.setTextAlign(Paint.Align.CENTER);
+
+        float textSizeDP = 14; // Text size in dp
+        float textSizePX = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, textSizeDP, getResources().getDisplayMetrics());
+        paint.setTextSize(textSizePX);
+
+        Canvas canvas = new Canvas(bm);
+        Log.i("canvasWidth", "" + canvas.getWidth());
+        Log.i("canvasHeight", "" + canvas.getHeight());
+
+        int canvasHeight = canvas.getHeight();
+
+        // Calculate Y positions dynamically
+        int marginFromTopDP = 40; // Adjust this as needed
+        int yPosDriverName = getYposition(marginFromTopDP, canvasHeight/2);
+        int yPosRegistrationNo = getYposition(-5, canvasHeight/2);
+        int yPosCarDetails = getYposition(-45, canvasHeight/2);
+        int yPosCustomerName = getYposition(-90, canvasHeight/2);
+        int yPosEndDate = getYposition(-135, canvasHeight/2);
+
+        int xPos = canvas.getWidth() / 3;
+
+        canvas.drawText(manager.getDriver().getName(), xPos, yPosDriverName, paint);
+        canvas.drawText(manager.getDriver().getRegistrationNo(), xPos, yPosRegistrationNo, paint);
+        canvas.drawText(manager.getDriver().getCarNo() + "," + manager.getDriver().getCarMake() + "," + manager.getDriver().getCarModel(), xPos, yPosCarDetails, paint);
+        canvas.drawText(compaign.getCustomer_name(), xPos, yPosCustomerName, paint);
+        canvas.drawText(Converter.datePreview(compaign.getEnd_datetime()), xPos, yPosEndDate, paint);
+
+        return new BitmapDrawable(getResources(), bm);
+    }
+
+
+    private BitmapDrawable writeTextOnDrawable10() {
+        Compaign compaign = (Compaign) getIntent().getSerializableExtra("campaign");
+        NetworkManager manager = NetworkManager.getInstance(this);
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 1; // You can adjust the sample size as needed
+        Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.img_permit, options);
+
+        // Create a copy of the bitmap to prevent modifying the original
+        Bitmap bm = originalBitmap.copy(Bitmap.Config.ARGB_8888, true);
+        Typeface tf = Typeface.create("Helvetica", Typeface.BOLD);
+
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.BLACK);
+        //paint.setTypeface(tf);
+        paint.setTextAlign(Paint.Align.CENTER);
+
+        float textSizeDP = 12; // Text size in dp
+        float textSizePX = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, textSizeDP, getResources().getDisplayMetrics());
+        paint.setTextSize(textSizePX);
+
+        Canvas canvas = new Canvas(bm);
+        Log.i("canvasWidth", "" + canvas.getWidth());
+        Log.i("canvasHeight", "" + canvas.getHeight());
+
+        int canvasWidth = canvas.getWidth();
+        int canvasHeight = canvas.getHeight();
+
+        // Adjust these percentages as needed
+        float yPosDriverNamePercent = 0.456f;
+        float yPosRegistrationNoPercent = 0.505f;
+        float yPosCarDetailsPercent = 0.55f;
+        float yPosCustomerNamePercent = 0.595f;
+        float yPosEndDatePercent = 0.645f;
+
+        int xPos = canvasWidth / 3;
+
+        // Calculate Y positions based on canvas height and percentages
+        int yPosDriverName = (int) (canvasHeight * yPosDriverNamePercent);
+        int yPosRegistrationNo = (int) (canvasHeight * yPosRegistrationNoPercent);
+        int yPosCarDetails = (int) (canvasHeight * yPosCarDetailsPercent);
+        int yPosCustomerName = (int) (canvasHeight * yPosCustomerNamePercent);
+        int yPosEndDate = (int) (canvasHeight * yPosEndDatePercent);
+
+        canvas.drawText(manager.getDriver().getName(), xPos, yPosDriverName, paint);
+        canvas.drawText(manager.getDriver().getRegistrationNo(), xPos, yPosRegistrationNo, paint);
+        canvas.drawText(manager.getDriver().getCarNo() + "," + manager.getDriver().getCarMake() + "," + manager.getDriver().getCarModel(), xPos, yPosCarDetails, paint);
+        canvas.drawText(compaign.getCustomer_name(), xPos, yPosCustomerName, paint);
+        canvas.drawText(Converter.datePreview(compaign.getEnd_datetime()), xPos, yPosEndDate, paint);
+
+        return new BitmapDrawable(getResources(), bm);
+    }
+
+
+    // Method to calculate Y position dynamically based on margin from top in dp
+    private int getYposition(int marginFromTopDP, int canvasHeight) {
+        float marginFromTopPX = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, marginFromTopDP, getResources().getDisplayMetrics());
+        return (int) (canvasHeight - marginFromTopPX);
     }
 
 

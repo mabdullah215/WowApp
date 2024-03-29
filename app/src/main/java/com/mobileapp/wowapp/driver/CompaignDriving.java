@@ -54,10 +54,8 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 public class CompaignDriving extends BaseActivity
 {
@@ -73,13 +71,12 @@ public class CompaignDriving extends BaseActivity
         setContentView(R.layout.activity_compaign_driving);
         ImageView imgBack=findViewById(R.id.img_back);
         MyLocationListener locationListener=new MyLocationListener(this);
+        NetworkManager manager=NetworkManager.getInstance(this);
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
-
                 finish();
-                setResult(RESULT_OK);
                 Animatoo.INSTANCE.animateSlideRight(CompaignDriving.this);
             }
         });
@@ -87,7 +84,6 @@ public class CompaignDriving extends BaseActivity
         TextView tvDate=findViewById(R.id.tv_today_date);
         SimpleDateFormat format = new SimpleDateFormat("EEEE, dd MMMM yyyy");
         tvDate.setText(format.format(new Date()));
-        NetworkManager manager=NetworkManager.getInstance(this);
         TextView tvDistance=findViewById(R.id.tv_distance);
         MaterialButton startDriving=findViewById(R.id.button_driving);
         SupportMapFragment mapFragment = SupportMapFragment.newInstance();
@@ -125,21 +121,24 @@ public class CompaignDriving extends BaseActivity
                             source.setLongitude(positonMarker.getPosition().longitude);
                             float distance=source.distanceTo(location)/1000;
                             currentKms=currentKms+distance;
-                            if((currentKms+todayKms)<compaign.getKms_per_day())
+                            float totalfortoday=currentKms+todayKms;
+
+                            if(totalfortoday>=compaign.getKms_per_day())
                             {
-                                double amount=currentKms*compaign.getCity().getMoney_constant();
-                                DecimalFormat df2 = new DecimalFormat("#.#");
-                                tvDistance.setText(df2.format(currentKms));
-                                tvAmount.setText(df2.format(amount));
-                                animateMarker(new LatLng(position.latitude,position.longitude));
-                            }
-                            else
-                            {
+                                float difference=totalfortoday-compaign.getKms_per_day();
+                                currentKms=currentKms-difference;
                                 locationListener.stopListening();
                                 startDriving.setText("Start Driving");
+                                startDriving.setEnabled(false);
                                 startDriving.getBackground().setTint(getColor(R.color.inactivecolor));
                                 stopDriving();
                             }
+
+                            double amount=currentKms*compaign.getCity().getMoney_constant();
+                            DecimalFormat df2 = new DecimalFormat("#.#");
+                            tvDistance.setText(df2.format(currentKms));
+                            tvAmount.setText(df2.format(amount));
+                            animateMarker(new LatLng(position.latitude,position.longitude));
                         }
                     }
                 });
@@ -201,12 +200,12 @@ public class CompaignDriving extends BaseActivity
     {
         NetworkManager manager=NetworkManager.getInstance(this);
         HashMap<String,Object>map=new HashMap<>();
-        //map.put("kms",(int)currentKms);
-        map.put("kms",1);
+        map.put("kms",currentKms);
         map.put("latitude",positonMarker.getPosition().latitude);
         map.put("longitude",positonMarker.getPosition().longitude);
         map.put("isDriving",0);
         map.put("drivingId",drivingId);
+        manager.setAllowDashboardRefresh(true);
         manager.postRequest(APIList.STOP_DRIVING,map,null);
     }
 
@@ -220,7 +219,7 @@ public class CompaignDriving extends BaseActivity
         mMap.animateCamera(CameraUpdateFactory.newLatLng(destination));
         final LatLngInterpolator latLngInterpolator = new LatLngInterpolator.LinearFixed();
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(0, 1);
-        valueAnimator.setDuration(7000); // Change duration as per your requirement
+        valueAnimator.setDuration(4500); // Change duration as per your requirement
         valueAnimator.setInterpolator(input -> input); // Linear interpolation
         valueAnimator.addUpdateListener(animation -> {
             float v = animation.getAnimatedFraction();

@@ -69,6 +69,11 @@ public class ShopAppointment implements Serializable
         this.appointment_time = appointment_time;
     }
 
+    public String getDate()
+    {
+        return appointment_time.split(" ")[0];
+    }
+
     public String getCreated_at() {
         return created_at;
     }

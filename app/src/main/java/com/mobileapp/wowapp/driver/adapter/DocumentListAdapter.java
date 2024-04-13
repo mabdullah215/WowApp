@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobileapp.wowapp.R;
 import com.mobileapp.wowapp.driver.model.Document;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -85,10 +86,9 @@ public class DocumentListAdapter extends RecyclerView.Adapter<DocumentListAdapte
         public void setDetails(final Document item)
         {
             mTxt.setText(item.getTitle());
-
             if(!item.getImgRes().isEmpty())
             {
-                Picasso.get().load(item.getImgRes()).fit().into(mImage);
+                Picasso.get().load(item.getImgRes()).networkPolicy(NetworkPolicy.NO_CACHE).fit().into(mImage);
             }
         }
 

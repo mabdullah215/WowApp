@@ -31,6 +31,13 @@ public class BankInformation extends BaseActivity {
         EditText ibanNumber=findViewById(R.id.et_iban_number);
         EditText etAccountName=findViewById(R.id.et_account_name);
         MaterialButton buttonNext=findViewById(R.id.button_done);
+        Driver driver=(Driver) getIntent().getSerializableExtra("item");
+        if(driver.isVerified())
+        {
+            ibanNumber.setText(driver.getIban());
+            etAccountName.setText(driver.getAccountName());
+        }
+
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -44,7 +51,6 @@ public class BankInformation extends BaseActivity {
                 }
                 else
                 {
-                    Driver driver=(Driver) getIntent().getSerializableExtra("item");
                     driver.setBankName(String.valueOf(bankid));
                     driver.setAccountName(accountName);
                     driver.setIban(iban);

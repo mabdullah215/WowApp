@@ -18,6 +18,7 @@ import com.google.android.material.button.MaterialButton;
 import com.mobileapp.wowapp.BaseActivity;
 import com.mobileapp.wowapp.R;
 import com.mobileapp.wowapp.driver.model.Driver;
+import com.mobileapp.wowapp.network.NetworkManager;
 
 import java.util.Locale;
 
@@ -40,7 +41,17 @@ public class CarInformation extends BaseActivity
         spinnercarMake.setAdapter(getArrayAdapterforlist(makes));
         spinnercarColor.setAdapter(getArrayAdapterforlist(colors));
         spinnercarYear.setAdapter(getArrayAdapterforlist(yearList));
-
+        Driver driver=(Driver) getIntent().getSerializableExtra("item");
+        if(driver.isVerified())
+        {
+            spinnercarMake.setSelection(getItemFromList(driver.getCarMake(),makes));
+            spinnercarColor.setSelection(getItemFromList(driver.getCarColor(),colors));
+            spinnercarYear.setSelection(getItemFromList(driver.getCarYear(),yearList));
+            etCarModel.setText(driver.getCarModel());
+            String[] plate=driver.getCarNo().split("-");
+            etNumPlate.setText(plate[0]);
+            etCharacterPlate.setText(plate[1]);
+        }
 
 
         buttonNext.setOnClickListener(new View.OnClickListener() {
@@ -59,7 +70,6 @@ public class CarInformation extends BaseActivity
                 }
                 else
                 {
-                    Driver driver=(Driver) getIntent().getSerializableExtra("item");
                     driver.setCarMake(carMake);
                     driver.setCarModel(carModel);
                     driver.setCarYear(year);
@@ -78,6 +88,18 @@ public class CarInformation extends BaseActivity
                 Animatoo.INSTANCE.animateSlideRight(CarInformation.this);
             }
         });
+    }
+
+    public int getItemFromList(String item,String[] list)
+    {
+        for(int i=0;i<list.length;i++)
+        {
+            if(item.equalsIgnoreCase(list[i]))
+            {
+                return i;
+            }
+        }
+        return 0;
     }
 
     public ArrayAdapter getArrayAdapterforlist(String []list)

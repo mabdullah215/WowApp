@@ -23,7 +23,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="Signup (1/2)"
+            android:text="Signup (1/4)"
             android:textSize="20sp"
             android:layout_centerVertical="true"
             android:fontFamily="@font/uber_move_bold"

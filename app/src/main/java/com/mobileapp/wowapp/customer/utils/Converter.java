@@ -72,6 +72,11 @@ public class Converter
         // Convert milliseconds to days
         long daysDifference = differenceMillis / (1000 * 60 * 60 * 24);
 
+        if(daysDifference<0)
+        {
+            return "Expired";
+        }
+
         if (daysDifference < 1) {
             // If less than 1 day, return hours
             return hoursDifference + " hours left";

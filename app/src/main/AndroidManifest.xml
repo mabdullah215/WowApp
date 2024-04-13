@@ -19,50 +19,62 @@
         tools:targetApi="31">
         <activity
             android:name=".serviceprovider.AppointmentDetails"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".driver.RequestDetails"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".driver.PermitActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".driver.DriverCampaignHistory"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".driver.BookingTerms"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".driver.BookingDetails"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".customer.CampaignHistory"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".serviceprovider.ServiceProviderWorkTimings"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".CityList"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".driver.UpcomingCompaigns"
+            android:screenOrientation="portrait"
             android:exported="false" />
-        <activity
-            android:name=".driver.DrivingActivity"
-            android:exported="false" />
+
         <activity
             android:name=".driver.ServiceProvidrList"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".driver.CompaignDriving"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity android:name=".WelcomeActivity" />
+        <activity android:name=".WelcomeActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".RegisterActivity"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -70,6 +82,7 @@
         </activity>
         <activity
             android:name=".LoginActivity"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -77,6 +90,7 @@
         </activity>
         <activity
             android:name=".driver.CompaignDetails"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -84,6 +98,7 @@
         </activity>
         <activity
             android:name=".customer.ExtendCompaign"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -91,6 +106,7 @@
         </activity>
         <activity
             android:name=".customer.OfferActivity"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -98,6 +114,7 @@
         </activity>
         <activity
             android:name=".GeneralProfile"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -105,6 +122,7 @@
         </activity>
         <activity
             android:name=".serviceprovider.ServiceBankInformation"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -112,6 +130,7 @@
         </activity>
         <activity
             android:name=".serviceprovider.ServicePersonalInformation"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -119,6 +138,7 @@
         </activity>
         <activity
             android:name=".serviceprovider.ServiceMainActivity"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -126,6 +146,7 @@
         </activity>
         <activity
             android:name=".customer.NewCompaignActivity"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -133,6 +154,7 @@
         </activity>
         <activity
             android:name=".driver.CompaignBooking"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -140,6 +162,7 @@
         </activity>
         <activity
             android:name=".driver.DriverHome"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -147,6 +170,7 @@
         </activity>
         <activity
             android:name=".driver.DocumentsInformation"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -154,6 +178,7 @@
         </activity>
         <activity
             android:name=".driver.CarInformation"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -161,6 +186,7 @@
         </activity>
         <activity
             android:name=".driver.BankInformation"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -168,6 +194,7 @@
         </activity>
         <activity
             android:name=".customer.SignupFinal"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -175,6 +202,7 @@
         </activity>
         <activity
             android:name=".driver.DriverPersonalInformation"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -182,6 +210,7 @@
         </activity>
         <activity
             android:name=".SelectRole"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -189,6 +218,7 @@
         </activity>
         <activity
             android:name=".customer.BusinessProfile"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -196,6 +226,7 @@
         </activity>
         <activity
             android:name=".customer.CustomerNewAccount"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -203,6 +234,7 @@
         </activity>
         <activity
             android:name=".VerificationActivity"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -210,6 +242,7 @@
         </activity>
         <activity
             android:name=".OnboardActivity"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -217,6 +250,7 @@
         </activity>
         <activity
             android:name=".customer.AnalyticsDetails"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -224,6 +258,7 @@
         </activity>
         <activity
             android:name=".customer.CompaignList"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -231,6 +266,7 @@
         </activity>
         <activity
             android:name=".customer.MainActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
 
         <meta-data
@@ -239,6 +275,7 @@
 
         <activity
             android:name=".SplashActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

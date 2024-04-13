@@ -148,50 +148,6 @@ public class VerificationActivity extends BaseActivity {
     public void profileSetup()
     {
         NetworkManager manager=NetworkManager.getInstance(this);
-        manager.sendRequest(APIList.GET_PROFILE, new HashMap<>(), new IResult() {
-            @Override
-            public void notifyResult(String result, APIResult apiResult)
-            {
-                hideLoading();
-                /*if(apiResult.getStatusCode().equalsIgnoreCase("Ok"))
-                {
-                    DataSource source=DataSource.getInstance(getBaseContext());
-                    source.setUsertype(apiResult.getUserTypeId());
-                    source.setUserId(apiResult.getUserId());
-                    source.setUserToken(apiResult.getToken());
-
-                    if(apiResult.getUserTypeId()==3)
-                    {
-                        Intent i = new Intent(getBaseContext(), DriverHome.class);
-                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(i);
-                        Animatoo.INSTANCE.animateSlideLeft(VerificationActivity.this);
-                    }
-                    else if(apiResult.getUserTypeId()==2)
-                    {
-                        Intent i = new Intent(getBaseContext(), MainActivity.class);
-                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(i);
-                        Animatoo.INSTANCE.animateSlideLeft(VerificationActivity.this);
-                    }
-                    else if(apiResult.getUserTypeId()==4)
-                    {
-                        Intent i = new Intent(getBaseContext(), ServiceMainActivity.class);
-                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(i);
-                        Animatoo.INSTANCE.animateSlideLeft(VerificationActivity.this);
-                    }
-                }
-
-                else
-                {
-                    String number=getIntent().getStringExtra("number");
-                    finish();
-                    startActivity(new Intent(getBaseContext(), SelectRole.class).putExtra("number",number));
-                    Animatoo.INSTANCE.animateSlideLeft(VerificationActivity.this);
-                }*/
-            }
-        });
     }
 
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallBack = new PhoneAuthProvider.OnVerificationStateChangedCallbacks()

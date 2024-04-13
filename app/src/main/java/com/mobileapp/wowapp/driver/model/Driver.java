@@ -18,6 +18,7 @@ public class Driver implements Serializable
     String nationality;
     String type;
     boolean verified=false;
+    boolean profileImageUpdated=false;
     String businessDetails;
     String number;
     String registrationNo;
@@ -33,6 +34,22 @@ public class Driver implements Serializable
     String address;
     String userId;
     List<UserDocument> userDocuments=new ArrayList<>();
+
+    public boolean isProfileImageUpdated() {
+        return profileImageUpdated;
+    }
+
+    public void setProfileImageUpdated(boolean profileUpdated) {
+        this.profileImageUpdated = profileUpdated;
+    }
+
+    public List<UserDocument> getUserDocuments() {
+        return userDocuments;
+    }
+
+    public void setUserDocuments(List<UserDocument> userDocuments) {
+        this.userDocuments = userDocuments;
+    }
 
     public String getBusinessName() {
         return businessName;
@@ -234,7 +251,7 @@ public class Driver implements Serializable
         this.userId = userId;
     }
 
-    class UserDocument implements Serializable
+    public class UserDocument implements Serializable
     {
         String name;
         String link;

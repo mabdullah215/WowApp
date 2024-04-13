@@ -99,9 +99,9 @@
         </com.google.android.material.card.MaterialCardView>
 
 
-        <com.vivekkaushik.datepicker.DatePickerTimeline
-            android:id="@+id/datePickerTimeline"
+        <com.mobileapp.wowapp.utils.HorizontalCalendar
             android:layout_width="match_parent"
+            android:id="@+id/horizontal_calendar"
             android:layout_height="wrap_content"/>
 
 

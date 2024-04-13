@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -39,6 +40,7 @@ public class RequestDetails extends BaseActivity
 {
     int adapterPosition=0;
     DocumentListAdapter adapter;
+    HashMap<String,Object>map=new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,17 +84,18 @@ public class RequestDetails extends BaseActivity
         }
 
         recyclerView.setAdapter(adapter);
-        adapter.setOnItemClickListener(new DocumentListAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position)
-            {
-                adapterPosition=position;
-                ImagePicker.Companion.with(RequestDetails.this).galleryOnly().cropSquare().compress(200).start();
-            }
-        });
+
 
         if(request.getStatus().equalsIgnoreCase("pending")||request.getStatus().equalsIgnoreCase("rejected"))
         {
+            adapter.setOnItemClickListener(new DocumentListAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(int position)
+                {
+                    adapterPosition=position;
+                    ImagePicker.Companion.with(RequestDetails.this).galleryOnly().cropSquare().compress(200).start();
+                }
+            });
             submitButton.setVisibility(View.VISIBLE);
         }
         else
@@ -104,36 +107,21 @@ public class RequestDetails extends BaseActivity
             @Override
             public void onClick(View view)
             {
-                boolean upload=true;
-                HashMap<String,Object>map=new HashMap<>();
-                for(int i=0;i<adapter.getDocuments().size();i++)
-                {
-                    if(adapter.getDocuments().get(i).getImgRes().isEmpty())
-                    {
-                        upload=false;
-                    }
-                    else if(!adapter.getDocuments().get(i).getImgRes().startsWith("https:\\/\\/wow-bucket.s3.us-east-2.amazonaws.com"))
-                    {
-                        map.put("image"+i,adapter.getDocuments().get(i).getImgRes());
-                    }
-                }
 
-                if(!upload)
+                if(ifImageEmpty())
                 {
                     Toast.makeText(RequestDetails.this, "Please upload all requested images", Toast.LENGTH_SHORT).show();
                 }
+
                 else
                 {
-                    showLoading();
                     String comments=etComments.getText().toString().trim();
+                    map.put("requestId",request.getId());
+                    map.put("comments",comments);
 
-                    if(!comments.isEmpty()||map.isEmpty())
-                    {
-                        map.put("requestId",request.getId());
-                        map.put("comments",comments);
-                    }
 
-                    manager.postRequest(APIList.SUBMIT_REQUEST,map, new IResultData() {
+                   showLoading();
+                   manager.postRequest(APIList.SUBMIT_REQUEST,map, new IResultData() {
                         @Override
                         public void notifyResult(String result)
                         {
@@ -157,15 +145,26 @@ public class RequestDetails extends BaseActivity
         });
     }
 
+    public boolean ifImageEmpty()
+    {
+        for(int i=0;i<adapter.getDocuments().size();i++)
+        {
+            if(adapter.getDocuments().get(i).getImgRes().isEmpty())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (resultCode == Activity.RESULT_OK)
         {
             Uri uri=data.getData();
             adapter.updateItem(uri.toString(),adapterPosition);
+            map.put("image"+adapterPosition,uri.toString());
         }
-
     }
 }

@@ -155,7 +155,7 @@ public class DriverHomeFragment extends Fragment
             }
         });
 
-        ImageView imgCampaign=view.findViewById(R.id.img_compaign);
+        Chip imgCampaign=view.findViewById(R.id.img_compaign);
         imgCampaign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)

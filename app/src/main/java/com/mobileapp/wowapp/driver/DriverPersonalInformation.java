@@ -30,12 +30,14 @@ import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
 import com.mobileapp.wowapp.BaseActivity;
 import com.mobileapp.wowapp.R;
+import com.mobileapp.wowapp.customer.utils.Converter;
 import com.mobileapp.wowapp.driver.model.Driver;
 import com.mobileapp.wowapp.interations.IResult;
 import com.mobileapp.wowapp.network.APIList;
 import com.mobileapp.wowapp.network.APIResult;
 import com.mobileapp.wowapp.network.NetworkManager;
 import com.mobileapp.wowapp.serviceprovider.AppointmentDetails;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -54,6 +56,7 @@ public class DriverPersonalInformation extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_personal_information);
         Driver driver=(Driver) getIntent().getSerializableExtra("driver");
+        Log.i("itemDriver",new Gson().toJson(driver));
         EditText etName=findViewById(R.id.et_fullname);
         EditText etNationalID=findViewById(R.id.et_national_id);
         EditText etNationalAddress=findViewById(R.id.et_national_address);
@@ -64,8 +67,23 @@ public class DriverPersonalInformation extends BaseActivity
         EditText etPrimaryAddress=findViewById(R.id.et_primary_address);
         SwitchCompat switchWorking=findViewById(R.id.switch_working);
         MaterialButton buttonNext=findViewById(R.id.button_done);
-        etName.setText(driver.getName());
         profileImage=findViewById(R.id.user_img);
+        etName.setText(driver.getName());
+        etNationalID.setText(driver.getRegistrationNo());
+        etNationalAddress.setText(driver.getAddress());
+        tvDateofBirth.setText(Converter.getBirthdayDate(driver.getBirthday()));
+        etPrimaryAddress.setText(driver.getBusinessAddress());
+        if(driver.getWorkedBefore()==0)
+        {
+            switchWorking.setChecked(false);
+        }
+        else
+        {
+            switchWorking.setChecked(true);
+        }
+        citySpinner.setSelection(manager.getCityFromId(Integer.parseInt(driver.getCity())));
+        Picasso.get().load(driver.getProfilePic()).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).fit().into(profileImage);
+
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -95,7 +113,7 @@ public class DriverPersonalInformation extends BaseActivity
                 {
                     showToast("Information missing");
                 }
-                else if(profileUri==null)
+                else if(profileUri==null&&driver.getProfilePic().isEmpty())
                 {
                     showToast("Please add profile image");
                 }
@@ -110,11 +128,20 @@ public class DriverPersonalInformation extends BaseActivity
                     int cityId=manager.getCityList().get(citySpinner.getSelectedItemPosition()).getId();
                     driver.setName(name);
                     driver.setRegistrationNo(nationalID);
-                    driver.setBusinessAddress(address);
-                    driver.setCity(""+cityId);
+                    driver.setAddress(address);
+                    driver.setBusinessAddress(primaryAddress);
+                    driver.setCity(String.valueOf(cityId));
                     driver.setBirthday(getformattedDate(dateofBirth));
                     driver.setWorkedBefore(working);
-                    driver.setProfilePic(profileUri.toString());
+                    if(profileUri!=null)
+                    {
+                        driver.setProfilePic(profileUri.toString());
+                        driver.setProfileImageUpdated(true);
+                    }
+                    else
+                    {
+                        driver.setProfileImageUpdated(false);
+                    }
                     startActivity(new Intent(getBaseContext(), BankInformation.class).putExtra("item",driver));
                     Animatoo.INSTANCE.animateSlideLeft(DriverPersonalInformation.this);
                 }

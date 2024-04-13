@@ -24,7 +24,7 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:text="Syed Abdullah"
+                    android:text=""
                     android:layout_centerVertical="true"
                     android:textSize="22sp"
                     android:layout_marginRight="16dp"
@@ -49,30 +49,34 @@
                         android:id="@+id/chip_permit"
                         android:text="Permit"
                         android:visibility="gone"
-                        android:layout_marginRight="8dp"
+                        android:layout_marginRight="4dp"
+                        app:chipCornerRadius="8dp"
                         app:chipBackgroundColor="@color/purple_200"
                         android:textColor="@color/white"
-                        android:layout_height="40dp"/>
+                        android:layout_height="wrap_content"/>
 
                     <ImageView
                         android:layout_width="35dp"
                         android:id="@+id/img_support"
                         android:padding="4dp"
+                        android:layout_gravity="center_vertical"
                         android:layout_toLeftOf="@+id/img_user_profile"
                         android:src="@drawable/img_support"
                         android:layout_height="35dp"/>
 
 
 
-                    <ImageView
-                        android:layout_width="35dp"
-                        android:padding="4dp"
+                    <com.google.android.material.chip.Chip
+                        android:layout_width="wrap_content"
                         android:layout_marginRight="4dp"
-                        android:src="@drawable/ic_campaign"
                         android:layout_centerVertical="true"
                         android:id="@+id/img_compaign"
+                        android:text="Campaigns"
+                        app:chipCornerRadius="8dp"
+                        app:chipBackgroundColor="@color/teal_200"
+                        android:textColor="@color/white"
                         android:layout_alignParentRight="true"
-                        android:layout_height="35dp"/>
+                        android:layout_height="wrap_content"/>
 
 
                 </LinearLayout>

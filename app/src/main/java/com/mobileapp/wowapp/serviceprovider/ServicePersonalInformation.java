@@ -57,7 +57,7 @@ public class ServicePersonalInformation extends BaseActivity {
         tvDateofBirth.setText(Converter.getBirthdayDate(manager.getServiceProvider().getBirthday()));
         etBusinessAddress.setText(manager.getServiceProvider().getBusinessAddress());
         etShopName.setText(manager.getServiceProvider().getBusinessName());
-        citySpinner.setSelection(Integer.parseInt(manager.getServiceProvider().getCity())-1);
+        citySpinner.setSelection(manager.getCityFromId(Integer.parseInt(manager.getServiceProvider().getCity())));
         Picasso.get().load(manager.getServiceProvider().getProfilePic()).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).fit().into(imgProfile);
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -3,7 +3,6 @@ package com.mobileapp.wowapp.serviceprovider.fragments;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,29 +21,24 @@ import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.gson.Gson;
 import com.mobileapp.wowapp.Helper;
 import com.mobileapp.wowapp.R;
-import com.mobileapp.wowapp.customer.model.Customer;
 import com.mobileapp.wowapp.customer.utils.Converter;
-import com.mobileapp.wowapp.driver.adapter.AppointmentListAdapter;
 import com.mobileapp.wowapp.interations.IResultData;
-import com.mobileapp.wowapp.model.Appointment;
 import com.mobileapp.wowapp.network.APIList;
 import com.mobileapp.wowapp.network.APIResult;
 import com.mobileapp.wowapp.network.APIResultSingle;
 import com.mobileapp.wowapp.network.NetworkManager;
 import com.mobileapp.wowapp.serviceprovider.AppointmentDetails;
 import com.mobileapp.wowapp.serviceprovider.adapters.ShopAppointmentListAdapter;
+import com.mobileapp.wowapp.serviceprovider.model.DateModel;
 import com.mobileapp.wowapp.serviceprovider.model.ServiceProvider;
 import com.mobileapp.wowapp.serviceprovider.model.ShopAppointment;
+import com.mobileapp.wowapp.utils.HorizontalCalendar;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Request;
-import com.vivekkaushik.datepicker.DatePickerTimeline;
-import com.vivekkaushik.datepicker.OnDateSelectedListener;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -55,6 +49,7 @@ public class ServiceHomeFragment extends Fragment
     TextView tvNumAppointments;
     ConstraintLayout progressLayout;
     ShopAppointmentListAdapter adapter;
+    HorizontalCalendar horizontalCalendar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
@@ -139,27 +134,55 @@ public class ServiceHomeFragment extends Fragment
             }
         });
 
-        DatePickerTimeline datePickerTimeline = view.findViewById(R.id.datePickerTimeline);
-        datePickerTimeline.setActiveDate(calendar);
-        datePickerTimeline.setInitialDate(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
-        datePickerTimeline.setOnDateSelectedListener(new OnDateSelectedListener() {
+        horizontalCalendar=view.findViewById(R.id.horizontal_calendar);
+        horizontalCalendar.setListener(new HorizontalCalendar.DateSetListener() {
             @Override
-            public void onDateSelected(int year, int month, int day, int dayOfWeek)
+            public void onDateSet(DateModel model)
             {
-                calendar.set(Calendar.YEAR,year);
-                calendar.set(Calendar.MONTH,month);
-                calendar.set(Calendar.DAY_OF_MONTH,day);
-                String date=Converter.getShortDate(calendar.getTimeInMillis());
+                calendar.setTimeInMillis(model.getTimestamp());
                 tvDate.setText(format.format(calendar.getTime()));
-                reloadList(date);
-            }
-
-            @Override
-            public void onDisabledDateSelected(int year, int month, int day, int dayOfWeek, boolean isDisabled) {
-                // Do Something
+                reloadList(model.getDate());
             }
         });
+
+        String date=Converter.getShortDate(calendar.getTimeInMillis());
+        reloadList(date);
+        getAllAppointments();
         return view;
+    }
+
+    public void getAllAppointments()
+    {
+        NetworkManager manager=NetworkManager.getInstance(getContext());
+        manager.getRequest(APIList.GET_APPOINTMENTS_SHOP, new IResultData() {
+            @Override
+            public void notifyResult(String result)
+            {
+                APIResult apiResult=new Gson().fromJson(result,APIResult.class);
+                if(apiResult.getStatusCode().equalsIgnoreCase("200"))
+                {
+                    List<ShopAppointment>list= Helper.toList(apiResult.getData(),ShopAppointment.class);
+                    HashMap<String, DateModel> appointmentCountMap = new HashMap<>();
+                    for(ShopAppointment appointment:list)
+                    {
+                        if (appointmentCountMap.containsKey(appointment.getDate()))
+                        {
+                            DateModel model=appointmentCountMap.get(appointment.getDate());
+                            model.addEvent();
+                            appointmentCountMap.put(appointment.getDate(),model);
+                        }
+                        else
+                        {
+                            DateModel model=new DateModel(appointment.getDate());
+                            model.addEvent();
+                            appointmentCountMap.put(appointment.getDate(),model);
+                        }
+                    }
+
+                    horizontalCalendar.setAppointmentList(appointmentCountMap);
+                }
+            }
+        });
     }
 
     public void reloadList(String date)

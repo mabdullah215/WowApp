@@ -36,7 +36,7 @@ import java.util.List;
 public class DocumentsInformation extends BaseActivity
 {
     int adapterPosition=0;
-    Uri cnicFront,cnicBack,licence,estmara,violation;
+    boolean imageUpdated=false;
     DocumentListAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +54,8 @@ public class DocumentsInformation extends BaseActivity
         documents.add(new Document("trafficVoilations"));
         adapter=new DocumentListAdapter(this,documents);
         recyclerView.setAdapter(adapter);
+        Driver driver=(Driver)getIntent().getSerializableExtra("item");
+        Log.i("itemDriver",new Gson().toJson(driver));
         adapter.setOnItemClickListener(new DocumentListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position)
@@ -62,17 +64,32 @@ public class DocumentsInformation extends BaseActivity
                 ImagePicker.Companion.with(DocumentsInformation.this).galleryOnly().cropSquare().compress(200).start();
             }
         });
+
+        if(driver.isVerified())
+        {
+            for(int i=0;i<driver.getUserDocuments().size();i++)
+            {
+                String link=driver.getUserDocuments().get(i).getLink();
+                adapter.updateItem(link,i);
+            }
+        }
+
         buttonDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
-                if(licence==null||estmara==null||cnicFront==null||cnicBack==null||violation==null)
+                if(ifImageEmpty())
                 {
                     showToast("Please upload all the images");
                 }
-                else
+                else if(imageUpdated)
                 {
                     uploadImages();
+                }
+                else
+                {
+                    showLoading();
+                    updateProfile();
                 }
             }
         });
@@ -85,15 +102,28 @@ public class DocumentsInformation extends BaseActivity
         });
     }
 
+    public boolean ifImageEmpty()
+    {
+        for(int i=0;i<adapter.getDocuments().size();i++)
+        {
+            Document document=adapter.getDocuments().get(i);
+            if(document.getImgRes().isEmpty())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void uploadImages()
     {
         showLoading();
         HashMap<String,String>map=new HashMap<>();
-        map.put("estimera",estmara.toString());
-        map.put("drivingLicense",licence.toString());
-        map.put("trafficVoilations",violation.toString());
-        map.put("cnicFront",cnicFront.toString());
-        map.put("cnicBack",cnicBack.toString());
+        for(int i=0;i<adapter.getDocuments().size();i++)
+        {
+            Document document=adapter.getDocuments().get(i);
+            map.put(document.getTitle(),document.getImgRes());
+        }
 
         NetworkManager manager=NetworkManager.getInstance(this);
         manager.uploadImages(APIList.UPLOAD_DOCUMENTS, map, new IResultData() {
@@ -111,7 +141,6 @@ public class DocumentsInformation extends BaseActivity
                 {
                     hideLoading();
                 }
-
             }
         });
     }
@@ -125,7 +154,7 @@ public class DocumentsInformation extends BaseActivity
         map.put("carMake",driver.getCarMake());
         map.put("registrationNo",driver.getRegistrationNo());
         map.put("bankId",driver.getBankName());
-        map.put("workedBeofre",driver.getWorkedBefore());
+        map.put("workedBefore",driver.getWorkedBefore());
         map.put("city",driver.getCity());
         map.put("address",driver.getAddress());
         map.put("iban",driver.getIban());
@@ -136,8 +165,12 @@ public class DocumentsInformation extends BaseActivity
         map.put("carColor",driver.getCarColor());
         map.put("carYear",driver.getCarYear());
         map.put("nationality",driver.getNationality());
-        map.put("profilePic",driver.getProfilePic());
         map.put("carNo",driver.getCarNo());
+
+        if(driver.isProfileImageUpdated())
+        {
+            map.put("profilePic",driver.getProfilePic());
+        }
 
         manager.postRequest(APIList.UPDATE_PROFILE, map, new IResultData() {
             @Override
@@ -165,29 +198,9 @@ public class DocumentsInformation extends BaseActivity
 
         if (resultCode == Activity.RESULT_OK)
         {
+            imageUpdated=true;
             Uri uri=data.getData();
             adapter.updateItem(uri.toString(),adapterPosition);
-
-            if(adapterPosition==0)
-            {
-                licence=uri;
-            }
-            else if(adapterPosition==1)
-            {
-                estmara=uri;
-            }
-            else if(adapterPosition==2)
-            {
-                cnicFront=uri;
-            }
-            else if(adapterPosition==3)
-            {
-                cnicBack=uri;
-            }
-            else if(adapterPosition==4)
-            {
-                violation=uri;
-            }
         }
 
     }

@@ -18,7 +18,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
+import com.mobileapp.wowapp.Helper;
 import com.mobileapp.wowapp.R;
+import com.mobileapp.wowapp.driver.model.Driver;
 import com.mobileapp.wowapp.interations.IResult;
 import com.mobileapp.wowapp.interations.IResultData;
 import com.mobileapp.wowapp.model.Compaign;
@@ -27,10 +30,15 @@ import com.mobileapp.wowapp.network.APIResult;
 import com.mobileapp.wowapp.network.NetworkManager;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 public class CompaignDetails extends AppCompatActivity {
 
@@ -103,6 +111,8 @@ public class CompaignDetails extends AppCompatActivity {
 
     public void getAssignedDrivers(int compaignid)
     {
+        TextView tvActive=findViewById(R.id.tv_active_drivers);
+        TextView tvNonActive=findViewById(R.id.tv_non_active);
         ConstraintLayout progressLayout=findViewById(R.id.progress_layout);
         progressLayout.setVisibility(View.VISIBLE);
         NetworkManager manager=NetworkManager.getInstance(this);
@@ -112,6 +122,28 @@ public class CompaignDetails extends AppCompatActivity {
             @Override
             public void notifyResult(String result)
             {
+                try
+                {
+                    int drivers=0;
+                    JSONArray jsonArray=new JSONObject(result).getJSONArray("data");
+                    for(int i=0;i<jsonArray.length();i++)
+                    {
+                        int driving=jsonArray.getJSONObject(i).getInt("is_driving");
+                        if(driving==1)
+                        {
+                            drivers++;
+                        }
+                    }
+
+                    tvActive.setText(String.valueOf(drivers));
+                    int nonActive=jsonArray.length()-drivers;
+                    tvNonActive.setText(String.valueOf(nonActive));
+
+                } catch (JSONException e)
+                {
+                    throw new RuntimeException(e);
+                }
+
                 progressLayout.setVisibility(View.GONE);
             }
         });

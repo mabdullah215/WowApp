@@ -54,8 +54,11 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class CompaignDriving extends BaseActivity
 {
@@ -156,7 +159,6 @@ public class CompaignDriving extends BaseActivity
                             locationListener.startListening();
                             startDriving.setText("Stop Driving");
                             startDriving.getBackground().setTint(getColor(R.color.stop_driving));
-
                             startDriving.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view)
@@ -207,8 +209,76 @@ public class CompaignDriving extends BaseActivity
         map.put("isDriving",0);
         map.put("drivingId",drivingId);
         manager.setAllowDashboardRefresh(true);
-        manager.postRequest(APIList.STOP_DRIVING,map,null);
+        //manager.postRequest(APIList.STOP_DRIVING,map,null);
     }
+
+    /*public void dummyDriving()
+    {
+        List<LatLng> list=new ArrayList<>();
+        list.add(new LatLng(33.608833, 72.970293));
+        list.add(new LatLng(33.608894, 72.970798));
+        list.add(new LatLng(33.607919, 72.971075));
+        list.add(new LatLng(33.608155, 72.972093));
+        list.add(new LatLng(33.608286, 72.973430));
+        list.add(new LatLng(33.609075, 72.973311));
+        list.add(new LatLng(33.609866, 72.973193));
+        list.add(new LatLng(33.611699, 72.972876));
+        list.add(new LatLng(33.611531, 72.971485));
+        list.add(new LatLng(33.611440, 72.970228));
+        list.add(new LatLng(33.611170, 72.967816));
+        list.add(new LatLng(33.610862, 72.965404));
+        list.add(new LatLng(33.610862, 72.965404));
+        list.add(new LatLng(33.610862, 72.965404));
+        list.add(new LatLng(33.610862, 72.965404));
+        //list.add(new LatLng());
+
+        final Handler handler = new Handler();
+        final int delay = 5000; // 1000 milliseconds == 1 second
+        final AtomicInteger index = new AtomicInteger(0);
+        handler.postDelayed(new Runnable()
+        {
+            public void run()
+            {
+                if(index.get()<list.size())
+                {
+
+                    LatLng position=list.get(index.get());
+
+                    if(positonMarker==null)
+                    {
+                        positonMarker=mMap.addMarker(new MarkerOptions().position(position));
+                        positonMarker.setIcon(BitmapFromVector(getBaseContext(), R.drawable.ic_location_pin));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 15.0f));
+                    }
+                    else
+                    {
+                        Location source=new Location("");
+                        Location dest=new Location("");
+                        dest.setLatitude(position.latitude);
+                        dest.setLongitude(position.longitude);
+                        source.setLatitude(positonMarker.getPosition().latitude);
+                        source.setLongitude(positonMarker.getPosition().longitude);
+                        float distance=source.distanceTo(dest)/1000;
+                        currentKms=currentKms+distance;
+                        float totalfortoday=currentKms+todayKms;
+
+                        if(totalfortoday>20)
+                        {
+                            float difference=totalfortoday-20;
+                            currentKms=currentKms-difference;
+                        }
+
+                    }
+
+
+                    animateMarker(list.get(index.get()));
+                    index.incrementAndGet();
+                    handler.postDelayed(this, delay);
+                }
+            }
+        }, delay);
+
+    }*/
 
     @Override
     public void onBackPressed() {

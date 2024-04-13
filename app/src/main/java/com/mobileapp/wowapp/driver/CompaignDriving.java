@@ -125,12 +125,10 @@ public class CompaignDriving extends BaseActivity
                             source.setLongitude(positonMarker.getPosition().longitude);
                             float distance=source.distanceTo(location)/1000;
                             currentKms=currentKms+distance;
-                            float totalfortoday=currentKms+todayKms;
 
-                            if(totalfortoday>compaign.getKms_per_day())
+                            if(currentKms>compaign.getKms_per_day())
                             {
-                                float difference=totalfortoday-compaign.getKms_per_day();
-                                currentKms=currentKms-difference;
+                                currentKms=compaign.getKms_per_day();
                                 locationListener.stopListening();
                                 startDriving.setText("Start Driving");
                                 startDriving.setEnabled(false);
@@ -156,9 +154,14 @@ public class CompaignDriving extends BaseActivity
                             JSONObject object=new JSONObject(result).getJSONObject("data");
                             drivingId=object.getInt("drivingId");
                             todayKms=object.getInt("todayKms");
-                            locationListener.startListening();
-                            startDriving.setText("Stop Driving");
-                            startDriving.getBackground().setTint(getColor(R.color.stop_driving));
+                            currentKms=todayKms;
+                            if(currentKms<compaign.getKms_per_day())
+                            {
+                                locationListener.startListening();
+                                startDriving.setText("Stop Driving");
+                                startDriving.getBackground().setTint(getColor(R.color.stop_driving));
+                            }
+
                             startDriving.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view)
@@ -209,7 +212,7 @@ public class CompaignDriving extends BaseActivity
         map.put("isDriving",0);
         map.put("drivingId",drivingId);
         manager.setAllowDashboardRefresh(true);
-        //manager.postRequest(APIList.STOP_DRIVING,map,null);
+        manager.postRequest(APIList.STOP_DRIVING,map,null);
     }
 
     /*public void dummyDriving()

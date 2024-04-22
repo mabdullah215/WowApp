@@ -14,6 +14,7 @@ public class APIList
     public static final String START_DRIVING="driver/start";
     public static final String STOP_DRIVING="driver/driving";
     public static final String DRIVING_ANALYTICS="analytics/driver";
+    public static final String ANALYTICS_CUSTOMER="analytics/customer";
     public static final String GET_SPECIAL_REQUEST="special/list";
     public static final String SUBMIT_REQUEST="special/complete";
     public static final String UPDATE_DISTANCE="compaign/addPaymentDetails";

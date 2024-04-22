@@ -125,10 +125,11 @@ public class CompaignDriving extends BaseActivity
                             source.setLongitude(positonMarker.getPosition().longitude);
                             float distance=source.distanceTo(location)/1000;
                             currentKms=currentKms+distance;
+                            todayKms=todayKms+currentKms;
 
-                            if(currentKms>compaign.getKms_per_day())
+                            if(todayKms>compaign.getKms_per_day())
                             {
-                                currentKms=compaign.getKms_per_day();
+                                todayKms=compaign.getKms_per_day();
                                 locationListener.stopListening();
                                 startDriving.setText("Start Driving");
                                 startDriving.setEnabled(false);
@@ -136,9 +137,9 @@ public class CompaignDriving extends BaseActivity
                                 stopDriving();
                             }
 
-                            double amount=currentKms*compaign.getCity().getMoney_constant();
+                            double amount=todayKms*compaign.getCity().getMoney_constant();
                             DecimalFormat df2 = new DecimalFormat("#.#");
-                            tvDistance.setText(df2.format(currentKms));
+                            tvDistance.setText(df2.format(todayKms));
                             tvAmount.setText(df2.format(amount));
                             animateMarker(new LatLng(position.latitude,position.longitude));
                         }
@@ -154,8 +155,7 @@ public class CompaignDriving extends BaseActivity
                             JSONObject object=new JSONObject(result).getJSONObject("data");
                             drivingId=object.getInt("drivingId");
                             todayKms=object.getInt("todayKms");
-                            currentKms=todayKms;
-                            if(currentKms<compaign.getKms_per_day())
+                            if(todayKms<compaign.getKms_per_day())
                             {
                                 locationListener.startListening();
                                 startDriving.setText("Stop Driving");
@@ -166,7 +166,7 @@ public class CompaignDriving extends BaseActivity
                                 @Override
                                 public void onClick(View view)
                                 {
-                                    if(currentKms<compaign.getKms_per_day())
+                                    if(todayKms<compaign.getKms_per_day())
                                     {
                                         if(startDriving.getText().toString().equalsIgnoreCase("Start Driving"))
                                         {

@@ -8,15 +8,6 @@ public class APIResult
     String statusCode ;
     String message;
     List<Object>data;
-    Object singledata;
-
-    public Object getSingledata() {
-        return singledata;
-    }
-
-    public void setSingledata(Object singledata) {
-        this.singledata = singledata;
-    }
 
     public String getStatus() {
         return status;

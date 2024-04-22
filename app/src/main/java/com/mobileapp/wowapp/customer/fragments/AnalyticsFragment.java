@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.mobileapp.wowapp.customer.AnalyticsDetails;
 import com.mobileapp.wowapp.R;
+import com.mobileapp.wowapp.customer.CampaignAnalyticsDetails;
 import com.mobileapp.wowapp.customer.adapter.AnalyticsListAdapter;
 import com.mobileapp.wowapp.customer.model.Analytics;
 
@@ -41,7 +42,8 @@ public class AnalyticsFragment extends Fragment {
             @Override
             public void onItemClick(int position)
             {
-                Toast.makeText(getContext(), "No data available", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getContext(), CampaignAnalyticsDetails.class).putExtra("position",position));
+                Animatoo.INSTANCE.animateSlideLeft(getContext());
             }
         });
         return view;

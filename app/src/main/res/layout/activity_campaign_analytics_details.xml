@@ -3,17 +3,48 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".customer.CampaignAnalyticsDetails">
 
     <include layout="@layout/toolbar_layout_centre"/>
 
-    <com.github.mikephil.charting.charts.LineChart
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:id="@+id/line_chart"
-        android:layout_margin="16dp"
         android:layout_below="@+id/toolbar_layout"
-        android:layout_height="250dp"/>
+        android:padding="16dp"
+        android:layout_height="wrap_content">
+
+        <com.mobileapp.wowapp.utils.VerticalTextView
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:id="@+id/label_type"
+            android:textSize="6sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/uber_move_bold"
+            android:layout_height="wrap_content"/>
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:layout_width="match_parent"
+            android:id="@+id/line_chart"
+            android:layout_toRightOf="@+id/label_type"
+            android:layout_height="250dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_below="@id/line_chart"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/uber_move_bold"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:text="Date"
+            android:layout_height="wrap_content"/>
+
+
+
+    </RelativeLayout>
+
+
 
 
 </RelativeLayout>

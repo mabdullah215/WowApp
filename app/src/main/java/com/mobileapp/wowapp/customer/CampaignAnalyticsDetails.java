@@ -2,7 +2,10 @@ package com.mobileapp.wowapp.customer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +33,7 @@ import com.mobileapp.wowapp.network.APIResult;
 import com.mobileapp.wowapp.network.APIResultSingle;
 import com.mobileapp.wowapp.network.GraphResponse;
 import com.mobileapp.wowapp.network.NetworkManager;
+import com.mobileapp.wowapp.utils.VerticalTextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -70,6 +74,7 @@ public class CampaignAnalyticsDetails extends BaseActivity {
     {
         NetworkManager manager=NetworkManager.getInstance(this);
         LineChart lineChart=findViewById(R.id.line_chart);
+        VerticalTextView tvLabelType=findViewById(R.id.label_type);
         int position=getIntent().getIntExtra("position",0);
         HashMap<String,Object>map=new HashMap<>();
         Calendar calendar=Calendar.getInstance();
@@ -86,22 +91,31 @@ public class CampaignAnalyticsDetails extends BaseActivity {
                 ArrayList<Entry> entries = new ArrayList<>();
                 List<GraphResponse.GraphPoints> pointsList=result.getData().getAnalytics();
                 List<String>dates=new ArrayList<>();
-                for(int i=0;i<pointsList.size();i++)
+                String desc="Impressions";
+                if(position==0)
                 {
-                    GraphResponse.GraphPoints point=pointsList.get(i);
-                    if(position==0)
+                    desc="Kms";
+                    tvLabelType.setText(desc);
+                    for(int i=0;i<pointsList.size();i++)
                     {
+                        GraphResponse.GraphPoints point=pointsList.get(i);
                         entries.add(new Entry(i, point.getKms()));
+                        dates.add(point.getDate());
                     }
-                    else
+                }
+                else
+                {
+                    desc="Impressions";
+                    for(int i=0;i<pointsList.size();i++)
                     {
+                        GraphResponse.GraphPoints point=pointsList.get(i);
                         entries.add(new Entry(i, point.getImpressions()));
+                        dates.add(point.getDate());
                     }
-
-                    dates.add(point.getDate());
                 }
 
-                LineDataSet dataSet = new LineDataSet(entries, "");
+                tvLabelType.setText(desc);
+                LineDataSet dataSet = new LineDataSet(entries, desc);
                 dataSet.setFillColor(Color.parseColor("#86dcaa"));
                 dataSet.setHighlightEnabled(false);
                 dataSet.setDrawFilled(true);
@@ -134,13 +148,15 @@ public class CampaignAnalyticsDetails extends BaseActivity {
 
                 Description description = new Description();
                 description.setText("");
+                description.setPosition(0,0);
                 lineChart.setDescription(description);
 
 
                 // Set the data and refresh the chart
                 lineChart.setData(lineData);
-                lineChart.getLegend().setEnabled(false);
+
                 lineChart.invalidate();
+
             }
         });
     }

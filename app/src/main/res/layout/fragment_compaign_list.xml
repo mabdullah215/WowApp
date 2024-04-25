@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:animateLayoutChanges="true"
-    android:layout_height="match_parent"
-    tools:context=".customer.fragments.CompaignFragment">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -74,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/uber_move_bold"
                 android:includeFontPadding="false"
-                android:text="My Compaigns"
+                android:text="My Campaigns"
                 android:textColor="@color/black"
                 android:textSize="22sp" />
 

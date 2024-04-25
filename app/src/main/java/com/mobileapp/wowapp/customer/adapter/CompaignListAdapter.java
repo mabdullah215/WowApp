@@ -96,7 +96,7 @@ public class CompaignListAdapter extends RecyclerView.Adapter<CompaignListAdapte
             }
 
             mDistance.setText(item.getTotalDistanceCovered()+" Km");
-            mImpressions.setText("0");
+            mImpressions.setText(String.valueOf(item.getTotalImpressions()));
         }
 
         @Override

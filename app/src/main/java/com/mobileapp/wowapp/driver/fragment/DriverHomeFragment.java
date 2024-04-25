@@ -226,7 +226,7 @@ public class DriverHomeFragment extends Fragment
                         Picasso.get().load(compaign.getDesign()).fit().into(imgCompaign);
                     }
                     tvTitle.setText(compaign.getName());
-                    DecimalFormat df2 = new DecimalFormat("#.#");
+                    DecimalFormat df2 = new DecimalFormat("0.0");
                     if(compaign.getDistance_covered()>0)
                     {
                         tvDistance.setText(df2.format(compaign.getDistance_covered()));

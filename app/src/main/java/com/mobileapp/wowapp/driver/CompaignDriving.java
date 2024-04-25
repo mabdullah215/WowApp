@@ -8,6 +8,7 @@ import android.Manifest;
 import android.animation.ObjectAnimator;
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -94,6 +95,7 @@ public class CompaignDriving extends BaseActivity
         getSupportFragmentManager().beginTransaction().add(R.id.map, mapFragment).commit();
         mapFragment.getMapAsync(new OnMapReadyCallback()
         {
+            @SuppressLint("MissingPermission")
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap)
             {
@@ -106,6 +108,50 @@ public class CompaignDriving extends BaseActivity
                 tvCompaignName.setText(compaign.getName());
                 HashMap<String,Object>map=new HashMap<>();
                 map.put("campaignId",compaign.getId());
+
+                mMap.setMyLocationEnabled(true);
+                mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
+                    @Override
+                    public void onMyLocationChange(@NonNull Location location)
+                    {
+                        LatLng position=new LatLng(location.getLatitude(),location.getLongitude());
+                        positonMarker=mMap.addMarker(new MarkerOptions().position(position));
+                        positonMarker.setIcon(BitmapFromVector(getBaseContext(), R.drawable.ic_location_pin));
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 16.0f));
+                        mMap.setMyLocationEnabled(false);
+
+                        locationListener.setLocationUpdate(new MyLocationListener.LocationUpdateListener() {
+                            @Override
+                            public void onLocationUpdate(Location location)
+                            {
+                                LatLng position=new LatLng(location.getLatitude(),location.getLongitude());
+                                Location source=new Location("");
+                                source.setLatitude(positonMarker.getPosition().latitude);
+                                source.setLongitude(positonMarker.getPosition().longitude);
+                                float distance=source.distanceTo(location)/1000;
+                                currentKms=currentKms+distance;
+
+                                if(currentKms>compaign.getKms_per_day())
+                                {
+                                    currentKms=compaign.getKms_per_day();
+                                    locationListener.stopListening();
+                                    startDriving.setText("Start Driving");
+                                    startDriving.setEnabled(false);
+                                    startDriving.getBackground().setTint(getColor(R.color.inactivecolor));
+                                    stopDriving();
+                                }
+
+                                double amount=currentKms*compaign.getCity().getMoney_constant();
+                                DecimalFormat df2 = new DecimalFormat("0.0");
+                                tvDistance.setText(df2.format(currentKms));
+                                tvAmount.setText(df2.format(amount));
+                                animateMarker(new LatLng(position.latitude,position.longitude));
+                            }
+                        });
+
+                    }
+                });
+
                 manager.postRequest(APIList.START_DRIVING, map, new IResultData() {
                     @Override
                     public void notifyResult(String result)
@@ -164,47 +210,6 @@ public class CompaignDriving extends BaseActivity
                         }
                     }
                 });
-                locationListener.setLocationUpdate(new MyLocationListener.LocationUpdateListener() {
-                    @Override
-                    public void onLocationUpdate(Location location)
-                    {
-                        LatLng position=new LatLng(location.getLatitude(),location.getLongitude());
-
-                        if(positonMarker==null)
-                        {
-                            positonMarker=mMap.addMarker(new MarkerOptions().position(position));
-                            positonMarker.setIcon(BitmapFromVector(getBaseContext(), R.drawable.ic_location_pin));
-                            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 15.0f));
-                        }
-                        else
-                        {
-                            Location source=new Location("");
-                            source.setLatitude(positonMarker.getPosition().latitude);
-                            source.setLongitude(positonMarker.getPosition().longitude);
-                            float distance=source.distanceTo(location)/1000;
-                            currentKms=currentKms+distance;
-
-                            if(currentKms>compaign.getKms_per_day())
-                            {
-                                currentKms=compaign.getKms_per_day();
-                                locationListener.stopListening();
-                                startDriving.setText("Start Driving");
-                                startDriving.setEnabled(false);
-                                startDriving.getBackground().setTint(getColor(R.color.inactivecolor));
-                                stopDriving();
-                            }
-
-                            double amount=currentKms*compaign.getCity().getMoney_constant();
-                            DecimalFormat df2 = new DecimalFormat("0.0");
-                            tvDistance.setText(df2.format(currentKms));
-                            tvAmount.setText(df2.format(amount));
-                            animateMarker(new LatLng(position.latitude,position.longitude));
-                        }
-                    }
-                });
-
-
-
             }
         });
     }

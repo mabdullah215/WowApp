@@ -27,6 +27,7 @@ import com.mobileapp.wowapp.interations.IResultData;
 import com.mobileapp.wowapp.model.Compaign;
 import com.mobileapp.wowapp.network.APIList;
 import com.mobileapp.wowapp.network.APIResult;
+import com.mobileapp.wowapp.network.GraphResponse;
 import com.mobileapp.wowapp.network.NetworkManager;
 import com.squareup.picasso.Picasso;
 
@@ -89,6 +90,18 @@ public class CompaignDetails extends AppCompatActivity {
             }
         });
 
+        NetworkManager manager=NetworkManager.getInstance(this);
+        HashMap<String,Object>map=new HashMap<>();
+        map.put("campaignId",compaign.getId());
+        manager.postRequest(APIList.ANALYTICS_CUSTOMER, map, new IResultData() {
+            @Override
+            public void notifyResult(String result)
+            {
+                GraphResponse response=new Gson().fromJson(result,GraphResponse.class);
+                tvTodayKms.setText(String.valueOf(response.getData().getTotalKms()));
+                tvTodayImpressions.setText(String.valueOf(response.getData().getTotalImpressions()));
+            }
+        });
         getAssignedDrivers(compaign.getId());
     }
 

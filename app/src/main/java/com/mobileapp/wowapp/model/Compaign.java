@@ -188,7 +188,7 @@ public class Compaign implements Serializable
 
     public double getTotalDistanceCovered()
     {
-        DecimalFormat df = new DecimalFormat("#.##");
+        DecimalFormat df = new DecimalFormat("0.0");
         String roundedValueStr = df.format(totalDistanceCovered);
         double roundedValue = Double.parseDouble(roundedValueStr);
         return roundedValue;
@@ -200,7 +200,7 @@ public class Compaign implements Serializable
 
     public double getTotalImpressions()
     {
-        DecimalFormat df = new DecimalFormat("#.##");
+        DecimalFormat df = new DecimalFormat("0.0");
         String roundedValueStr = df.format(totalImpressions);
         double roundedValue = Double.parseDouble(roundedValueStr);
         return roundedValue;

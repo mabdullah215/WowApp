@@ -1,5 +1,7 @@
 package com.mobileapp.wowapp.network;
 
+import android.icu.text.DecimalFormat;
+
 import java.util.List;
 
 public class GraphResponse
@@ -46,16 +48,24 @@ public class GraphResponse
         double TotalImpressions;
         List<GraphPoints> Analytics;
 
-        public double getTotalKms() {
-            return TotalKms;
+        public double getTotalKms()
+        {
+            DecimalFormat df = new DecimalFormat("0.0");
+            String roundedValueStr = df.format(TotalKms);
+            double roundedValue = Double.parseDouble(roundedValueStr);
+            return roundedValue;
         }
 
         public void setTotalKms(double totalKms) {
             TotalKms = totalKms;
         }
 
-        public double getTotalImpressions() {
-            return TotalImpressions;
+        public double getTotalImpressions()
+        {
+            DecimalFormat df = new DecimalFormat("0.0");
+            String roundedValueStr = df.format(TotalImpressions);
+            double roundedValue = Double.parseDouble(roundedValueStr);
+            return roundedValue;
         }
 
         public void setTotalImpressions(double totalImpressions) {

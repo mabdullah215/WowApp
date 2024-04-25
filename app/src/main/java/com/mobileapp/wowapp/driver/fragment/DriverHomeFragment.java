@@ -7,8 +7,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +26,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -268,13 +271,25 @@ public class DriverHomeFragment extends Fragment
                                         {
                                             Toast.makeText(getContext(), "You have already drove allowed Kms for today.Please come back tomorrow", Toast.LENGTH_SHORT).show();
                                         }
-                                        else if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
-                                        {
-                                            ((BaseActivity)getActivity()).askForPermission(Manifest.permission.ACCESS_FINE_LOCATION, 100);
-                                        }
                                         else
                                         {
-                                            startActivity(new Intent(getContext(), CompaignDriving.class).putExtra("campaign",compaign));
+                                            if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+                                            {
+                                                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1001);
+                                            }
+                                            else
+                                            {
+                                                LocationManager locationManager = (LocationManager) requireActivity().getSystemService(Context.LOCATION_SERVICE);
+                                                if (locationManager != null && !locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+                                                {
+                                                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                                    startActivity(intent);
+                                                } else
+                                                {
+                                                    startActivity(new Intent(getContext(), CompaignDriving.class).putExtra("campaign",compaign));
+                                                }
+                                            }
+
                                         }
                                     }
                                 });

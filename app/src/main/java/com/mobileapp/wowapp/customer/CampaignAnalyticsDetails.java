@@ -125,7 +125,7 @@ public class CampaignAnalyticsDetails extends BaseActivity {
                 xAxis.setDrawGridLines(false);
                 xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                 xAxis.setTextSize(12f);
-                xAxis.setGranularity(3f); // minimum axis-step (interval) is 1
+                xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
                 lineChart.getAxisLeft().setDrawGridLines(false);
                 xAxis.setValueFormatter(new ValueFormatter() {
                     @Override

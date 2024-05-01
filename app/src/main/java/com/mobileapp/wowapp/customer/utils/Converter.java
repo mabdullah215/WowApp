@@ -115,6 +115,21 @@ public class Converter
         return inputFormat.format(calendar.getTime());
     }
 
+
+    public static String getGraphDate(String inputDate)
+    {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        SimpleDateFormat outputFormat = new SimpleDateFormat("MM-dd", Locale.getDefault());
+        String convertedDate="";
+        try
+        {
+            Date date = inputFormat.parse(inputDate);
+            convertedDate = outputFormat.format(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return convertedDate;
+    }
     public static String dateServer(String inputDate)
     {
 

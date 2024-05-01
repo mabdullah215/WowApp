@@ -66,7 +66,7 @@ public class CompaignDriving extends BaseActivity
     GoogleMap mMap;
     int drivingId=0;
     double currentKms=0;
-    double alreadyDriven=0;
+    double todayKms=0;
     Marker positonMarker;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -130,10 +130,10 @@ public class CompaignDriving extends BaseActivity
                                 source.setLongitude(positonMarker.getPosition().longitude);
                                 float distance=source.distanceTo(location)/1000;
                                 currentKms=currentKms+distance;
-
-                                if(currentKms>compaign.getKms_per_day())
+                                double totalKms=currentKms+todayKms;
+                                if(totalKms>compaign.getKms_per_day())
                                 {
-                                    currentKms=compaign.getKms_per_day();
+                                    currentKms=compaign.getKms_per_day()-todayKms;
                                     locationListener.stopListening();
                                     startDriving.setText("Start Driving");
                                     startDriving.setEnabled(false);
@@ -141,9 +141,9 @@ public class CompaignDriving extends BaseActivity
                                     stopDriving();
                                 }
 
-                                double amount=currentKms*compaign.getCity().getMoney_constant();
+                                double amount=totalKms*compaign.getCity().getMoney_constant();
                                 DecimalFormat df2 = new DecimalFormat("0.0");
-                                tvDistance.setText(df2.format(currentKms));
+                                tvDistance.setText(df2.format(totalKms));
                                 tvAmount.setText(df2.format(amount));
                                 animateMarker(new LatLng(position.latitude,position.longitude));
                             }
@@ -161,25 +161,25 @@ public class CompaignDriving extends BaseActivity
                             hideLoading();
                             JSONObject object=new JSONObject(result).getJSONObject("data");
                             drivingId=object.getInt("drivingId");
-                            alreadyDriven=object.getDouble("todayKms");
-                            if(alreadyDriven<compaign.getKms_per_day())
+                            todayKms=object.getDouble("todayKms");
+                            if(todayKms<compaign.getKms_per_day())
                             {
-                                currentKms=alreadyDriven;
                                 locationListener.startListening();
                                 startDriving.setText("Stop Driving");
                                 startDriving.getBackground().setTint(getColor(R.color.stop_driving));
                             }
 
-                            double amount=currentKms*compaign.getCity().getMoney_constant();
+                            double amount=todayKms*compaign.getCity().getMoney_constant();
                             DecimalFormat df2 = new DecimalFormat("0.0");
-                            tvDistance.setText(df2.format(currentKms));
+                            tvDistance.setText(df2.format(todayKms));
                             tvAmount.setText(df2.format(amount));
 
                             startDriving.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view)
                                 {
-                                    if(currentKms<compaign.getKms_per_day())
+                                    double totalKms=currentKms+todayKms;
+                                    if(totalKms<compaign.getKms_per_day())
                                     {
                                         if(startDriving.getText().toString().equalsIgnoreCase("Start Driving"))
                                         {
@@ -218,13 +218,15 @@ public class CompaignDriving extends BaseActivity
     {
         NetworkManager manager=NetworkManager.getInstance(this);
         HashMap<String,Object>map=new HashMap<>();
-        map.put("kms",(currentKms-alreadyDriven));
+        map.put("kms",currentKms);
         map.put("latitude",positonMarker.getPosition().latitude);
         map.put("longitude",positonMarker.getPosition().longitude);
         map.put("isDriving",0);
         map.put("drivingId",drivingId);
         manager.setAllowDashboardRefresh(true);
         manager.postRequest(APIList.STOP_DRIVING,map,null);
+        todayKms=currentKms+todayKms;
+        currentKms=0;
     }
 
     /*public void dummyDriving()

@@ -100,7 +100,7 @@ public class CampaignAnalyticsDetails extends BaseActivity {
                     {
                         GraphResponse.GraphPoints point=pointsList.get(i);
                         entries.add(new Entry(i, point.getKms()));
-                        dates.add(point.getDate());
+                        dates.add(Converter.getGraphDate(point.getDate()));
                     }
                 }
                 else
@@ -110,12 +110,12 @@ public class CampaignAnalyticsDetails extends BaseActivity {
                     {
                         GraphResponse.GraphPoints point=pointsList.get(i);
                         entries.add(new Entry(i, point.getImpressions()));
-                        dates.add(point.getDate());
+                        dates.add(Converter.getGraphDate(point.getDate()));
                     }
                 }
 
                 tvLabelType.setText(desc);
-                LineDataSet dataSet = new LineDataSet(entries, desc);
+                LineDataSet dataSet = new LineDataSet(entries, "");
                 dataSet.setFillColor(Color.parseColor("#86dcaa"));
                 dataSet.setHighlightEnabled(false);
                 dataSet.setDrawFilled(true);

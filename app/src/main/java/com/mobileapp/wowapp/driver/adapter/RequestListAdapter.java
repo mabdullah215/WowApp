@@ -99,7 +99,8 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
          {
              mTitle.setText(item.getTitle());
              String duration=Converter.getDaysDifference(item.getExpiry_at());
-             mDuration.setText(duration);
+             //mDuration.setText(duration);
+             mDuration.setText(null);
              //mDesc.setText(item.getDescription());
              if(item.getStatus().equalsIgnoreCase("pending")||item.getStatus().equalsIgnoreCase("rejected"))
              {

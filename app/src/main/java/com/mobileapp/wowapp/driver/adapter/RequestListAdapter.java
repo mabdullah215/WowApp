@@ -105,7 +105,7 @@ public class RequestListAdapter extends RecyclerView.Adapter<RequestListAdapter.
              if(item.getStatus().equalsIgnoreCase("pending")||item.getStatus().equalsIgnoreCase("rejected"))
              {
                  tvUpload.setVisibility(View.VISIBLE);
-                 chip_status.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(mContext, com.dd.circular.progress.button.R.color.cpb_red)));
+                 chip_status.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(mContext,R.color.stop_driving)));
              }
              else
              {

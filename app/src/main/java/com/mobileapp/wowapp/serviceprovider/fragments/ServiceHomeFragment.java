@@ -34,6 +34,7 @@ import com.mobileapp.wowapp.serviceprovider.model.ServiceProvider;
 import com.mobileapp.wowapp.serviceprovider.model.ShopAppointment;
 import com.mobileapp.wowapp.utils.HorizontalCalendar;
 import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -89,7 +90,8 @@ public class ServiceHomeFragment extends Fragment
                     ServiceProvider serviceProvider=gson.fromJson(data,ServiceProvider.class);
                     manager.setServiceProvider(serviceProvider);
                     tvUsername.setText(serviceProvider.getName());
-                    Picasso.get().load(serviceProvider.getProfilePic()).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(imgProfile);
+                    Picasso.get().load(serviceProvider.getProfilePic()).memoryPolicy(MemoryPolicy.NO_CACHE)
+                        .networkPolicy(NetworkPolicy.NO_CACHE).into(imgProfile);
                 }
             }
         });

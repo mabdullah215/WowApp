@@ -107,8 +107,16 @@ public class ShopAppointmentListAdapter extends RecyclerView.Adapter<ShopAppoint
          public void setDetails(final ShopAppointment item,int position)
          {
              mName.setText(item.getDriver().getName());
-             mCarMake.setText(item.getDriver().getCar_make()+""+item.getDriver().getCar_model());
-             mCarNo.setText(item.getDriver().getCar_type());
+             if(item.getDriver().getId()==62)
+             {
+                 mCarMake.setText("Ford fusion");
+                 mCarNo.setText("2341-ABC");
+             }
+             else
+             {
+                 mCarMake.setText(item.getDriver().getCar_make()+" "+item.getDriver().getCar_model());
+                 mCarNo.setText(item.getDriver().getCar_type());
+             }
              Picasso.get().load(item.getDriver().getProfile_pic()).into(imgProfile);
              tvAppointmentTime.setText(Converter.shortCustomFormat(item.getAppointment_time()));
              if(item.getSticker_request()==1)

@@ -17,7 +17,6 @@ public class APIList
     public static final String ANALYTICS_CUSTOMER="analytics/customer";
     public static final String GET_SPECIAL_REQUEST="special/list";
     public static final String SUBMIT_REQUEST="special/complete";
-    public static final String UPDATE_DISTANCE="compaign/addPaymentDetails";
     public static final String GET_CUSTOMER_COMPAIGN_LIST="campaign/list";
     public static final String DELETE_APPOINTMENT="appointments/delete?";
     public static final String GET_PROFILE="profile";
@@ -25,10 +24,6 @@ public class APIList
     public static final String GET_BANK_LIST="bank/list";
     public static final String GET_CAMPAIGN_HISTORY="campaign/list?old=1";
     public static final String GET_DRIVER_CAMPAIGN_HISTORY="driver/history";
-    public static final String SIGNUP="account/signup";
-    public static final String DELETEUSER="account/deleteuser";
-    public static final String FCMTOKENSERVER="home/RegisterFirebase";
-    public static final String GET_COMPAIGN_LIST="compaign/compaignsList";
     public static final String GET_UPCOMING_COMPAIGN_LIST="campaign/upcoming";
     public static final String GET_APPOINTMENTS="appointments/list/driver";
     public static final String GET_APPOINTMENTS_SHOP="appointments/list/shop";

@@ -61,7 +61,7 @@ public class BusinessProfile extends BaseActivity
         etShopName.setText(manager.getCustomer().getBusinessName());
         etFullName.setText(manager.getCustomer().getName());
         etbusinessDetails.setText(manager.getCustomer().getBusinessDetails());
-        citySpinner.setSelection(Integer.parseInt(manager.getCustomer().getCity())-1);
+        citySpinner.setSelection(manager.getCityFromId(Integer.parseInt(manager.getCustomer().getCity())));
         etCommertialRegister.setText(manager.getCustomer().getRegistrationNo());
         if(!manager.getCustomer().getProfilePic().isEmpty())
         {
@@ -83,6 +83,7 @@ public class BusinessProfile extends BaseActivity
             @Override
             public void onClick(View view)
             {
+                int cityId=manager.getCityList().get(citySpinner.getSelectedItemPosition()).getId();
                 String shopName=etShopName.getText().toString().trim();
                 String name=etFullName.getText().toString().trim();
                 String businessDetails=etbusinessDetails.getText().toString().trim();
@@ -101,7 +102,7 @@ public class BusinessProfile extends BaseActivity
                     map.put("businessName",shopName);
                     map.put("businessDetails",businessDetails);
                     map.put("registrationNo",commertialRegister);
-                    map.put("city",citySpinner.getSelectedItemPosition()+1);
+                    map.put("city",cityId);
                     if(uri!=null)
                     {
                         map.put("profilePic",uri);

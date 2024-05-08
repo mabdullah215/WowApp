@@ -90,6 +90,7 @@ public class ServicePersonalInformation extends BaseActivity {
                 }
                 else
                 {
+                    int cityId=manager.getCityList().get(citySpinner.getSelectedItemPosition()).getId();
                     ServiceProvider serviceProvider=new ServiceProvider();
                     serviceProvider.setName(name);
                     serviceProvider.setRegistrationNo(nationalID);
@@ -97,7 +98,7 @@ public class ServicePersonalInformation extends BaseActivity {
                     serviceProvider.setBirthday(dateofBirth);
                     serviceProvider.setBusinessAddress(businessAddress);
                     serviceProvider.setBusinessName(shopName);
-                    serviceProvider.setCity(String.valueOf(citySpinner.getSelectedItemPosition()+1));
+                    serviceProvider.setCity(String.valueOf(cityId));
                     if(uri!=null)
                     {
                         serviceProvider.setProfilePic(uri.toString());

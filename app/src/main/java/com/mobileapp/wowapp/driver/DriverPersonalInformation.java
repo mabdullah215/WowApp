@@ -56,7 +56,6 @@ public class DriverPersonalInformation extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_personal_information);
         Driver driver=(Driver) getIntent().getSerializableExtra("driver");
-        Log.i("itemDriver",new Gson().toJson(driver));
         EditText etName=findViewById(R.id.et_fullname);
         EditText etNationalID=findViewById(R.id.et_national_id);
         EditText etNationalAddress=findViewById(R.id.et_national_address);

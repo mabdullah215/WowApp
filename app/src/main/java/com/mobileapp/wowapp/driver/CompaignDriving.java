@@ -9,7 +9,10 @@ import android.animation.ObjectAnimator;
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
@@ -41,7 +44,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
 import com.mobileapp.wowapp.BaseActivity;
+import com.mobileapp.wowapp.OnboardActivity;
 import com.mobileapp.wowapp.R;
+import com.mobileapp.wowapp.database.DataSource;
 import com.mobileapp.wowapp.interations.IResultData;
 import com.mobileapp.wowapp.model.Compaign;
 import com.mobileapp.wowapp.network.APIList;
@@ -80,9 +85,22 @@ public class CompaignDriving extends BaseActivity
             @Override
             public void onClick(View view)
             {
-                finish();
-                locationListener.stopListening();
-                Animatoo.INSTANCE.animateSlideRight(CompaignDriving.this);
+
+                new AlertDialog.Builder(CompaignDriving.this)
+                        .setTitle("Stop Driving")
+                        .setMessage("Are you sure you want to stop driving?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                locationListener.stopListening();
+                                stopDriving(true);
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null)
+                        .setIcon(R.drawable.ic_logo)
+                        .show();
+
             }
         });
 
@@ -138,7 +156,7 @@ public class CompaignDriving extends BaseActivity
                                     startDriving.setText("Start Driving");
                                     startDriving.setEnabled(false);
                                     startDriving.getBackground().setTint(getColor(R.color.inactivecolor));
-                                    stopDriving();
+                                    stopDriving(false);
                                 }
 
                                 double amount=totalKms*compaign.getCity().getMoney_constant();
@@ -192,7 +210,7 @@ public class CompaignDriving extends BaseActivity
                                             locationListener.stopListening();
                                             startDriving.setText("Start Driving");
                                             startDriving.getBackground().setTint(getColor(R.color.start_driving));
-                                            stopDriving();
+                                            stopDriving(false);
                                         }
                                     }
                                     else
@@ -214,7 +232,7 @@ public class CompaignDriving extends BaseActivity
         });
     }
 
-    public void stopDriving()
+    public void stopDriving(boolean closeApp)
     {
         NetworkManager manager=NetworkManager.getInstance(this);
         HashMap<String,Object>map=new HashMap<>();
@@ -224,9 +242,21 @@ public class CompaignDriving extends BaseActivity
         map.put("isDriving",0);
         map.put("drivingId",drivingId);
         manager.setAllowDashboardRefresh(true);
-        manager.postRequest(APIList.STOP_DRIVING,map,null);
-        todayKms=currentKms+todayKms;
-        currentKms=0;
+        manager.postRequest(APIList.STOP_DRIVING, map, new IResultData() {
+            @Override
+            public void notifyResult(String result)
+            {
+                todayKms=currentKms+todayKms;
+                currentKms=0;
+
+                if(closeApp)
+                {
+                    finish();
+                    Animatoo.INSTANCE.animateSlideRight(CompaignDriving.this);
+                }
+            }
+        });
+
     }
 
     /*public void dummyDriving()
